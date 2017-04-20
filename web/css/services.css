@@ -26,10 +26,11 @@ ul.features-list li:before
  	margin-left: -25px;
  	padding-right: 10px;
 }
-.features-bg{
+/*.features-bg{
 	background: url('../images/features-bg.png');
-	padding:auto ;
-}
+	padding: ;
+}*/
+
 .grid-50{
 	width: 50%;
 	padding: 15px;
