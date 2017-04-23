@@ -1,17 +1,36 @@
 <%-- 
-    Document   : genericpage
-    Created on : 20-apr-2017, 21:26:55
+    Document   : siteTemplate
+    Created on : 23-apr-2017, 14:26:18
     Author     : steve
 --%>
 
-<%@tag description="Layout page with the header and footer" pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ attribute name="title" required="true" rtexprvalue="true"%>
+<%@ attribute name="head" fragment="true" %>
+<%@ attribute name="content" fragment="true"%>
+<html>
+    <head>
+		<!-- meta -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+	
+        <title>${title}</title>
 
-<%-- The list of normal or fragment attributes can be specified here: --%>
-<%@attribute name="header"%>
-
-<%-- any content can be specified here e.g.: --%>
-<div id="pageheader">
-<nav class="navbar navbar-default navbar-fixed-top">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<link rel="stylesheet" href="css/owl.carousel.css">
+	<link rel="stylesheet" href="css/owl.theme.css">
+	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        
+        <jsp:invoke fragment="head"></jsp:invoke>
+      
+</head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -40,4 +59,8 @@
 		    </div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container -->
 	</nav>
-    </div>
+        
+       <jsp:invoke fragment="content"></jsp:invoke>     
+       
+    </body>
+</html>
