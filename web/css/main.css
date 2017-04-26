@@ -9,6 +9,7 @@ body
 	font-family: 'Roboto', 'Open-Sans', sans-serif;
 	overflow-x: hidden;
 	color: #fff;
+        padding-top: 65px;
 }
 /*Owl Carousel*/
 .owl-prev, .owl-next
