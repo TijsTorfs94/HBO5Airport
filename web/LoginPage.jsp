@@ -14,6 +14,7 @@
         
     </jsp:attribute>
     <jsp:attribute name="content">
+    
         <div class="container">
             
             <table style="margin:25%">
@@ -25,11 +26,14 @@
                 <td><p>Paswoord</p></td>
                 <td><input type="text" name="Paswoord"/></td>
             </tr>
+            <form action="ZoekServlet" method="post">
             <tr>
-                <!--Deze button moet nog gecentrrerd worden in de code-->
-                <td colspan="2" style=""><input type="submit" name="LOGIN"/> </td>
+                <td colspan="2" style=""><input type="submit" name="login" value="login"/> </td>
             </tr>
-            
+            <tr>
+                <td colspan="2" style=""><input type="submit" name="registreer" value="registreer"/></td> 
+            </tr>
+            </form>
             
             
             

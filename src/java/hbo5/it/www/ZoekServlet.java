@@ -12,6 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
@@ -34,16 +38,7 @@ public class ZoekServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ZoekServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ZoekServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+           
         } finally {
             out.close();
         }
@@ -75,6 +70,13 @@ public class ZoekServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        if (request.getParameter("Login") != null) {
+//            CheckLogin();
+//        }
+        
+        
+        
+        
         processRequest(request, response);
     }
 
@@ -87,5 +89,39 @@ public class ZoekServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    Connection conn;
+    ResultSet rs = null;
+    CallableStatement stored_pro = null;
+    
+    private void CheckLogin(){
+        MakeConnection();
+        try {
+            stored_pro = conn.prepareCall("{call SPLOGINSELECT(?,?}");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoekServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    
+    }
+    
+    private void MakeConnection(){
+        
+      
+        try {
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE","c1035462","7086");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoekServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    
+   
+    
+    }
+    
+    
+    
+    
+    
 }
