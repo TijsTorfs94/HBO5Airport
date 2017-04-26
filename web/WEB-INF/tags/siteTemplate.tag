@@ -30,6 +30,7 @@
       
 </head>
     <body>
+        <div>
         <nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -59,8 +60,13 @@
 		    </div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container -->
 	</nav>
-        
+       </div> 
        <jsp:invoke fragment="content"></jsp:invoke>     
        
+           
+           
+           
+           
+           
     </body>
 </html>
