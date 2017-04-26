@@ -55,7 +55,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="#"> Zoeken </a></li>   
-                                    <li><a href="#"><i class="ion-person"></i>Login</a></li>
+                                    <li><a href="LoginPage.jsp"><i class="ion-person"></i>Login</a></li>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container -->

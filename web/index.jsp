@@ -15,7 +15,7 @@
     </jsp:attribute>
     <jsp:attribute name="content">
       
-        <p> test</p>
+       
         
     </jsp:attribute>
   
