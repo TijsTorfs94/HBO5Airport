@@ -5,6 +5,7 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.dataaccess.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,17 +14,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.annotation.WebInitParam;
 
 
 /**
  *
  * @author c1040604
  */
-@WebServlet(name = "ZoekServlet", urlPatterns = {"/ZoekServlet"})
+
+@WebServlet(name = "ZoekServlet", urlPatterns = {"/ZoekServlet"}, 
+    initParams = {
+    @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE"),
+    @WebInitParam(name = "login", value = "c1035462"),
+    @WebInitParam(name = "password", value = "7086"),
+    @WebInitParam(name = "driver", value = "oracle.jdbc.driver.OracleDriver")})
+
+
+
+
 public class ZoekServlet extends HttpServlet {
 
+    private DAPersoon dapersoon = null;
+    @Override
+    public void init() throws ServletException {
+        try {
+            String url = getInitParameter("url");
+            String password = getInitParameter("password");
+            String login = getInitParameter("login");
+            String driver = getInitParameter("driver");
+            if (dapersoon == null) {
+                dapersoon = new DAPersoon(url, login, password, driver);
+            }
+        }catch (ClassNotFoundException | SQLException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            if ( dapersoon != null) {
+                dapersoon.close();
+            }
+        } catch (SQLException e) {
+        }
+    }
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
