@@ -26,7 +26,7 @@
                 <td><p>Paswoord</p></td>
                 <td><input type="text" name="Paswoord"/></td>
             </tr>
-            <form action="ZoekServlet" method="post">
+            <form action="LoginServlet" method="post">
             <tr>
                 <td colspan="2" style=""><input type="submit" name="login" value="login"/> </td>
             </tr>
