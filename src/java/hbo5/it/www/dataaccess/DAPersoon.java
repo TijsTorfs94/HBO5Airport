@@ -10,6 +10,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.logging.Level;
 import org.jboss.logging.Logger;
 
@@ -38,10 +39,32 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         
         Boolean result = false;
         try {
-            SP = conn.prepareCall("{call chklogin(?,?)}");
-            SP.setString("p_pers_login", name);
-            SP.setString("p_pers_pas", Pass);
-            result = SP.execute();
+            
+//            SP = conn.prepareCall("{CALL CHK_LOGIN(?,?)}");
+//            
+//            SP.setString(1, name);
+//            SP.setString(2, Pass);
+           // SP.registerOutParameter(0, Types.BOOLEAN);
+         //  result = SP.execute();
+           // result = SP.getBoolean(0);
+           
+           SP = conn.prepareCall(" ? := begin CHK_LOGIN(?,?); end;");
+ 
+           SP.registerOutParameter(1, Types.BOOLEAN);          
+           SP.setString(2, name);
+           SP.setString(3, Pass);
+           
+           SP.executeUpdate();
+           result = SP.getBoolean(1);
+           
+           
+           
+           
+           
+           
+           
+           
+           
         } catch (SQLException e) {
           //  Logger.getLogger(ZoekServlet.class.getName()).log(Level.SEVERE,null);
         }
