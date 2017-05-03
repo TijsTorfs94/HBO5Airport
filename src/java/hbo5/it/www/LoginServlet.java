@@ -5,24 +5,25 @@
  */
 package hbo5.it.www;
 
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import hbo5.it.www.dataaccess.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
-import javax.servlet.annotation.WebInitParam;
-
 
 /**
  *
- * @author c1040604
+ * @author steve
  */
-
-@WebServlet(name = "ZoekServlet", urlPatterns = {"/ZoekServlet"}, 
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"}, 
     initParams = {
     @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE"),
     @WebInitParam(name = "login", value = "c1035462"),
@@ -32,9 +33,11 @@ import javax.servlet.annotation.WebInitParam;
 
 
 
-public class ZoekServlet extends HttpServlet {
 
-    private DAPersoon dapersoon = null;
+
+public class LoginServlet extends HttpServlet {
+
+        private DAPersoon dapersoon = null;
     @Override
     public void init() throws ServletException {
         try {
@@ -57,28 +60,47 @@ public class ZoekServlet extends HttpServlet {
                 dapersoon.close();
             }
         } catch (SQLException e) {
-        }
-    }
+        }}
     
     
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    RequestDispatcher rd;
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
-        
-        
-        
-    }
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+      
+            /* TODO output your page here. You may use following sample code. */
+            if (request.getParameter("login") != null){
+                
+                String naam = request.getParameter("Username");
+                String Pas = request.getParameter("Paswoord");
+                
+                
+                boolean result = false;
+                 result = dapersoon.CheckLogin(naam,Pas);
+                
+                if (result){
+                    rd = request.getRequestDispatcher("index.jsp");
+                    rd.forward(request, response);
+               
+               
+           }
+                else {
+                    rd = request.getRequestDispatcher("LoginPage.jsp");
+                    rd.forward(request, response);
+           }
+           
+   
+}
+           
+            
+       else if (request.getParameter("registreer")!= null){
+        rd = request.getRequestDispatcher("register.jsp");
+        rd.forward(request, response);
+                 
+       }}
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -105,13 +127,6 @@ public class ZoekServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        if (request.getParameter("Login") != null) {
-//            CheckLogin();
-//        }
-        
-        
-        
-        
         processRequest(request, response);
     }
 
@@ -123,5 +138,8 @@ public class ZoekServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
     }// </editor-fold>
+
+  
+  
+    }
