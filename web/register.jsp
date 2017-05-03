@@ -8,17 +8,21 @@
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
 
-<template:siteTemplate title="Home">
+<template:siteTemplate title="Home" status="login">
     <jsp:attribute name="head">
         
     </jsp:attribute>
     <jsp:attribute name="content">
       
-        <form action="LoginServlet" method="post">
+       
         <div class="container">
-            
+             <form action="RegisterServlet" method="get">
             <table style="margin:25%">
                 
+                <tr>
+                    <td><p>id</p></td>
+                    <td><input type="text" name="id"/></td>
+                </tr>
                  <tr>
                     <td><p>Voornaam</p></td>
                     <td><input type="text" name="voornaam"/></td>
@@ -59,9 +63,7 @@
                     <td><input type="text" name="Paswoord"/></td>
                 </tr>
            
-            <tr>
-                <td colspan="2" style=""><input type="submit" name="login" value="login"/> </td>
-            </tr>
+           
             <tr>
                 <td colspan="2" style=""><input type="submit" name="registreer" value="registreer"/></td> 
             </tr>
@@ -70,8 +72,9 @@
             
             
         </table>
+                            </form>
+
         </div>
-           </form>
         
         
         

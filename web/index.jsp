@@ -8,8 +8,8 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
+<template:siteTemplate title="Home" status="login">
 
-<template:siteTemplate title="Home">
     <jsp:attribute name="head">
         
     </jsp:attribute>

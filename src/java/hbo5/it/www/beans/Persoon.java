@@ -6,6 +6,7 @@
 package hbo5.it.www.beans;
 
 import java.util.Date;
+import oracle.sql.TIMESTAMP;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Persoon {
     private String postcode;
     private String woonplaats;
     private String land;
-    private Date geboortedatum;
+    private TIMESTAMP geboortedatum;
     private String login;
     private String paswoord;
 
@@ -88,11 +89,11 @@ public class Persoon {
         this.land = land;
     }
 
-    public Date getGeboortedatum() {
+    public TIMESTAMP getGeboortedatum() {
         return geboortedatum;
     }
 
-    public void setGeboortedatum(Date geboortedatum) {
+    public void setGeboortedatum(TIMESTAMP geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
 

@@ -9,12 +9,12 @@
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
 
-<template:siteTemplate title="Home">
+<template:siteTemplate title="Home" status="login">
     <jsp:attribute name="head">
         
     </jsp:attribute>
     <jsp:attribute name="content">
-    <form action="LoginServlet" method="post">
+    <form action="LoginServlet" method="get">
         <div class="container">
              
             <table style="margin:25%">

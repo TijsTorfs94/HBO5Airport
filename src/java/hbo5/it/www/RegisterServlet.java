@@ -5,13 +5,10 @@
  */
 package hbo5.it.www;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import hbo5.it.www.dataaccess.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.SQLException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author steve
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"}, 
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"}, 
     initParams = {
     @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE"),
     @WebInitParam(name = "login", value = "c1035462"),
@@ -34,8 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-
-public class LoginServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
         private DAPersoon dapersoon = null;
     @Override
@@ -61,46 +57,47 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (SQLException e) {
         }}
-    
-    
-    RequestDispatcher rd;
-    
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-      
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            if (request.getParameter("login") != null){
+           if (request.getParameter("registreer") != null) {
                 
-                String naam = request.getParameter("Username");
-                String Pas = request.getParameter("Paswoord");
-                
-                 
-                Integer result = 0;
-                 result = dapersoon.CheckLogin(naam,Pas);
-                
-                if (result == 1){
-                    rd = request.getRequestDispatcher("index.jsp");
-                    rd.forward(request, response);
+                dapersoon.Add_Persoon(
+                        
+                        Integer.parseInt( request.getParameter("id")),
+                        request.getParameter("voornaam"),
+                        request.getParameter("familienaam"),
+                        request.getParameter("straat"),
+                        request.getParameter("huisnummer"),
+                        request.getParameter("postcode"),
+                        request.getParameter("woonplaats"),
+                        request.getParameter("land"),
+                        request.getParameter("geboorte"),
+                        request.getParameter("Username"),
+                        request.getParameter("Paswoord")
+                        
+
+
+                                              
+                        
+                );
                
-               
+                
            }
-                else {
-                    rd = request.getRequestDispatcher("LoginPage.jsp");
-                    rd.forward(request, response);
-           }
-           
-   
-}
-           
-            
-       else if (request.getParameter("registreer")!= null){
-        rd = request.getRequestDispatcher("register.jsp");
-        rd.forward(request, response);
-                 
-       }}
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -139,7 +136,5 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+}
 
-  
-  
-    }
