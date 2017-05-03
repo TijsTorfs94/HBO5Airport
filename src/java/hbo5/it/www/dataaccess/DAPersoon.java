@@ -23,7 +23,7 @@ public class DAPersoon {
 
 public DAPersoon(String url, String login, String password, String driver)   throws ClassNotFoundException, SQLException {
         Class.forName(driver);
-        conn = DriverManager.getConnection(url, login, password);
+        conn  = DriverManager.getConnection(url, login, password);
     }
     
     public void close() throws SQLException {
@@ -76,5 +76,10 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         
         return result;
     }
+    
+    
+    
+
+    
 
 }
