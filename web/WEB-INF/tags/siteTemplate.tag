@@ -73,7 +73,7 @@
 	</nav>
        </div> 
        <jsp:invoke fragment="content"></jsp:invoke>   
-       
+        
        <footer class="footer">
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            <jsp:invoke fragment="footer"></jsp:invoke> 

@@ -7,6 +7,7 @@ package hbo5.it.www;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.dataaccess.DABemanningslid;
 import hbo5.it.www.dataaccess.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -79,10 +81,27 @@ public class LoginServlet extends HttpServlet {
                 String Pas = request.getParameter("Paswoord");
                 
                  
-                Integer result = dapersoon.CheckLogin(naam, Pas);
-                 
+                int result =  dapersoon.CheckLogin(naam, Pas);
+                
+             
                 
                 if (result == 1){
+                    Persoon Persoon = dapersoon.GetPersoon(naam);
+                    //Sessie aanmaken
+                    HttpSession session = request.getSession();
+                    session.setAttribute("Login", Persoon.getLogin());
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    Integer Bemanningslid = dapersoon.CheckIfCrew(Persoon);
                     rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);
                

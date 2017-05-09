@@ -5,8 +5,11 @@
  */
 package hbo5.it.www.dataaccess;
 
+import hbo5.it.www.beans.Persoon;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -18,7 +21,7 @@ public class DABemanningslid {
 
 public DABemanningslid (String url, String login, String password, String driver)   throws ClassNotFoundException, SQLException {
         Class.forName(driver);
-        connection = DriverManager.getConnection(url, login, password);
+        conn = DriverManager.getConnection(url, login, password);
     }
     
     public void close() throws SQLException {
@@ -26,5 +29,9 @@ public DABemanningslid (String url, String login, String password, String driver
             connection.close();
         }  
     }
-
+    Connection conn;
+    
+    
+    
+   
 }

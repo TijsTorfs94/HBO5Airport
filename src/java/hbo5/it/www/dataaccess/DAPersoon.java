@@ -35,53 +35,17 @@ public DAPersoon(String url, String login, String password, String driver)   thr
     }
     
     Connection conn;
-    CallableStatement SP = null;
     
     
     public void Add_Persoon( int id,
     String voornaam, String achternaam, String Straat, String nmr,String code, String woonplaats,
             String land,String geboorte, String login, String pas ){
         
-//            Timestamp datum = Timestamp.valueOf(geboorte);
-//            
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.US);
-//            Date date = sdf.parse(geboorte);
-//            
-//            Calendar cal = sdf.getCalendar();
-//            
-//            
-//            
-//        
-//            try {
-//                SP = conn.prepareCall("{call ADD_PERSOON(?,?,?,?,?,?,?,?,?,?,?)}");
-//                SP.setInt(1, id);
-//                SP.setString(2, voornaam);
-//                SP.setString(3, achternaam);
-//                SP.setString(4, Straat);
-//                SP.setString(5, nmr);
-//                SP.setString(6, code);
-//                SP.setString(7, woonplaats);
-//                SP.setString(8, land);
-//                SP.setDate(,date);
-//
-//                SP.setString(10, login);
-//                SP.setString(11, pas);
-//               
-//                SP.execute();
-//                
-//                
-//            } catch (SQLException ex) {
-//                java.util.logging.Logger.getLogger(DAPersoon.class.getName()).log(Level.SEVERE, null, ex);
-//            }
         
+        
+       
     }
 public int CheckLogin(String Login, String Pass){
-        
-        
-        
-        
-        
-        
         Persoon P = null;
         PreparedStatement statement = null;
         ResultSet set = null;
@@ -93,7 +57,31 @@ public int CheckLogin(String Login, String Pass){
             set = statement.executeQuery(); 
             if (set.next()) {
                 if( set.getString("PASWOORD").equals(Pass)){
-                    
+                    return 1;
+
+                }
+            }
+        }
+  catch (Exception e) {
+    }
+                
+        
+        return 0;
+        
+    }
+
+public Persoon GetPersoon(String Login){
+      Persoon P = null;
+        PreparedStatement statement = null;
+        ResultSet set = null;
+        
+        try {
+            statement = conn.prepareStatement
+                                ("select * from Persoon where Login = ?");
+            statement.setString(1,Login);
+            set = statement.executeQuery(); 
+            if (set.next()) {
+               
                     P = new Persoon();
                 
                 P.setFamilienaam(set.getString("FAMILIENAAM"));
@@ -107,16 +95,36 @@ public int CheckLogin(String Login, String Pass){
                 P.setVoornaam(set.getString("VOORNAAM"));
                 P.setWoonplaats(set.getString("WOONPLAATS"));
                 P.setId(set.getInt("ID"));
-return 1;
-                }
+
+                
             }
         }
   catch (Exception e) {
     }
-                
-        
-        return 0;
-        
+return  P;
     }
+
     
+ public int CheckIfCrew(Persoon P){
+        
+        PreparedStatement statement = null;
+        ResultSet set = null;
+        
+        
+        try {
+          statement = conn.prepareStatement
+                                ("select * from Bemanningslid where Persoon_id = ?");
+            statement.setInt(1, P.getId());
+            set = statement.executeQuery(); 
+            if (set.next()) {
+                return 1;
+            }
+            
+            
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+
 }

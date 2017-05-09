@@ -8,16 +8,22 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
-<template:siteTemplate title="Home" status="login">
+
+<% request.setAttribute("Login", session.getAttribute("Login")); %>
+
+<template:siteTemplate title="Home" status="${Login}">
 
     <jsp:attribute name="head">
         
     </jsp:attribute>
+    
     <jsp:attribute name="content">
       
-        <p>test</p>
-        
+        <p>${Login}</p>
+       
+
     </jsp:attribute>
-  
+    
+
 </template:siteTemplate>
 
