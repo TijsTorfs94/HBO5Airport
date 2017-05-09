@@ -7,22 +7,14 @@ package hbo5.it.www.dataaccess;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import hbo5.it.www.ZoekServlet;
+import hbo5.it.www.beans.Persoon;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.logging.Level;
-import oracle.sql.DATE;
-import org.jboss.logging.Logger;
+
 
 /**
  *
@@ -44,33 +36,6 @@ public DAPersoon(String url, String login, String password, String driver)   thr
     
     Connection conn;
     CallableStatement SP = null;
-    
-    public Integer CheckLogin(String name, String Pass){
-        
-        Integer result = 0;
-        try {
-           
-           // string query = 
-            
-            
-            
-            
-           SP = conn.prepareCall(" ? := begin CHK_LOGIN(?,?); end;");       
-           SP.setString(2, name);
-           SP.setString(3, Pass);
-           
-           SP.execute();
-           result = SP.getInt(1);
-        } catch (SQLException e) {
-             java.util.logging.Logger.getLogger(DAPersoon.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return result;
-    }
-    
-    
-
-    
-    
     
     
     public void Add_Persoon( int id,
@@ -110,5 +75,48 @@ public DAPersoon(String url, String login, String password, String driver)   thr
 //            }
         
     }
-
+public int CheckLogin(String Login, String Pass){
+        
+        
+        
+        
+        
+        
+        Persoon P = null;
+        PreparedStatement statement = null;
+        ResultSet set = null;
+        
+        try {
+            statement = conn.prepareStatement
+                                ("select * from Persoon where Login = ?");
+            statement.setString(1, Login);
+            set = statement.executeQuery(); 
+            if (set.next()) {
+                if( set.getString("PASWOORD").equals(Pass)){
+                    
+                    P = new Persoon();
+                
+                P.setFamilienaam(set.getString("FAMILIENAAM"));
+                P.setGeboortedatum(set.getTimestamp("GEBOORTEDATUM"));
+                P.setHuisnr(set.getString("HUISNR"));
+                P.setLand(set.getString("LAND"));
+                P.setLogin(set.getString("LOGIN"));
+                P.setPaswoord(set.getString("PASWOORD"));
+                P.setPostcode(set.getString("postcode"));
+                P.setStraat(set.getString("STRAAT"));
+                P.setVoornaam(set.getString("VOORNAAM"));
+                P.setWoonplaats(set.getString("WOONPLAATS"));
+                P.setId(set.getInt("ID"));
+return 1;
+                }
+            }
+        }
+  catch (Exception e) {
+    }
+                
+        
+        return 0;
+        
+    }
+    
 }

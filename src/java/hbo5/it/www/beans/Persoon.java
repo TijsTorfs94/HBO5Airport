@@ -5,6 +5,9 @@
  */
 package hbo5.it.www.beans;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Date;
 import oracle.sql.TIMESTAMP;
 
@@ -21,7 +24,7 @@ public class Persoon {
     private String postcode;
     private String woonplaats;
     private String land;
-    private TIMESTAMP geboortedatum;
+    private Timestamp geboortedatum;
     private String login;
     private String paswoord;
 
@@ -89,11 +92,11 @@ public class Persoon {
         this.land = land;
     }
 
-    public TIMESTAMP getGeboortedatum() {
+    public Timestamp getGeboortedatum() {
         return geboortedatum;
     }
 
-    public void setGeboortedatum(TIMESTAMP geboortedatum) {
+    public void setGeboortedatum(Timestamp geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
 
@@ -112,7 +115,25 @@ public class Persoon {
     public void setPaswoord(String paswoord) {
         this.paswoord = paswoord;
     }
+ 
     
+    
+    public void CheckLogin(String Login, String Pass){
+        
+        
+        
+        
+        
+        
+        Persoon P = null;
+        PreparedStatement statement = null;
+        ResultSet set = null;
+        
+    
+        
+        
+        
+    }
     
     
 }

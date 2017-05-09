@@ -6,6 +6,7 @@
 package hbo5.it.www;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataaccess.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -78,8 +79,8 @@ public class LoginServlet extends HttpServlet {
                 String Pas = request.getParameter("Paswoord");
                 
                  
-                Integer result = 0;
-                 result = dapersoon.CheckLogin(naam,Pas);
+                Integer result = dapersoon.CheckLogin(naam, Pas);
+                 
                 
                 if (result == 1){
                     rd = request.getRequestDispatcher("index.jsp");
