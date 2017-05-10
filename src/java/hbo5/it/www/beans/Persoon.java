@@ -8,13 +8,7 @@ package hbo5.it.www.beans;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.Date;
-import oracle.sql.TIMESTAMP;
 
-/**
- *
- * @author c1040604
- */
 public class Persoon {
     private int id;
     private String voornaam;

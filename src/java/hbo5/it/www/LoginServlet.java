@@ -9,6 +9,7 @@ import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataaccess.DABemanningslid;
 import hbo5.it.www.dataaccess.DAPersoon;
+import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -41,6 +42,10 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
 
         private DAPersoon dapersoon = null;
+        
+        
+        
+        
     @Override
     public void init() throws ServletException {
         try {
@@ -76,6 +81,10 @@ public class LoginServlet extends HttpServlet {
       
             /* TODO output your page here. You may use following sample code. */
             if (request.getParameter("login") != null){
+                
+                
+      
+                
                 
                 String naam = request.getParameter("Username");
                 String Pas = request.getParameter("Paswoord");

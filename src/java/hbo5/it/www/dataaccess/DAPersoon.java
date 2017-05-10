@@ -8,12 +8,14 @@ package hbo5.it.www.dataaccess;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import hbo5.it.www.ZoekServlet;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.beans.Vlucht;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 /**
@@ -25,7 +27,7 @@ public class DAPersoon {
 
 public DAPersoon(String url, String login, String password, String driver)   throws ClassNotFoundException, SQLException {
         Class.forName(driver);
-        conn = DriverManager.getConnection(url, login, password);
+        conn  = DriverManager.getConnection(url, login, password);
     }
     
     public void close() throws SQLException {
@@ -45,10 +47,12 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         
        
     }
-public int CheckLogin(String Login, String Pass){
         Persoon P = null;
+        Vlucht V = null;
         PreparedStatement statement = null;
         ResultSet set = null;
+public int CheckLogin(String Login, String Pass){
+       
         
         try {
             statement = conn.prepareStatement
@@ -71,9 +75,7 @@ public int CheckLogin(String Login, String Pass){
     }
 
 public Persoon GetPersoon(String Login){
-      Persoon P = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+     
         
         try {
             statement = conn.prepareStatement
@@ -127,4 +129,36 @@ return  P;
     }
 
 
+public ArrayList<Vlucht> VluchtenperPassagier(int persoonID){
+    
+    ArrayList<Vlucht> lijst = new ArrayList<>();
+    
+    try {
+        statement = connection.prepareCall("select vlucht.code, vlucht.vertrekluchthaven_id, vlucht.aankomstLuchthaven_id, "+
+                                                                    "vlucht.AANKOMSTTIJD,vlucht.VERTREKTIJD from vlucht"+ 
+                                                                    " inner join passagier on passagier.VLUCHT_ID = vlucht.ID where passagier.persoon_id = ? ");
+        statement.setInt(1, persoonID);
+        set = statement.executeQuery();
+        
+        while (set.next()) {
+            V = new Vlucht();
+            V.setCode(set.getString("code"));
+            V.setVertrektijd(set.getTimestamp("vertrektijd"));
+            V.setAankomsttijd(set.getTimestamp("aankomsttijd"));
+            V.setAankomstluchthaven_id(set.getInt("aankomstLuchthaven_id"));
+            V.setVertrekluchthaven_id(set.getInt("vertrekluchthaven_id"));
+            
+            lijst.add(V);
+            
+        }
+        
+        
+    } catch (Exception e) {
+    }
+    
+    return lijst;
+    
+    
+    
+}
 }

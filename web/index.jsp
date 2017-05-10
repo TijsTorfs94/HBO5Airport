@@ -9,9 +9,11 @@
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
 
+
 <% request.setAttribute("Login", session.getAttribute("Login")); %>
 
 <template:siteTemplate title="Home" status="${Login}">
+
 
     <jsp:attribute name="head">
         
@@ -20,6 +22,10 @@
     <jsp:attribute name="content">
       
         <p>${Login}</p>
+        
+        
+        
+        <a href="zoektest.jsp">zoek</a>
        
 
     </jsp:attribute>
