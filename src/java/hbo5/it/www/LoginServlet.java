@@ -107,6 +107,16 @@ public class LoginServlet extends HttpServlet {
        else if (request.getParameter("registreer")!= null){
            Integer id = dapersoon.GetTopid();
            request.setAttribute("id", id);
+           request.setAttribute("naam", "");
+           request.setAttribute("familienaam", "");
+           request.setAttribute("straat", "");
+           request.setAttribute("huisnummer", "");
+           request.setAttribute("postcode", "");
+           request.setAttribute("woonplaats", "");
+           request.setAttribute("land", "");
+           request.setAttribute("geboorte", "");
+           request.setAttribute("username", "");
+           request.setAttribute("paswoord", "");
             rd = request.getRequestDispatcher("register.jsp");
              rd.forward(request, response);
                  
