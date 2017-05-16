@@ -26,7 +26,7 @@
       
        
         <div class="container">
-             <form action="RegisterServlet" method="get">
+             <form action="RegisterServlet" method="post">
             <table style="margin:25%">
                 
                 <tr>

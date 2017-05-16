@@ -15,7 +15,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -41,8 +43,30 @@ public DAPersoon(String url, String login, String password, String driver)   thr
     
     public void Add_Persoon( int id,
     String voornaam, String achternaam, String Straat, String nmr,String code, String woonplaats,
-            String land,String geboorte, String login, String pas ){
-        
+            String land,Timestamp geboorte, String login, String pas ){
+         try {
+            statement = conn.prepareStatement
+                                ("insert into persoon (id,voornaam,familienaam,straat,huisnr,postcode,woonplaats,land,geboortedatum,login,paswoord) " +
+                                "values (?,?,?,?,?,?,?,?,?,?,?)");
+            statement.setInt(1, id);
+            statement.setString(2, voornaam);
+            statement.setString(3, achternaam);
+            statement.setString(4, Straat);
+            statement.setString(5, nmr);
+            statement.setString(6, code);
+            statement.setString(7,woonplaats);
+            statement.setString(8, land);
+            statement.setTimestamp(9, geboorte);
+            statement.setString(10,login);
+            statement.setString(11,pas);
+                    
+            
+            
+            set = statement.executeQuery(); 
+            conn.commit();
+        }
+  catch (Exception e) {
+    }
         
         
        

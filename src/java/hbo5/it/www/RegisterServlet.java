@@ -9,6 +9,8 @@ import hbo5.it.www.dataaccess.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -73,25 +75,7 @@ public class RegisterServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
            if (request.getParameter("registreer") != null) {
                 
-                dapersoon.Add_Persoon(
-                        
-                        Integer.parseInt( request.getParameter("id")),
-                        request.getParameter("voornaam"),
-                        request.getParameter("familienaam"),
-                        request.getParameter("straat"),
-                        request.getParameter("huisnummer"),
-                        request.getParameter("postcode"),
-                        request.getParameter("woonplaats"),
-                        request.getParameter("land"),
-                        request.getParameter("geboorte"),
-                        request.getParameter("Username"),
-                        request.getParameter("Paswoord")
-                        
-
-
-                                              
-                        
-                );
+                
                
                 
            }
@@ -124,6 +108,30 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        
+        
+        Timestamp time = new Timestamp(Long.parseLong(request.getParameter("geboorte")));
+        dapersoon.Add_Persoon(
+                        
+                        Integer.parseInt( request.getParameter("id")),
+                        request.getParameter("voornaam"),
+                        request.getParameter("familienaam"),
+                        request.getParameter("straat"),
+                        request.getParameter("huisnummer"),
+                        request.getParameter("postcode"),
+                        request.getParameter("woonplaats"),
+                        request.getParameter("land"),
+                        time,
+                        request.getParameter("Username"),
+                        request.getParameter("Paswoord")
+                        
+
+
+                                              
+                        
+                );
         processRequest(request, response);
     }
 
