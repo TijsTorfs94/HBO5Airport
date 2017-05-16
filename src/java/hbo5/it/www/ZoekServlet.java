@@ -6,6 +6,7 @@
 package hbo5.it.www;
 
 import hbo5.it.www.dataaccess.DAPersoon;
+import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebInitParam;
 
 
@@ -34,7 +36,7 @@ import javax.servlet.annotation.WebInitParam;
 
 public class ZoekServlet extends HttpServlet {
 
-    private DAPersoon dapersoon = null;
+    private DAVlucht davlucht = null;
     @Override
     public void init() throws ServletException {
         try {
@@ -42,8 +44,8 @@ public class ZoekServlet extends HttpServlet {
             String password = getInitParameter("password");
             String login = getInitParameter("login");
             String driver = getInitParameter("driver");
-            if (dapersoon == null) {
-                dapersoon = new DAPersoon(url, login, password, driver);
+            if (davlucht == null) {
+                davlucht = new DAVlucht(url, login, password, driver);
             }
         }catch (ClassNotFoundException | SQLException e) {
             throw new ServletException(e);
@@ -53,25 +55,25 @@ public class ZoekServlet extends HttpServlet {
     @Override
     public void destroy() {
         try {
-            if ( dapersoon != null) {
-                dapersoon.close();
+            if ( davlucht!= null) {
+                davlucht.close();
             }
         } catch (SQLException e) {
         }
     }
+   
+    RequestDispatcher rd;
     
     
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        davlucht.InkomendeVluchten(1);
+        
         
         
         

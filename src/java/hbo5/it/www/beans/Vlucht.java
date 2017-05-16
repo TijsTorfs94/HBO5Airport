@@ -5,6 +5,7 @@
  */
 package hbo5.it.www.beans;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -14,8 +15,8 @@ import java.util.Date;
 public class Vlucht {
     private int id;
     private String code;
-    private Date vertrektijd;
-    private Date aankomsttijd;
+    private Timestamp vertrektijd;
+    private Timestamp aankomsttijd;
     private int vliegtuig_id;
     private int vertrekluchthaven_id;
     private int aankomstluchthaven_id;
@@ -40,7 +41,7 @@ public class Vlucht {
         return vertrektijd;
     }
 
-    public void setVertrektijd(Date vertrektijd) {
+    public void setVertrektijd(Timestamp vertrektijd) {
         this.vertrektijd = vertrektijd;
     }
 
@@ -48,7 +49,7 @@ public class Vlucht {
         return aankomsttijd;
     }
 
-    public void setAankomsttijd(Date aankomsttijd) {
+    public void setAankomsttijd(Timestamp aankomsttijd) {
         this.aankomsttijd = aankomsttijd;
     }
 
