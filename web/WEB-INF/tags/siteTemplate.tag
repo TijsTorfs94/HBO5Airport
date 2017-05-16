@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : siteTemplate
     Created on : 23-apr-2017, 14:26:18
@@ -82,3 +83,4 @@
 <jsp:invoke fragment="footer"></jsp:invoke> 
     </body>
 </html>
+
