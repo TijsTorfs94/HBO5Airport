@@ -7,6 +7,7 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
+<%request.setAttribute("id",request.getAttribute("id"));%>
 
 <template:siteTemplate title="Home" status="Login">
     <jsp:attribute name="head">
@@ -21,7 +22,7 @@
                 
                 <tr>
                     <td><p>id</p></td>
-                    <td><input type="text" name="id"/></td>
+                    <td><input type="text" name="id" value="${id}"  readonly="true"/></td>
                 </tr>
                  <tr>
                     <td><p>Voornaam</p></td>

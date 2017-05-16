@@ -51,6 +51,29 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         Vlucht V = null;
         PreparedStatement statement = null;
         ResultSet set = null;
+        Integer res ;
+        
+        
+        public int GetTopid(){
+              try {
+          statement = conn.prepareStatement("select max(ID)  from PERSOON");
+          set = statement.executeQuery();
+                  if (set.next()) {
+                       res =  set.getInt(1)+1;  
+                  }
+         
+        }
+  catch (Exception e) {
+    }
+            return  res;
+              
+            
+        }
+        
+        
+        
+        
+        
 public int CheckLogin(String Login, String Pass){
        
         
