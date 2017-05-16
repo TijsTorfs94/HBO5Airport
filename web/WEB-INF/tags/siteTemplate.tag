@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : siteTemplate
     Created on : 23-apr-2017, 14:26:18
@@ -75,10 +76,11 @@
        <jsp:invoke fragment="content"></jsp:invoke>   
         
        
-       <footer class="footer">
+       <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
-           <jsp:invoke fragment="footer"></jsp:invoke> 
+           
        </footer>
-
+<jsp:invoke fragment="footer"></jsp:invoke> 
     </body>
 </html>
+

@@ -81,35 +81,14 @@ public class LoginServlet extends HttpServlet {
       
             /* TODO output your page here. You may use following sample code. */
             if (request.getParameter("login") != null){
-                
-                
-      
-                
-                
                 String naam = request.getParameter("Username");
                 String Pas = request.getParameter("Paswoord");
-                
-                 
                 int result =  dapersoon.CheckLogin(naam, Pas);
-                
-             
-                
                 if (result == 1){
                     Persoon Persoon = dapersoon.GetPersoon(naam);
                     //Sessie aanmaken
                     HttpSession session = request.getSession();
                     session.setAttribute("Login", Persoon.getLogin());
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     Integer Bemanningslid = dapersoon.CheckIfCrew(Persoon);
                     rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);
@@ -126,8 +105,20 @@ public class LoginServlet extends HttpServlet {
            
             
        else if (request.getParameter("registreer")!= null){
-        rd = request.getRequestDispatcher("register.jsp");
-        rd.forward(request, response);
+           Integer id = dapersoon.GetTopid();
+           request.setAttribute("id", id);
+           request.setAttribute("naam", "");
+           request.setAttribute("familienaam", "");
+           request.setAttribute("straat", "");
+           request.setAttribute("huisnummer", "");
+           request.setAttribute("postcode", "");
+           request.setAttribute("woonplaats", "");
+           request.setAttribute("land", "");
+           request.setAttribute("geboorte", "");
+           request.setAttribute("username", "");
+           request.setAttribute("paswoord", "");
+            rd = request.getRequestDispatcher("register.jsp");
+             rd.forward(request, response);
                  
        }}
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
