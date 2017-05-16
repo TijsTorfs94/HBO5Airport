@@ -80,5 +80,6 @@
         
         
     </jsp:attribute>
-  
+    <jsp:attribute  name="footer">
+    </jsp:attribute>
 </template:siteTemplate>

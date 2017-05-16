@@ -428,6 +428,11 @@ a.brand-logo:focus, a.brand-logo:hover{
 }
 
 footer{
+                   position:fixed;
+                   left:0px;
+                   bottom:0px;
+                   
+                   width:100%;
 	text-align: center;
 	padding: 20px;
 	background: #60c9eb;
@@ -478,3 +483,6 @@ footer a:hover, footer a:focus{
 		padding-left: 15px;
 	}
 }
+/*======================================================
+                                                                                        14. Extra
+=======================================================*/
