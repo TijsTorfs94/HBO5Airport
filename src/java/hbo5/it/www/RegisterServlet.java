@@ -6,25 +6,21 @@
 package hbo5.it.www;
 
 import hbo5.it.www.dataaccess.DAPersoon;
-import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.annotation.WebInitParam;
-
 
 /**
  *
- * @author c1040604
+ * @author steve
  */
-
-@WebServlet(name = "ZoekServlet", urlPatterns = {"/ZoekServlet"}, 
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"}, 
     initParams = {
     @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE"),
     @WebInitParam(name = "login", value = "c1035462"),
@@ -34,9 +30,10 @@ import javax.servlet.annotation.WebInitParam;
 
 
 
-public class ZoekServlet extends HttpServlet {
 
-    private DAVlucht davlucht = null;
+public class RegisterServlet extends HttpServlet {
+
+        private DAPersoon dapersoon = null;
     @Override
     public void init() throws ServletException {
         try {
@@ -44,8 +41,8 @@ public class ZoekServlet extends HttpServlet {
             String password = getInitParameter("password");
             String login = getInitParameter("login");
             String driver = getInitParameter("driver");
-            if (davlucht == null) {
-                davlucht = new DAVlucht(url, login, password, driver);
+            if (dapersoon == null) {
+                dapersoon = new DAPersoon(url, login, password, driver);
             }
         }catch (ClassNotFoundException | SQLException e) {
             throw new ServletException(e);
@@ -55,32 +52,52 @@ public class ZoekServlet extends HttpServlet {
     @Override
     public void destroy() {
         try {
-            if ( davlucht!= null) {
-                davlucht.close();
+            if ( dapersoon != null) {
+                dapersoon.close();
             }
         } catch (SQLException e) {
-        }
-    }
-   
-    RequestDispatcher rd;
-    
-    
-    
+        }}
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        davlucht.InkomendeVluchten(1);
-        
-        
-        
-        
-        
-        
-        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+           if (request.getParameter("registreer") != null) {
+                
+                dapersoon.Add_Persoon(
+                        
+                        Integer.parseInt( request.getParameter("id")),
+                        request.getParameter("voornaam"),
+                        request.getParameter("familienaam"),
+                        request.getParameter("straat"),
+                        request.getParameter("huisnummer"),
+                        request.getParameter("postcode"),
+                        request.getParameter("woonplaats"),
+                        request.getParameter("land"),
+                        request.getParameter("geboorte"),
+                        request.getParameter("Username"),
+                        request.getParameter("Paswoord")
+                        
+
+
+                                              
+                        
+                );
+               
+                
+           }
+        }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -107,13 +124,6 @@ public class ZoekServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        if (request.getParameter("Login") != null) {
-//            CheckLogin();
-//        }
-        
-        
-        
-        
         processRequest(request, response);
     }
 
@@ -125,5 +135,6 @@ public class ZoekServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
     }// </editor-fold>
+}
+

@@ -6,9 +6,19 @@
 
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="title" required="true" rtexprvalue="true"%>
+<%@ attribute name="status" required="true" rtexprvalue="true"%>
 <%@ attribute name="head" fragment="true" %>
 <%@ attribute name="content" fragment="true"%>
+<%@ attribute name="footer" fragment="true"%>
 <html>
+    <style>
+        .footer{
+            position:absolute;
+    	width:100%;
+        bottom:0;
+    	height:60px;
+        }
+    </style>
     <head>
 		<!-- meta -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,6 +40,7 @@
       
 </head>
     <body>
+        
         <div>
         <nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -41,7 +52,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel by Team2</span></a>
+				<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
 			</div> <!-- /.navbar-header -->
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,18 +66,19 @@
                                         </ul>
                                     </li>
                                     <li><a href="#"> Zoeken </a></li>   
-                                    <li><a href="LoginPage.jsp"><i class="ion-person"></i>Login</a></li>
+                                    <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
 	  	</div><!-- /.container -->
 	</nav>
        </div> 
-       <jsp:invoke fragment="content"></jsp:invoke>     
+       <jsp:invoke fragment="content"></jsp:invoke>   
+        
        
-           
-           
-           
-           
-           
+       <footer class="footer">
+           <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
+           <jsp:invoke fragment="footer"></jsp:invoke> 
+       </footer>
+
     </body>
 </html>
