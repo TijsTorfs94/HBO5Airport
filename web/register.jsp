@@ -7,17 +7,19 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
-<%request.setAttribute("id",request.getAttribute("id"));%>
-<%request.setAttribute("naam", request.getAttribute("naam"));%>
-<%request.setAttribute("familienaam",  request.getAttribute("familienaam"));%>
-<%request.setAttribute("straat",  request.getAttribute("straat"));%>
-<%request.setAttribute("huisnummer",  request.getAttribute("huisnummer"));%>
-<%request.setAttribute("postcode",  request.getAttribute("postcode"));%>
-<%request.setAttribute("woonplaats",  request.getAttribute("woonplaats"));%>
-<%request.setAttribute("land",  request.getAttribute("land"));%>
-<%request.setAttribute("geboorte",  request.getAttribute("geboorte"));%>
-<%request.setAttribute("username",  request.getAttribute("username"));%>
-<%request.setAttribute("paswoord",  request.getAttribute("paswoord"));%>
+
+
+<%request.setAttribute("id",session.getAttribute("id"));%>
+<%request.setAttribute("naam", session.getAttribute("naam"));%>
+<%request.setAttribute("familienaam",  session.getAttribute("familienaam"));%>
+<%request.setAttribute("straat",  session.getAttribute("straat"));%>
+<%request.setAttribute("huisnummer",  session.getAttribute("huisnummer"));%>
+<%request.setAttribute("postcode",  session.getAttribute("postcode"));%>
+<%request.setAttribute("woonplaats",  session.getAttribute("woonplaats"));%>
+<%request.setAttribute("land",  session.getAttribute("land"));%>
+<%request.setAttribute("geboorte",  session.getAttribute("geboorte"));%>
+<%request.setAttribute("username",  session.getAttribute("username"));%>
+<%request.setAttribute("paswoord",  session.getAttribute("paswoord"));%>
 <template:siteTemplate title="Home" status="Login">
     <jsp:attribute name="head">
         
@@ -62,15 +64,15 @@
                 </tr>
                  <tr>
                     <td><p>geboorte</p></td>
-                    <td><input type="date" name="geboorte" value="${geboorte}"/></td>
+                    <td><input type="date" name="geboorte" value="${geboorte}" data-date-format="DD MM YYYY"/></td>
                 </tr>
                 <tr>
                     <td><p>Username</p></td>
                     <td><input type="text" name="Username" value="${username}"/></td>
                 </tr>
                 <tr>
-                    <td><p>Paswoord</p></td>
-                    <td><input type="text" name="Paswoord" value="${paswoord}"/></td>
+                    <td><p>Wachtwoord</p></td>
+                    <td><input type="text" name="Paswoord" value="${paswoord} "/></td>
                 </tr>
            
            
