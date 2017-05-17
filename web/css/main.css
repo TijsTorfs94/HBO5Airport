@@ -181,16 +181,7 @@ ul.nav.navbar-nav.navbar-right{
     text-overflow: ellipsis; 
 }
 
-/* Right-aligned sidebar */
-.nav-sidebar.pull-right { 
-    border-right: 0; 
-    border-left: 1px solid #ddd; 
-}
-.nav-sidebar.pull-right a {
-    -webkit-border-radius: 0 4px 4px 0; 
-    -moz-border-radius: 0 4px 4px 0; 
-    border-radius: 0 4px 4px 0; 
-}
+
 		/*Home*/
 .flexslider{
 	text-align: center;
