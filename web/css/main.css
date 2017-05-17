@@ -5,13 +5,18 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:100,400,700);
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
 
-body
-{
-	font-family: 'Roboto', 'Open-Sans', sans-serif;
+body{
+        font-family: 'Roboto', 'Open-Sans', sans-serif;
 	overflow-x: hidden;
 	color: #fff;
         padding-top: 65px;
+        background-image:  url(tr1.png);   
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size:100% 105%;
+        background-position: 50% ;
 }
+
 /*Owl Carousel*/
 .owl-prev, .owl-next
 {
