@@ -99,7 +99,7 @@ p:hover{
 			/*navbar*/
 .navbar-default .navbar-brand{
 	border: 1px solid transparent;
-	color: #60c9eb;
+	color: #fff;
 	font-size: 33px;
 	padding: 10px 0px;
 	height: auto;
@@ -117,14 +117,14 @@ ul.nav.navbar-nav.navbar-right{
 	color: #60c9eb;
 }
 .navbar-default {
-    background-color: #fff;
+    background-color: #60c9eb;
     border-color: transparent;
     padding: 5px 0px;
     border-radius: 0;
     text-transform: uppercase;
 }
 .navbar-default .navbar-nav>li>a{
-	color: #60c9eb;
+	color: #fff;
     padding-right: 20px;
     padding-left: 20px;
     border: 1px solid transparent;
@@ -147,10 +147,11 @@ ul.nav.navbar-nav.navbar-right{
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
     background-color: transparent;
     color: #60c9eb;
-    background: #e8f9ff;
+    background: #fff;
 }
 .nav-sidebar { 
-    width: 100%;
+    margin-left: 35%;
+    width: 120%;
     padding: 8px 0; 
    
 }
@@ -163,6 +164,7 @@ ul.nav.navbar-nav.navbar-right{
     -webkit-border-radius: 4px 0 0 4px; 
     -moz-border-radius: 4px 0 0 4px; 
     border-radius: 8px 8px 8px 8px;
+    margin-top: 8px;
 }
 .nav-sidebar .active a { 
     cursor: default;
@@ -472,19 +474,20 @@ footer{
                    bottom:0px;
                    width:100%;
 	text-align: center;
-	padding: 20px;
+	padding: 5px;
 	background: #60c9eb;
-}
+        background-color: #60c9eb;
+}   
 footer a{
-	color: #fff;
+	color: #60c9eb;
 	padding: 5px;
 }
 footer a:hover{
-	color: #fff;
+	color: #60c9eb;
 }
 footer a:hover, footer a:focus{
 	text-decoration: none;
-	color: #fff;
+	color: #60c9eb;
 }
 .top {
     display: inline-block;

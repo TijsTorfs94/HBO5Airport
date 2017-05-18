@@ -77,7 +77,7 @@
         
        
        <footer>
-           <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
+           <p>Project gemaakt door team 2 (Steve Dekerf, Tijs Torfs en Peter Haest)</p>
            
        </footer>
 <jsp:invoke fragment="footer"></jsp:invoke> 

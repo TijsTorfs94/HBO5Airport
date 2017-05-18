@@ -18,8 +18,8 @@
             <nav class="nav-sidebar">
                 <ul class="nav">
                     <li class="active"><>Documenten raadplegen</li>
-                    <li><a href="javascript:;">Reisschema raadplegen</a></li>
-                    <li><a href="javascript:;">Passagierlijsten raadplegen</a></li>
+                    <li class="active"><a href="javascript:;">Reisschema raadplegen</a></li>
+                    <li class="active"><a href="javascript:;">Passagierlijsten raadplegen</a></li>
                 </ul>
             </nav>
         </div>

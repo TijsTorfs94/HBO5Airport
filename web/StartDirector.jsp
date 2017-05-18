@@ -18,9 +18,9 @@
         <div class="col-sm-2">
             <nav class="nav-sidebar">
                 <ul class="nav">
-                    <li><a href="javascript:;">Overzicht geboekte vluchten</a></li>
-                    <li><a href="javascript:;">Vluchten boeken</a></li>
-                    <li><a href="javascript:;">Geboekte vluchten annuleren</a></li>
+                    <li class="active"><a href="javascript:;">Overzicht geboekte vluchten</a></li>
+                    <li class="active"><a href="javascript:;">Vluchten boeken</a></li>
+                    <li class="active"><a href="javascript:;">Geboekte vluchten annuleren</a></li>
                 </ul>
             </nav>
         </div>
