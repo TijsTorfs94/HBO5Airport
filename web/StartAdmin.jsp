@@ -17,18 +17,20 @@
       <div class="row">
         <div class="col-sm-2">
             <nav class="nav-sidebar">
-                 <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Beheren van ... <span class="caret"></span></a>
+                <ul class="nav">
+                 <li class="dropdown active"><a href="#" class="dropdown-toggle" class="active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Beheren van ... <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li class="active"><a href="#">luchthavens</a></li>
-                                            <li class="active"><a href="#">luchtvaartmaatschappijen</a></li>
-                                            <li class="active"><a href="#"></a>eigenaarsgegevens (leasemaatschappij)</li>
-                                            <li class="active"><a href="#">bemanning en vluchtbemanning</a></li>
-                                            <li class="active"><a href="#">passagiers</a></li>
-                                            <li class="active"><a href="#">hangars en vliegtuigen in hangars</a></li>
+                                            <li><a href="#">luchthavens</a></li>
+                                            <li><a href="#">luchtvaartmaatschappijen</a></li>
+                                            <li><a href="#">eigenaarsgegevens (leasemaatschappij)</a></li>
+                                            <li><a href="#">bemanning en vluchtbemanning</a></li>
+                                            <li><a href="#">passagiers</a></li>
+                                            <li><a href="#">hangars en vliegtuigen in hangars</a></li>
                                         </ul>
                                     </li>
+                </ul>
             </nav>
+
         </div>
     </div>  
       

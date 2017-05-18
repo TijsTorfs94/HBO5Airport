@@ -16,7 +16,7 @@
   
     <jsp:attribute name="content">
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-2 sidebar-offcanvas">
             <nav class="nav-sidebar">
                 <ul class="nav">
                     <li class="active"><a href="javascript:;">Overzicht geboekte vluchten</a></li>
