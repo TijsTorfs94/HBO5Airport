@@ -114,13 +114,12 @@ ul.nav.navbar-nav.navbar-right{
 	color: #583b54;
 }
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
-	color: #60c9eb;
+	color: #428bca;
 }
 .navbar-default {
     background-color: #60c9eb;
     border-color: transparent;
     padding: 5px 0px;
-    border-radius: 0;
     text-transform: uppercase;
 }
 .navbar-default .navbar-nav>li>a{
@@ -129,16 +128,17 @@ ul.nav.navbar-nav.navbar-right{
     padding-left: 20px;
     border: 1px solid transparent;
     font-size: 12px;
-    font-weight: 300;
+
     letter-spacing: 1px;
     transition: all .4s ease-in-out;
+    border-radius: 8px 8px 8px 8px;
 }
 .navbar-default .navbar-nav>li>a:hover{
 	color: #60c9eb;
 }
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
-	color: #60c9eb;
-	background: #e8f9ff;
+	color: #fff;
+	background: #428bca;
 }
 .navbar-nav>li>a {
     padding-top: 8px;
