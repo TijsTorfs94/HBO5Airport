@@ -27,4 +27,7 @@ public DAPassagier (String url, String login, String password, String driver)   
         }  
     }
 
+    Connection conn;
+    
+    
 }

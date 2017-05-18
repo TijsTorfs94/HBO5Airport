@@ -95,7 +95,31 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         }
         
         
+public Persoon GetPersoon(String Voornaam, String Naam, int Id){
+try {
+            statement = conn.prepareStatement
+                                ("select Voornaam, Naam, Id from Persoon");
+            set = statement.executeQuery(); 
+            if (set.next()) {
+                
+                P = new Persoon();
+                
+                P.setFamilienaam(set.getString("FAMILIENAAM"));
+                P.setVoornaam(set.getString("VOORNAAM"));
+                P.setId(set.getInt("ID"));
+
+
+
+                }
+            }
+  catch (Exception e) {
+    }
+                
         
+        return P;
+        
+    }
+   
         
         
 public int CheckLogin(String Login, String Pass){

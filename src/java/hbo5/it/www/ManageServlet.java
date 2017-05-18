@@ -5,8 +5,11 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.dataaccess.DAPassagier;
+import hbo5.it.www.dataaccess.DAPersoon;
+import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.WebInitParam;
@@ -23,7 +26,56 @@ import javax.servlet.http.HttpServletResponse;
     @WebInitParam(name = "driver", value = "oracle.jdbc.driver.OracleDriver"),
     @WebInitParam(name = "login", value = "c1035462"),
     @WebInitParam(name = "password", value = "7086")})
+
 public class ManageServlet extends HttpServlet {
+  private DAPersoon dapersoon = null;
+  private DAVlucht davlucht = null;
+  private DAPassagier dapassagier = null;
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            String url = getInitParameter("url");
+            String password = getInitParameter("password");
+            String login = getInitParameter("login");
+            String driver = getInitParameter("driver");
+            if (dapersoon== null) {
+                dapersoon = new DAPersoon(url, login, password, driver);
+            }
+            if (davlucht== null){
+               davlucht = new DAVlucht(url, login, password, driver);
+            }
+            if (dapassagier==null)
+            {dapassagier = new DAPassagier(url,login,password,driver);}
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new ServletException(e);
+        }
+    }
+
+
+
+
+
+    @Override
+    public void destroy() {
+        try {
+            if (dapersoon!= null) {
+                dapersoon.close();
+            }
+            if(davlucht!= null){
+                davlucht.close();
+            }
+            if(dapassagier!=null){
+            dapassagier.close();}
+            
+                
+        } catch (SQLException ex) {
+   
+         
+        }
+    }
+  
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +88,6 @@ public class ManageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ManageServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ManageServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
