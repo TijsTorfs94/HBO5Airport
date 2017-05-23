@@ -4,10 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/steve/Documents/project/web/LoginPage.jsp</file>
-            <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/RegisterServlet.java</file>
+            <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/LoginServlet.java</file>
             <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/ZoekServlet.java</file>
             <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/dataaccess/DAPersoon.java</file>
-            <file>file:/C:/Users/steve/Documents/project/web/register.jsp</file>
         </group>
     </open-files>
 </project-private>

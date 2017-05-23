@@ -47,7 +47,7 @@ public DAPersoon(String url, String login, String password, String driver)   thr
          try {
             statement = conn.prepareStatement
                                 ("insert into persoon (id,voornaam,familienaam,straat,huisnr,postcode,woonplaats,land,geboortedatum,login,paswoord) " +
-                                "values (?,?,?,?,?,?,?,?,?,?,?)");
+                                "values (?,?,?,?,?,?,?,?,?,?,?); ");
             statement.setInt(1, id);
             statement.setString(2, voornaam);
             statement.setString(3, achternaam);
