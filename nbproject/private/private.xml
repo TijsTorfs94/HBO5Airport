@@ -5,8 +5,13 @@
         <group>
             <file>file:/C:/Users/steve/Documents/project/web/LoginPage.jsp</file>
             <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/LoginServlet.java</file>
-            <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/ZoekServlet.java</file>
+            <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/AdminServlet.java</file>
             <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/dataaccess/DAPersoon.java</file>
+            <file>file:/C:/Users/steve/Documents/project/web/overzichtLuchthavens.jsp</file>
+            <file>file:/C:/Users/steve/Documents/project/web/StartAdmin.jsp</file>
+            <file>file:/C:/Users/steve/Documents/project/web/WEB-INF/tags/siteTemplate.tag</file>
+            <file>file:/C:/Users/steve/Documents/project/web/register.jsp</file>
+            <file>file:/C:/Users/steve/Documents/project/src/java/hbo5/it/www/dataaccess/DALuchthaven.java</file>
         </group>
     </open-files>
 </project-private>

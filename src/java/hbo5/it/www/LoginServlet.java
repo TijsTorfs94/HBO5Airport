@@ -103,9 +103,7 @@ public class LoginServlet extends HttpServlet {
                          rd = request.getRequestDispatcher("/AdminServlet");
                          rd.forward(request, response);
                     }
-                    Integer Bemanningslid = dapersoon.CheckIfCrew(Persoon);
-                    rd = request.getRequestDispatcher("index.jsp");
-                    rd.forward(request, response);
+                    session.setAttribute("Crew",dapersoon.CheckIfCrew(Persoon) );
                
                
            }

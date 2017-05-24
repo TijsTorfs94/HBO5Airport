@@ -79,10 +79,21 @@ public class AdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        session = request.getSession();
+        if (request.getParameter()) {
+            
+        }
+        
         try (PrintWriter out = response.getWriter()) {
+            
             /* TODO output your page here. You may use following sample code. */
-            rd = request.getRequestDispatcher("StartAdmin.jsp");
+                    session.setAttribute("lijst",  daLuchthaven.Get_naam_luchtHaven());
+                    
+                    rd = request.getRequestDispatcher("StartAdmin.jsp");
                     rd.forward(request, response);
+                    
+                  
         }
     }
 

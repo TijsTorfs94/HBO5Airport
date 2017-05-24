@@ -4,10 +4,11 @@
     Author     : c1040604
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
-
+<% request.setAttribute("Login", session.getAttribute("username")); %>
 
 
 <template:siteTemplate title="Passagier" status="Uitloggen">
@@ -31,11 +32,22 @@
                                         </ul>
                                     </li>
             </nav>
+            
+            
+         
+            
+            
         </div>
     </div>  
       
-      <p>Welkom ${Name} </p>
-      <div> </div>  
+      <p>Welkom ${Login} </p>
+      <div> 
+        
+      
+      
+      
+      
+      </div>  
     </jsp:attribute>
 
 </template:siteTemplate>

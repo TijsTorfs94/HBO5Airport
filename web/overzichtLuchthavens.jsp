@@ -4,6 +4,7 @@
     Author     : steve
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -63,12 +64,15 @@
  
   
                                 </div>
-                                <div> 
-                                    <ul>
-                                    <% for (int i = 0; i < 20; i++) {%>
-                                    <li style="color: black"><%=i+"stst"%></li>
-                                    <%}%>
-                                    </ul>
+                                <div id="center"> 
+                                    <select onchange="/">
+              <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijst");%>
+              <%for (String item : lijst) {%>
+
+}
+            <option id="<%=item%>"><%=item%></option>
+         <%}%>
+            </select>
                                 </div>           
                                     
                                     
