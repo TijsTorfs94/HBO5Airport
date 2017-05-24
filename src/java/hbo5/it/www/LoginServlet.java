@@ -99,6 +99,10 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("geboorte", Persoon.getGeboortedatum());
                     session.setAttribute("username", Persoon.getLogin());
                     session.setAttribute("paswoord", Persoon.getPaswoord());
+                    if (session.getAttribute("username").equals("Admin")) {
+                         rd = request.getRequestDispatcher("StartAdmin.jsp");
+                    rd.forward(request, response);
+                    }
                     Integer Bemanningslid = dapersoon.CheckIfCrew(Persoon);
                     rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);

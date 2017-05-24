@@ -11,6 +11,7 @@
 <%@ attribute name="head" fragment="true" %>
 <%@ attribute name="content" fragment="true"%>
 <%@ attribute name="footer" fragment="true"%>
+
 <html>
     <style>
         .footer{
@@ -80,7 +81,14 @@
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            
        </footer>
-<jsp:invoke fragment="footer"></jsp:invoke> 
+<jsp:invoke fragment="footer"></jsp:invoke>
+
+
+
+
+
+
+
     </body>
 </html>
 
