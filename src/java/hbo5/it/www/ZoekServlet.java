@@ -5,6 +5,7 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.dataaccess.DAPersoon;
 import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebInitParam;
 
@@ -69,18 +71,22 @@ public class ZoekServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String luchthavenid = request.getParameter("Luchthaven");
+        ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(Integer.parseInt(luchthavenid));
         
-        davlucht.InkomendeVluchten(1);
-        
-        
+        request.setAttribute("vluchten", vluchten); // Will be available as ${products} in JSP
+        request.getRequestDispatcher("inkomend.jsp").forward(request, response);
         
         
         
         
         
     }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -93,7 +99,20 @@ public class ZoekServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        if (request.getParameter("Luchthaven") != null){
+            String luchthavenid = request.getParameter("Luchthaven");
+            ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(Integer.parseInt(luchthavenid));
+            request.setAttribute("vluchten", vluchten);
+            }
+        else {
+            ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(1);
+            request.setAttribute("vluchten", vluchten);
+        }
+         // Will be available as ${vluchten} in JSP
+        request.getRequestDispatcher("inkomend.jsp").forward(request, response);
     }
 
     /**

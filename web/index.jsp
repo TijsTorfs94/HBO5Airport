@@ -1,4 +1,3 @@
-<%-- 
     HBO5 Programeren 4
     Document   : index
     Created on : 23-apr-2017, 17:33:50
@@ -20,16 +19,17 @@
     </jsp:attribute>
     
     <jsp:attribute name="content">
-     <div class="row">
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class=" nav nav-sidebar navbar-left">
+    <div class="row">
+        <div class="col-sm-2">
+            <nav class="nav-sidebar">
+                <ul class="nav">
                     <li class="active"><a href="javascript:;">Overzicht geboekte vluchten</a></li>
                     <li class="active"><a href="javascript:;">Vluchten boeken</a></li>
                     <li class="active"><a href="javascript:;">Geboekte vluchten annuleren</a></li>
                 </ul>
-            <ul>
+            </nav>
         </div>
-    </div> 
+    </div>    
         <p>${Login}</p>
         
         

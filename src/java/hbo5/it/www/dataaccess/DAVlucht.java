@@ -1,4 +1,4 @@
-/*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import oracle.sql.TIMESTAMP;
 import org.apache.jasper.tagplugins.jstl.ForEach;
 
 
@@ -43,7 +42,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
                 
         try {
             statement = connection.prepareStatement("select * from vlucht \n" +
-                                "inner join luchthaven on vlucht.aankomstluchthaven = luchthaven.ID where aankomstluchthaven_ID = ?");
+                                "inner join luchthaven on vlucht.aankomstluchthaven_ID = luchthaven.ID where aankomstluchthaven_ID = ?");
             statement.setInt(1, LuchthavenID);
             set = statement.executeQuery();
             
@@ -147,7 +146,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
                 Lijst.add(V);
                }
              
-         }catch (SQLException e){
+         }catch (Exception e){
              
          }
          return Lijst;
@@ -217,3 +216,4 @@ public DAVlucht (String url, String login, String password, String driver)   thr
     
 
 }
+

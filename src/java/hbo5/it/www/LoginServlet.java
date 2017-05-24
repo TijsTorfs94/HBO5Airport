@@ -72,13 +72,13 @@ public class LoginServlet extends HttpServlet {
     
     
     RequestDispatcher rd;
-    
+    HttpSession session = null;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-      
+      session = request.getSession();
             /* TODO output your page here. You may use following sample code. */
             if (request.getParameter("login") != null){
                 String naam = request.getParameter("Username");
@@ -87,8 +87,22 @@ public class LoginServlet extends HttpServlet {
                 if (result == 1){
                     Persoon Persoon = dapersoon.GetPersoon(naam);
                     //Sessie aanmaken
-                    HttpSession session = request.getSession();
-                    session.setAttribute("Login", Persoon.getLogin());
+                    
+                    session.setAttribute("id", Persoon.getId());
+                    session.setAttribute("naam", Persoon.getVoornaam());
+                    session.setAttribute("familienaam", Persoon.getFamilienaam());
+                    session.setAttribute("straat", Persoon.getStraat());
+                    session.setAttribute("huisnummer", Persoon.getHuisnr());
+                    session.setAttribute("postcode", Persoon.getPostcode());
+                    session.setAttribute("woonplaats", Persoon.getWoonplaats());
+                    session.setAttribute("land", Persoon.getLand());
+                    session.setAttribute("geboorte", Persoon.getGeboortedatum());
+                    session.setAttribute("username", Persoon.getLogin());
+                    session.setAttribute("paswoord", Persoon.getPaswoord());
+                    if (session.getAttribute("username").equals("Admin")) {
+                         rd = request.getRequestDispatcher("StartAdmin.jsp");
+                    rd.forward(request, response);
+                    }
                     Integer Bemanningslid = dapersoon.CheckIfCrew(Persoon);
                     rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);
@@ -105,8 +119,14 @@ public class LoginServlet extends HttpServlet {
            
             
        else if (request.getParameter("registreer")!= null){
-           Integer id = dapersoon.GetTopid();
-           request.setAttribute("id", id);
+           int id;
+                if (session.getAttribute("id") == null) {
+                    id = dapersoon.GetTopid();
+                }else{
+                    id =(int) session.getAttribute("id");
+                }
+
+           session.setAttribute("id", id);
            request.setAttribute("naam", "");
            request.setAttribute("familienaam", "");
            request.setAttribute("straat", "");
