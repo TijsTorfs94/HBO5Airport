@@ -38,7 +38,7 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         }  
     }
     
-    Connection conn;
+
     
     
     public void Add_Persoon( int id,
@@ -71,6 +71,7 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         
        
     }
+        Connection conn;
         Persoon P = null;
         Vlucht V = null;
         PreparedStatement statement = null;
