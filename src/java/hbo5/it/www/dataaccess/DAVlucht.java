@@ -42,7 +42,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
                 
         try {
             statement = connection.prepareStatement("select * from vlucht \n" +
-                                "inner join luchthaven on vlucht.aankomstluchthaven = luchthaven.ID where aankomstluchthaven_ID = ?");
+                                "inner join luchthaven on vlucht.aankomstluchthaven_ID = luchthaven.ID where aankomstluchthaven_ID = ?");
             statement.setInt(1, LuchthavenID);
             set = statement.executeQuery();
             
