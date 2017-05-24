@@ -63,8 +63,8 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Inkomende vluchten</a></li>
-                                            <li><a href="#">Uitgaande vluchten</a></li>
+                                            <li><a href="ZoekServlet">Inkomende vluchten</a></li>
+                                            <li><a href="uitgaand.jsp">Uitgaande vluchten</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#"> Zoeken </a></li>   
@@ -78,7 +78,7 @@
         
        
        <footer>
-           <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
+           <p>Project gemaakt door team 2 (Steve Dekerf, Tijs Torfs en Peter Haest)</p>
            
        </footer>
 <jsp:invoke fragment="footer"></jsp:invoke>

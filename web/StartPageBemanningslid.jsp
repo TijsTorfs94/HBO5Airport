@@ -17,15 +17,16 @@
         <div class="col-sm-2">
             <nav class="nav-sidebar">
                 <ul class="nav">
-                    <li class="active"><>Documenten raadplegen</li>
-                    <li><a href="javascript:;">Reisschema raadplegen</a></li>
-                    <li><a href="javascript:;">Passagierlijsten raadplegen</a></li>
+                    <li class="active">Documenten raadplegen</li>
+                    <li class="active"><a href="javascript:;">Reisschema raadplegen</a></li>
+                    <li class="active"><a href="javascript:;">Passagierlijsten raadplegen</a></li>
                 </ul>
             </nav>
         </div>
     </div>  
       
       <p>Welkom </p>
+      
     </jsp:attribute>
  
 </template:siteTemplate>
