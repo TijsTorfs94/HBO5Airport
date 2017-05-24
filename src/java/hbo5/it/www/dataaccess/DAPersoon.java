@@ -99,8 +99,6 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         
         
 public int CheckLogin(String Login, String Pass){
-       
-        
         try {
             statement = conn.prepareStatement
                                 ("select * from Persoon where Login = ?");
