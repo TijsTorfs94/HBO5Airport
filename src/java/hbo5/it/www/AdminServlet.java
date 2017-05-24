@@ -6,14 +6,19 @@
 package hbo5.it.www;
 
 import hbo5.it.www.dataaccess.DALuchthaven;
+import hbo5.it.www.dataaccess.DAPersoon;
+import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,11 +26,47 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AdminServlet", urlPatterns = {"/AdminServlet"}, initParams = {
     @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE"),
-    @WebInitParam(name = "server", value = "oracle.jdbc.driver.OracleDriver"),
+    @WebInitParam(name = "driver", value = "oracle.jdbc.driver.OracleDriver"),
     @WebInitParam(name = "login", value = "c1035462"),
     @WebInitParam(name = "password", value = "7086")})
 public class AdminServlet extends HttpServlet {
 
+    
+        private DALuchthaven daLuchthaven = null;
+        
+        
+        
+        
+    @Override
+    public void init() throws ServletException {
+        try {
+            String url = getInitParameter("url");
+            String password = getInitParameter("password");
+            String login = getInitParameter("login");
+            String driver = getInitParameter("driver");
+            if (daLuchthaven == null) {
+                daLuchthaven = new DALuchthaven(url, login, password, driver);
+            }
+        }catch (ClassNotFoundException | SQLException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            if ( daLuchthaven != null) {
+                daLuchthaven.close();
+            }
+        } catch (SQLException e) {
+        }}
+    
+    
+    RequestDispatcher rd;
+    HttpSession session = null;
+    
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,13 +81,8 @@ public class AdminServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            if (request.getParameter("Luchthavens")!= null) {
-                DALuchthaven luchthaven = new DALuchthaven(url, login, password, driver);
-                
-                
-                
-                
-            }
+            rd = request.getRequestDispatcher("StartAdmin.jsp");
+                    rd.forward(request, response);
         }
     }
 

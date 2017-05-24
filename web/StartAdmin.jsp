@@ -8,7 +8,7 @@
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
 
-<%request.setAttribute("Name",session.getAttribute("naam")+" "+session.getAttribute("familienaam"));%>
+
 
 <template:siteTemplate title="Passagier" status="Uitloggen">
     <jsp:attribute name="head">
