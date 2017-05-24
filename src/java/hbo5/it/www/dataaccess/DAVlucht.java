@@ -147,7 +147,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
                 Lijst.add(V);
                }
              
-         }catch (SQLException e){
+         }catch (Exception e){
              
          }
          return Lijst;

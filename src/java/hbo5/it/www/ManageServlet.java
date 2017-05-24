@@ -5,15 +5,11 @@
  */
 package hbo5.it.www;
 
-import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataaccess.DAPassagier;
 import hbo5.it.www.dataaccess.DAPersoon;
-import hbo5.it.www.dataaccess.DAVliegtuigklasse;
 import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.WebInitParam;
@@ -35,7 +31,6 @@ public class ManageServlet extends HttpServlet {
   private DAPersoon dapersoon = null;
   private DAVlucht davlucht = null;
   private DAPassagier dapassagier = null;
-  private DAVliegtuigklasse davliegtuigklasse = null;
 
     @Override
     public void init() throws ServletException {
@@ -52,8 +47,7 @@ public class ManageServlet extends HttpServlet {
             }
             if (dapassagier==null)
             {dapassagier = new DAPassagier(url,login,password,driver);}
-            if (davliegtuigklasse==null)
-            {davliegtuigklasse = new DAVliegtuigklasse(url,login,password,driver);}
+            
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException(e);
         }
@@ -73,20 +67,14 @@ public class ManageServlet extends HttpServlet {
                 davlucht.close();
             }
             if(dapassagier!=null){
-            dapassagier.close();
-            }
-            if(davliegtuigklasse!=null){
-            davliegtuigklasse.close();
-            }
+            dapassagier.close();}
             
                 
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
    
          
         }
     }
-    
-   RequestDispatcher rd;
   
 
     /**
@@ -100,11 +88,6 @@ public class ManageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Persoon> Personen = dapersoon.PersoonPerVlucht(0);
-        request.setAttribute("Persoon", Personen);
-        
-        
-        
         }
     }
 
