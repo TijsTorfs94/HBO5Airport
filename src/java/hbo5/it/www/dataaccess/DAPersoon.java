@@ -243,7 +243,7 @@ public ArrayList<Persoon> PersoonPerVlucht(int vluchtID){
             P.setVoornaam(set.getString("voornaam"));
             P.setFamilienaam(set.getString("familienaam"));
             P.setLand(set.getString("land"));
-            P.setGeboortedatum(set.getTimestamp("geboortedatum"));
+            P.setGeboortedatum(set.getDate("geboortedatum"));
             
             personen.add(P);
             

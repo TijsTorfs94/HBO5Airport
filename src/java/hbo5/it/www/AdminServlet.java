@@ -81,10 +81,7 @@ public class AdminServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         session = request.getSession();
-        if (request.getParameter()) {
-            
-        }
-        
+       
         try (PrintWriter out = response.getWriter()) {
             
             /* TODO output your page here. You may use following sample code. */
