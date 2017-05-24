@@ -5,13 +5,18 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:100,400,700);
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
 
-body
-{
-	font-family: 'Roboto', 'Open-Sans', sans-serif;
+body{
+        font-family: 'Roboto', 'Open-Sans', sans-serif;
 	overflow-x: hidden;
 	color: #000;
         padding-top: 65px;
+        background-image:  url(afb.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size:100% 105%;
+        background-position: 50% ;
 }
+
 /*Owl Carousel*/
 .owl-prev, .owl-next
 {
@@ -94,7 +99,7 @@ p:hover{
 			/*navbar*/
 .navbar-default .navbar-brand{
 	border: 1px solid transparent;
-	color: #60c9eb;
+	color: #fff;
 	font-size: 33px;
 	padding: 10px 0px;
 	height: auto;
@@ -109,31 +114,31 @@ ul.nav.navbar-nav.navbar-right{
 	color: #583b54;
 }
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
-	color: #60c9eb;
+	color: #428bca;
 }
 .navbar-default {
-    background-color: #fff;
+    background-color: #60c9eb;
     border-color: transparent;
     padding: 5px 0px;
-    border-radius: 0;
     text-transform: uppercase;
 }
 .navbar-default .navbar-nav>li>a{
-	color: #60c9eb;
+	color: #fff;
     padding-right: 20px;
     padding-left: 20px;
     border: 1px solid transparent;
     font-size: 12px;
-    font-weight: 300;
+
     letter-spacing: 1px;
     transition: all .4s ease-in-out;
+    border-radius: 8px 8px 8px 8px;
 }
 .navbar-default .navbar-nav>li>a:hover{
 	color: #60c9eb;
 }
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
-	color: #60c9eb;
-	background: #e8f9ff;
+	color: #fff;
+	background: #428bca;
 }
 .navbar-nav>li>a {
     padding-top: 8px;
@@ -142,8 +147,43 @@ ul.nav.navbar-nav.navbar-right{
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
     background-color: transparent;
     color: #60c9eb;
-    background: #e8f9ff;
+    background: #fff;
 }
+.nav-sidebar { 
+    margin-left: 35%;
+    width: 120%;
+    padding: 8px 0; 
+   
+}
+.nav-sidebar a {
+    color: #333;
+    -webkit-transition: all 0.08s linear;
+    -moz-transition: all 0.08s linear;
+    -o-transition: all 0.08s linear;
+    transition: all 0.08s linear;
+    -webkit-border-radius: 4px 0 0 4px; 
+    -moz-border-radius: 4px 0 0 4px; 
+    border-radius: 8px 8px 8px 8px;
+    margin-top: 8px;
+}
+.nav-sidebar .active a { 
+    cursor: default;
+    background-color:  #60c9eb;
+    color: #fff; 
+    text-shadow: 1px 1px 1px #666; 
+}
+.nav-sidebar .active a:hover {
+    background-color: #428bca;   
+}
+.nav-sidebar .text-overflow a,
+.nav-sidebar .text-overflow .media-body {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; 
+}
+
+
 		/*Home*/
 .flexslider{
 	text-align: center;
@@ -434,19 +474,20 @@ footer{
                    bottom:0px;
                    width:100%;
 	text-align: center;
-	padding: 20px;
+	padding: 5px;
 	background: #60c9eb;
-}
+        background-color: #60c9eb;
+}   
 footer a{
-	color: #fff;
+	color: #60c9eb;
 	padding: 5px;
 }
 footer a:hover{
-	color: #fff;
+	color: #60c9eb;
 }
 footer a:hover, footer a:focus{
 	text-decoration: none;
-	color: #fff;
+	color: #60c9eb;
 }
 .top {
     display: inline-block;
@@ -457,7 +498,38 @@ footer a:hover, footer a:focus{
 /*=================================================
 ||				13. Media Query
 ==================================================*/
+/* collapsed sidebar styles */
+@media (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -41.6%;
+  }
 
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -41.6%;
+  }
+  .row-offcanvas-right.active {
+    right: 41.6%;
+  }
+  .row-offcanvas-left.active {
+    left: 41.6%;
+  }
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 41.6%;
+  }
+  #sidebar {
+    padding-top:0;
+  }
+}
 @media (max-width: 991px){
 	.offer-cta{
 		background: url("../images/cta-1.png") bottom left no-repeat;

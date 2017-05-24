@@ -95,7 +95,31 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         }
         
         
+public Persoon GetPersoon(String Voornaam, String Naam, int Id){
+try {
+            statement = conn.prepareStatement
+                                ("select Voornaam, Naam, Id from Persoon");
+            set = statement.executeQuery(); 
+            if (set.next()) {
+                
+                P = new Persoon();
+                
+                P.setFamilienaam(set.getString("FAMILIENAAM"));
+                P.setVoornaam(set.getString("VOORNAAM"));
+                P.setId(set.getInt("ID"));
+
+
+
+                }
+            }
+  catch (Exception e) {
+    }
+                
         
+        return P;
+        
+    }
+   
         
         
 public int CheckLogin(String Login, String Pass){
@@ -202,8 +226,32 @@ public ArrayList<Vlucht> VluchtenperPassagier(int persoonID){
     }
     
     return lijst;
+}
+
+public ArrayList<Persoon> PersoonPerVlucht(int vluchtID){
     
+    ArrayList<Persoon> personen = new ArrayList<>();
+    try 
+    {
+        statement = connection.prepareCall("select persoon.voornaam, persoon.familienaam, persoon.land, persoon.geboortedatum"+"inner join passagier.VLUCHT_ID = vlucht.ID where passagier.vlucht_id = ?");
+        statement.setInt(1, vluchtID);
+        set = statement.executeQuery();    
+        
+        while (set.next()){
+            P = new Persoon();
+            P.setVoornaam(set.getString("voornaam"));
+            P.setFamilienaam(set.getString("familienaam"));
+            P.setLand(set.getString("land"));
+            P.setGeboortedatum(set.getTimestamp("geboortedatum"));
+            
+            personen.add(P);
+            
+        }
+    }
+    catch (Exception e)
+    {}
     
+    return personen;
     
 }
 }
