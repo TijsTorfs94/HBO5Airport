@@ -85,7 +85,26 @@ public DALuchthaven (String url, String login, String password, String driver)  
         return  lijstLuchthavens;
     }
         
-        
+       public Luchthaven getLuchthaven(String naam ){
+        PreparedStatement statement1 = null;
+        ResultSet set1 = null;
+        Luchthaven L = new Luchthaven();
+        try {
+            
+             statement1 = connection.prepareStatement("Select * from luchthaven where naam = ?");
+             statement1.setString(1,naam); 
+             set1 = statement1.executeQuery();
+             if (set1.next()) {
+                 
+                 L.setId(set1.getInt("id"));
+                 L.setNaam(set1.getString("naam"));
+                 L.setStad(set1.getString("stad"));
+             }
+        } catch (Exception e) {
+           String str = " fd";
+        }
+        return L;
+       } 
         
         
         

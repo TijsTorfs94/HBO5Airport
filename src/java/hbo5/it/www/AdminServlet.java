@@ -5,6 +5,7 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.dataaccess.DALuchthaven;
 import hbo5.it.www.dataaccess.DAPersoon;
 import hbo5.it.www.dataaccess.DAVlucht;
@@ -81,10 +82,17 @@ public class AdminServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         session = request.getSession();
-       
         try (PrintWriter out = response.getWriter()) {
+          
+            /*
+            buttons implementeren
             
-            /* TODO output your page here. You may use following sample code. */
+            */
+            
+            
+            
+            
+
                     session.setAttribute("lijst",  daLuchthaven.Get_naam_luchtHaven());
                     
                     rd = request.getRequestDispatcher("StartAdmin.jsp");
@@ -120,7 +128,10 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        session = request.getSession();
+        session.setAttribute("VarLuchthaven", request.getParameter("LstHaven"));
+        request.setAttribute("Luchthaven", daLuchthaven.getLuchthaven((String)session.getAttribute("VarLuchthaven")));
+          request.getRequestDispatcher("overzichtLuchthavens.jsp").forward(request, response);
     }
 
     /**
