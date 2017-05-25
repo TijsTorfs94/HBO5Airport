@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 
 /**
@@ -38,16 +38,16 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         }  
     }
     
-    Connection conn;
+
     
     
     public void Add_Persoon( int id,
     String voornaam, String achternaam, String Straat, String nmr,String code, String woonplaats,
-            String land,Timestamp geboorte, String login, String pas ){
+            String land,Date geboorte, String login, String pas ){
          try {
             statement = conn.prepareStatement
                                 ("insert into persoon (id,voornaam,familienaam,straat,huisnr,postcode,woonplaats,land,geboortedatum,login,paswoord) " +
-                                "values (?,?,?,?,?,?,?,?,?,?,?)");
+                                "values (?,?,?,?,?,?,?,?,?,?,?); ");
             statement.setInt(1, id);
             statement.setString(2, voornaam);
             statement.setString(3, achternaam);
@@ -56,7 +56,7 @@ public DAPersoon(String url, String login, String password, String driver)   thr
             statement.setString(6, code);
             statement.setString(7,woonplaats);
             statement.setString(8, land);
-            statement.setTimestamp(9, geboorte);
+            statement.setDate(9, geboorte);
             statement.setString(10,login);
             statement.setString(11,pas);
                     
@@ -71,6 +71,7 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         
        
     }
+        Connection conn;
         Persoon P = null;
         Vlucht V = null;
         PreparedStatement statement = null;
@@ -123,8 +124,6 @@ try {
         
         
 public int CheckLogin(String Login, String Pass){
-       
-        
         try {
             statement = conn.prepareStatement
                                 ("select * from Persoon where Login = ?");
@@ -158,7 +157,7 @@ public Persoon GetPersoon(String Login){
                     P = new Persoon();
                 
                 P.setFamilienaam(set.getString("FAMILIENAAM"));
-                P.setGeboortedatum(set.getTimestamp("GEBOORTEDATUM"));
+                P.setGeboortedatum(set.getDate("GEBOORTEDATUM"));
                 P.setHuisnr(set.getString("HUISNR"));
                 P.setLand(set.getString("LAND"));
                 P.setLogin(set.getString("LOGIN"));
@@ -244,7 +243,7 @@ public ArrayList<Persoon> PersoonPerVlucht(int vluchtID){
             P.setVoornaam(set.getString("voornaam"));
             P.setFamilienaam(set.getString("familienaam"));
             P.setLand(set.getString("land"));
-            P.setGeboortedatum(set.getTimestamp("geboortedatum"));
+            P.setGeboortedatum(set.getDate("geboortedatum"));
             
             personen.add(P);
             

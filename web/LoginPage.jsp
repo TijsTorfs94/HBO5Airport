@@ -8,9 +8,9 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="template" tagdir="/WEB-INF/tags" %>
+<% request.setAttribute("Login", session.getAttribute("username")); %>
 
-
-<template:siteTemplate title="Home" status="Login">
+<template:siteTemplate title="Home" status="${Login}">
     <jsp:attribute name="head">
         
     </jsp:attribute>
