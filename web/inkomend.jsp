@@ -62,7 +62,7 @@
             <!--for demo wrap-->
             <h1 class="tour section-wrapper container">Inkomende vluchten</h1>
             <form action="ZoekServlet">
-                <select name="Luchthaven" class="col-md-offset-1">             
+           <%--     <select name="Luchthaven" class="col-md-offset-1">             
                     <option value="1">Brussels Airport</option>
                     <option value="2">Schiphol</option>
                     <option value="3">Charles de Gaulle</option>
@@ -72,8 +72,17 @@
                     <option value="7">Venice VCE</option>
                     <option value="8">Abu Dhabi</option>
                     <option value="9">Sri Guru Ram DassJee</option>
-                </select>
-            <input type="submit" name="Zoeken" id="Zoeken" value="Zoeken">
+                </select> --%>
+                <%int teller = 1;%>
+                <label for="Luchthaven">kies een luchthaven</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="Luchthaven" style="width: 50%; margin: 15px">
+                                        <option selected="true" value ="0"></option>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijsthavens");%>
+                                            <%for (String item : lijst) {%>
+                                            <option value="<%=teller%>" ><%=item%></option>
+                                           <%teller++;}%>
+                                    </select>
+        
             <table cellpadding="0" cellspacing="0" border="0" id="myTable" class="tablecontainer tablesorter">
                     <thead>              
                         <tr>

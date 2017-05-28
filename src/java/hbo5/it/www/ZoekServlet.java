@@ -6,6 +6,7 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.dataaccess.DALuchthaven;
 import hbo5.it.www.dataaccess.DAPersoon;
 import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -39,6 +41,7 @@ import javax.servlet.annotation.WebInitParam;
 public class ZoekServlet extends HttpServlet {
 
     private DAVlucht davlucht = null;
+    private DALuchthaven daluchthaven = null;
     @Override
     public void init() throws ServletException {
         try {
@@ -49,6 +52,10 @@ public class ZoekServlet extends HttpServlet {
             if (davlucht == null) {
                 davlucht = new DAVlucht(url, login, password, driver);
             }
+            if(daluchthaven == null){
+                daluchthaven = new DALuchthaven(url, login, password, driver);
+            }
+            
         }catch (ClassNotFoundException | SQLException e) {
             throw new ServletException(e);
         }
@@ -60,25 +67,30 @@ public class ZoekServlet extends HttpServlet {
             if ( davlucht!= null) {
                 davlucht.close();
             }
+            if (daluchthaven!= null) {
+                daluchthaven.close();
+            }
         } catch (SQLException e) {
         }
     }
-   
+    HttpSession session;
     RequestDispatcher rd;
     
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        session = request.getSession();
         
-        
-        
+        if (session.getAttribute("lijsthavens")== null) {
+            session.setAttribute("lijsthavens", daluchthaven.Get_naam_luchtHaven());
+        }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String luchthavenid = request.getParameter("Luchthaven");
         ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(Integer.parseInt(luchthavenid));
         
-        request.setAttribute("vluchten", vluchten); // Will be available as ${products} in JSP
+        request.setAttribute("vluchten", vluchten);
         request.getRequestDispatcher("inkomend.jsp").forward(request, response);
         
         
@@ -101,14 +113,18 @@ public class ZoekServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        session = request.getSession();
         if (request.getParameter("Luchthaven") != null){
             String luchthavenid = request.getParameter("Luchthaven");
             ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(Integer.parseInt(luchthavenid));
             request.setAttribute("vluchten", vluchten);
             }
         else {
-            ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(1);
+             if (session.getAttribute("lijsthavens")== null) {
+            session.setAttribute("lijsthavens", daluchthaven.Get_naam_luchtHaven());
+        }
+            ArrayList<Vlucht> vluchten;
+            vluchten = davlucht.InkomendeVluchten(1);
             request.setAttribute("vluchten", vluchten);
         }
          // Will be available as ${vluchten} in JSP
