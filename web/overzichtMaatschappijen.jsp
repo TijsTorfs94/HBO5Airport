@@ -1,10 +1,10 @@
 <%-- 
-    Document   : overzichtLuchthavens
+    Document   : overzichtMaatschappijen
     Created on : 23-mei-2017, 14:19:49
     Author     : steve
 --%>
 
-<%@page import="hbo5.it.www.beans.Luchthaven"%>
+<%@page import="hbo5.it.www.beans.Luchtvaartmaatschappij"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -65,32 +65,29 @@
  
   
                                 </div>
-                                <form  action="AdminServlet" method="POST">
+                                <form  action="MaatschappijServlet" method="POST">
                                 <div class="form-group"> 
-                                    <label for="LstHaven">kies een luchthaven</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="LstHaven" style="width: 50%; margin: 15px">
+                                    <label for="LstMaatschappij">kies een maatschappij</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="LstMaatschappij" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijsthavens");%>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstmaatschappijen");%>
                                             <%for (String item : lijst) {%>
                                             <option value="<%=item%>" ><%=item%></option>
                                            <%}%>
                                     </select>
                                            
                                 </div>           
-                                           <%if (request.getAttribute("Luchthaven") != null) {%>
+                                           <%if (request.getAttribute("Maatschappij") != null) {%>
    
 
                                     </form>
-                                           <%Luchthaven L = (Luchthaven) request.getAttribute("Luchthaven");%>
+                                           <%Luchtvaartmaatschappij L = (Luchtvaartmaatschappij) request.getAttribute("Maatschappij");%>
                                     <form >
                                         <div>
                                             <label for="txtId">id</label>
                                             <input name="txtId" type="text" readonly="true" value="<%=L.getId()%>"/>
                                             <label for="txtNaam">Naam</label>
                                             <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
-                                            <label for="txtStad">Stad</label>
-                                            <input type="text" name="txtStad" value="<%=L.getStad()%>"/>
-                                            
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>

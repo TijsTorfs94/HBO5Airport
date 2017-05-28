@@ -6,8 +6,11 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.dataaccess.DAHangar;
 import hbo5.it.www.dataaccess.DALuchthaven;
+import hbo5.it.www.dataaccess.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataaccess.DAPersoon;
+import hbo5.it.www.dataaccess.DAVliegtuig;
 import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,7 +37,10 @@ public class AdminServlet extends HttpServlet {
 
     
         private DALuchthaven daLuchthaven = null;
-        
+        private DALuchtvaartmaatschappij damaatschappij = null;
+        private DAPersoon dapersoon = null;
+        private DAVliegtuig davliegtuig = null;
+        private DAHangar dahangar = null;
         
         
         
@@ -48,6 +54,18 @@ public class AdminServlet extends HttpServlet {
             if (daLuchthaven == null) {
                 daLuchthaven = new DALuchthaven(url, login, password, driver);
             }
+            if (damaatschappij == null) {
+                damaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
+            }
+            if (dapersoon == null) {
+                dapersoon = new DAPersoon(url, login, password, driver);
+            }
+            if (davliegtuig == null) {
+                davliegtuig = new DAVliegtuig(url, login, password, driver);
+            }
+            if (dahangar == null) {
+                dahangar = new DAHangar(url, login, password, driver);
+            }
         }catch (ClassNotFoundException | SQLException e) {
             throw new ServletException(e);
         }
@@ -58,6 +76,18 @@ public class AdminServlet extends HttpServlet {
         try {
             if ( daLuchthaven != null) {
                 daLuchthaven.close();
+            }
+            if (damaatschappij != null) {
+                damaatschappij.close();
+            }
+            if (dapersoon != null){
+                dapersoon.close();
+            }
+            if (davliegtuig != null) {
+                davliegtuig.close();
+            }
+            if (dahangar != null) {
+                dahangar.close();
             }
         } catch (SQLException e) {
         }}
@@ -83,20 +113,28 @@ public class AdminServlet extends HttpServlet {
         
         session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-          
-            /*
-            buttons implementeren
-            
-            */
-            
-            
-            
-            
 
-                    session.setAttribute("lijst",  daLuchthaven.Get_naam_luchtHaven());
+              session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
+              session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
+              session.setAttribute("lijstpersonen", dapersoon.get_names());
+            if (request.getParameter("btnWijzig")!= null) {
+                rd = request.getRequestDispatcher("LoginPage.jsp");
+                    rd.forward(request, response);
+            }
+            else if (request.getParameter("btnVerwijder") != null) {
+                rd = request.getRequestDispatcher("LoginPage.jsp");
+                    rd.forward(request, response);
+            }
+            else{
+                                  
                     
                     rd = request.getRequestDispatcher("StartAdmin.jsp");
                     rd.forward(request, response);
+            }
+            
+            
+
+
                     
                   
         }
