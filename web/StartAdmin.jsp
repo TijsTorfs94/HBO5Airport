@@ -27,7 +27,8 @@
                                         <ul class="nav">
                                             <li class="active"><a href="overzichtLuchthavens.jsp" id="Luchthavens">luchthavens</a></li>
                                             <li class="active"><a href="overzichtMaatschappijen.jsp" id="Maatschappijen">luchtvaartmaatschappijen</a></li>
-                                            <li class="active"><a href="#">eigenaarsgegevens (leasemaatschappij)</a></li>
+                                            <li class="active"><a href="overzichtLease">eigenaarsgegevens (leasemaatschappij)</a></li>
+                                            <li class="active"><a href="overzichtvliegtuigen.jsp">vliegtuigen</a></li>
                                             <li class="active"><a href="overzichtPersonen.jsp">personen</a></li>
                                             <li class="active"><a href="#">bemanning en vluchtbemanning</a></li>
                                             <li class="active"><a href="#">passagiers</a></li>

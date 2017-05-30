@@ -7,6 +7,7 @@ package hbo5.it.www;
 
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.dataaccess.DAHangar;
+import hbo5.it.www.dataaccess.DALeasemaatschappij;
 import hbo5.it.www.dataaccess.DALuchthaven;
 import hbo5.it.www.dataaccess.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataaccess.DAPersoon;
@@ -41,6 +42,8 @@ public class AdminServlet extends HttpServlet {
         private DAPersoon dapersoon = null;
         private DAVliegtuig davliegtuig = null;
         private DAHangar dahangar = null;
+          private DALeasemaatschappij dalease = null;
+        
         
         
         
@@ -65,6 +68,9 @@ public class AdminServlet extends HttpServlet {
             }
             if (dahangar == null) {
                 dahangar = new DAHangar(url, login, password, driver);
+            }
+            if (dalease == null) {
+                dalease = new DALeasemaatschappij(url, login, password, driver);
             }
         }catch (ClassNotFoundException | SQLException e) {
             throw new ServletException(e);
@@ -117,6 +123,7 @@ public class AdminServlet extends HttpServlet {
               session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
               session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
               session.setAttribute("lijstpersonen", dapersoon.get_names());
+              session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
             if (request.getParameter("btnWijzig")!= null) {
                 rd = request.getRequestDispatcher("LoginPage.jsp");
                     rd.forward(request, response);

@@ -5,9 +5,13 @@
  */
 package hbo5.it.www.dataaccess;
 
+import hbo5.it.www.beans.Vliegtuig;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,5 +30,45 @@ public DAVliegtuig (String url, String login, String password, String driver)   
             connection.close();
         }  
     }
- 
+    
+    PreparedStatement statement = null;
+    ResultSet set = null;
+    Vliegtuig V;
+    
+    public ArrayList<Vliegtuig> getVliegtuigLijst(){
+        ArrayList<Vliegtuig> lijst = new ArrayList<>();
+        try {
+                statement = connection.prepareStatement("select * from vliegtuig"  );
+                set = statement.executeQuery();   
+                while (set.next()) {
+                    V = new Vliegtuig();
+                    V.setId(set.getInt("ID"));
+                    V.setVliegtuigtype_id(set.getInt("vliegtuigType_id"));
+                    V.setLeasemaatschappij_id(set.getInt("leasemaatschappij_id"));
+                    V.setLuchtvaartmaatschappij_id(set.getInt("Luchtvaartmaatschappij_id"));
+                    lijst.add(V);
+            }      
+        } catch (Exception e) {
+        }
+        return lijst;
+    }
+
+    public ArrayList<Integer> getList_ids(){
+        ArrayList<Integer> lijst = new ArrayList<>();
+        ArrayList<Vliegtuig> Vlijst = getVliegtuigLijst();
+        
+        for (Vliegtuig vliegtuig : Vlijst) {
+            lijst.add(vliegtuig.getId());
+        }
+        return lijst;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+     
 }
