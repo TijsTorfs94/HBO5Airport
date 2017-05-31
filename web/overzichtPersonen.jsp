@@ -86,8 +86,40 @@
                                         <div>
                                             <label for="txtId">id</label>
                                             <input name="txtId" type="text" readonly="true" value="<%=P.getId()%>"/>
+                                             <label for="txtVoornaam">Voornaam</label>
+                                            <input name="txtVoornaam" type="text" value="<%=P.getVoornaam()%>"/>
                                             <label for="txtNaam">Naam</label>
                                             <input name="txtNaam" type="text" value="<%=P.getFamilienaam()%>"/>
+                                            <label for="txtStraat">Straat</label>
+                                            <input name="txtStraat" type="text" value="<%=P.getStraat()%>"/>
+                                            <label for="txtHuisnr">huisnummer</label>
+                                            <input name="txtHuisnr" type="text" value="<%=P.getHuisnr()%>"/>
+                                             <label for="txtPostcode">postcode</label>
+                                            <input name="txtPostcode" type="text" readonly="true" value="<%=P.getPostcode()%>"/>
+                                             <label for="txtWoonplaats">woonplaats</label>
+                                            <input name="txtWoonplaats" type="text" readonly="true" value="<%=P.getWoonplaats()%>"/>
+                                             <label for="txtLand">land</label>
+                                            <input name="txtLand" type="text" readonly="true" value="<%=P.getLand()%>"/>
+                                            <label for="txtdatum">geboortedatum</label>
+                                            <input name="txtdatum" type="date" value="<%=P.getGeboortedatum()%>"/>
+                                             <label for="txtUser">Username</label>
+                                            <input name="txtUser" type="text" readonly="true" value="<%=P.getLogin()%>"/>
+                                             <label for="txtPas">Paswoord</label>
+                                             <input name="txtPas" type="password" readonly="true" value="<%=P.getId()%>"/>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>
