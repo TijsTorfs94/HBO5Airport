@@ -20,6 +20,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -105,4 +109,44 @@ public DAVliegtuig (String url, String login, String password, String driver)   
         }
 return E;
     }
+    
+    public Map<Integer,ArrayList<String>> Get_by_Hangar(String Naam){
+        ArrayList<String> lijst = new ArrayList<>();
+        Map<Integer,ArrayList<String>> nMap = new HashMap<>();
+        
+           try {
+               StringBuilder builder = new StringBuilder();
+               builder.append("select v.ID , vt.naam , s.REDEN , s.VANDATUM , s.TOTDATUM from vliegtuig v ");
+               builder.append("inner join stockage s on v.ID = s.VLIEGTUIG_ID ");
+               builder.append("INNER join Hangar h on h.id = s.HANGAR_ID ");
+               builder.append("inner join VLIEGTUIGTYPE vt on vt.ID = v.VLIEGTUIGTYPE_ID ");
+               builder.append("where h.NAAM = ?");
+
+               statement = connection.prepareStatement(builder.toString());
+               statement.setString(1, Naam);
+               set = statement.executeQuery();
+               
+               while (set.next()) {                   
+                   lijst.add(set.getString(2));
+                   lijst.add(set.getString(3));
+                   lijst.add(set.getString(4));
+                   lijst.add(set.getString(5));
+                   nMap.put(set.getInt(1),lijst);
+                   
+               }
+               
+               
+           } catch (SQLException ex) {
+               Logger.getLogger(DAVliegtuig.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        
+        return nMap;
+        
+        
+        
+        
+    }
+    
+    
+    
 }

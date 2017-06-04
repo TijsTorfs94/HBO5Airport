@@ -72,7 +72,7 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=BemVlucht" method="Post">
+                                <form  action="AdminServlet?choice=PasVlucht" method="Post">
                                 <div class="form-group"> 
                                     <label for="LstVluchten">kies een vlucht</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstVluchten" style="width: 50%; margin: 15px">
@@ -88,30 +88,31 @@
    
 
                                     </form>
-                                      <%if (request.getAttribute("Bemanning") != null) {%>
-                                           <%ArrayList<Crew> crewlijst = (ArrayList<Crew>) request.getAttribute("Bemanning");%>
-                                    <form >
-                                        
-                                        <h3> overzicht van vlucht <%=crewlijst.get(1).getCode()%>
-                                        
-                                            <table title="Crew">
-                                                <caption>Crew</caption>
-                                                <th>functie</th>
-                                                <th>naam</th>
-                                        <%for (Crew item : crewlijst){%>
-                                                <tr>
-                                                    <td><%=item.getFunctie()%></td>
-                                                    <td><%=item.getNaam()%></td>
-                                                </tr>
-                                          
-                                        <%}%>
-                                       
-                                            </table>
-                                            <input type="submit" name="btnWijzig" value="Wijzig"/>
-                                            <input type="submit" name="btnVerwijder" value="Verwijder"/>
-                                    </form>
-     <%}%>                               
+                                    
+                                           
+                                                                
+     <%if (request.getAttribute("Passagiers") != null) {%>
+     <% Map<Integer,Persoon> perslijst =(Map<Integer,Persoon>) request.getAttribute("Passagiers");%>
+     <%Set set = perslijst.entrySet();%>
+     <% Iterator iterator = set.iterator();%>
+     
+     
+     <table>
+         <%while (iterator.hasNext()) {%>
+         <%Map.Entry mentry = (Map.Entry) iterator.next();%>
+         <tr>    
+             <%Persoon p =(Persoon) mentry.getValue();%>
+             <td><%=p.getNaam()%></td>
+         </tr>
                  
+
+<%}%>
+     </table>
+      <input type="submit" name="btnWijzig" value="Wijzig"/>
+                                            <input type="submit" name="btnVerwijder" value="Verwijder"/>
+
+<%}%>
+                                    
                                     
                                     
                                     

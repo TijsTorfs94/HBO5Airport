@@ -1,9 +1,11 @@
 <%-- 
-    Document   : overzichtBemmanning
-    Created on : 23-mei-2017, 14:19:49
+    HBO5 Programeren 4
+    Document   : overzichtHangars
+    Created on : 4-jun-2017, 23:43:13
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Hangar"%>
 <%@page import="java.util.Iterator"%>
 
 <%@page import="java.util.Set"%>
@@ -72,12 +74,12 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=BemVlucht" method="Post">
+                                <form  action="AdminServlet?choice=Hangar" method="Post">
                                 <div class="form-group"> 
-                                    <label for="LstVluchten">kies een vlucht</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="LstVluchten" style="width: 50%; margin: 15px">
+                                    <label for="LstHangar">kies een vlucht</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="LstHangar" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstvluchten");%>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijsthangarnamen");%>
                                             <%for (String item : lijst) {%>
                                             <option value="<%=item%>" ><%=item%></option>
                                            <%}%>
@@ -88,30 +90,44 @@
    
 
                                     </form>
-                                      <%if (request.getAttribute("Bemanning") != null) {%>
-                                           <%ArrayList<Crew> crewlijst = (ArrayList<Crew>) request.getAttribute("Bemanning");%>
-                                    <form >
-                                        
-                                        <h3> overzicht van vlucht <%=crewlijst.get(1).getCode()%>
-                                        
-                                            <table title="Crew">
-                                                <caption>Crew</caption>
-                                                <th>functie</th>
-                                                <th>naam</th>
-                                        <%for (Crew item : crewlijst){%>
-                                                <tr>
-                                                    <td><%=item.getFunctie()%></td>
-                                                    <td><%=item.getNaam()%></td>
-                                                </tr>
-                                          
-                                        <%}%>
-                                       
-                                            </table>
-                                            <input type="submit" name="btnWijzig" value="Wijzig"/>
+                                    
+                                           
+                                                                
+     <%if (request.getAttribute("InhoudHangar") != null) {%>
+     <%Map<Integer,ArrayList<String>> inhoud = (Map<Integer,ArrayList<String>>) request.getAttribute("InhoudHangar");%>
+        <%Set set = inhoud.entrySet();%>
+     <% Iterator iterator = set.iterator();%>
+     <table>
+         <th>id</th>
+         <th>Type</th>
+         <th>Reden</th>
+         <th>van</th>
+         <th>tot</th>
+         <% while (iterator.hasNext()){%>
+         <tr>
+             
+             <%Map.Entry mentry = (Map.Entry) iterator.next();
+             Integer id =(Integer) mentry.getKey(); %>
+             <td><%=id%></td>
+             <%ArrayList<String> stringlijst = (ArrayList<String>) mentry.getValue();%>
+             <%for (String item : stringlijst) {%>
+             <td><%=item%></td>
+<%}%>
+<td>wijzig</td>
+<td> verwijder</td>
+         </tr>
+         <%}%>
+     </table>
+     
+     
+     
+     
+<%}%>
+
+      <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
-                                    </form>
-     <%}%>                               
-                 
+
+                                    
                                     
                                     
                                     

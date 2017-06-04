@@ -31,8 +31,8 @@
                                             <li class="active"><a href="overzichtvliegtuigen.jsp">vliegtuigen</a></li>
                                             <li class="active"><a href="overzichtPersonen.jsp">personen</a></li>
                                             <li class="active"><a href="AdminServlet?page=bemanning">bemanning en vluchtbemanning</a></li>
-                                            <li class="active"><a href="#">passagiers</a></li>
-                                            <li class="active"><a href="#">hangars en vliegtuigen in hangars</a></li>
+                                            <li class="active"><a href="AdminServlet?page=passagiers">passagiers</a></li>
+                                            <li class="active"><a href="AdminServlet?page=hangars">hangars en vliegtuigen in hangars</a></li>
                                         </ul>
                                         
             </nav>

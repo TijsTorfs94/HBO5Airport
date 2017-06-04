@@ -291,6 +291,8 @@ public ArrayList<Persoon> PersoonPerVlucht(int vluchtID){
             personen.add(P);
             
         }
+        statement.close();
+        connection.close();
     }
     catch (Exception e)
     {}
@@ -305,5 +307,16 @@ public ArrayList<String> get_names(){
         lijst.add(persoon.getNaam());
     }
     return lijst;
+}
+public Persoon Get_persoon_by_id(int id){
+    Persoon P = new Persoon();
+    ArrayList<Persoon> lijst = GetPersonen();
+    for (Persoon persoon : lijst) {
+        if (persoon.getId() == id) {
+            P = persoon;
+            
+        }
+    }
+    return P;
 }
 }

@@ -5,8 +5,11 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Crew;
+import hbo5.it.www.beans.Hangar;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Passagier;
+import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.dataaccess.DAHangar;
 import hbo5.it.www.dataaccess.DALeasemaatschappij;
@@ -171,6 +174,15 @@ public class AdminServlet extends HttpServlet {
            session.setAttribute("lijstvluchten", davlucht.Vlucht_ids());
                 url="overzichtBemanning.jsp";
             }
+            else if ("passagiers".equals(request.getParameter("page"))){
+                session.setAttribute("lijstvluchten", davlucht.Vlucht_ids());
+                url="overzichtPassagiers.jsp";
+            }
+            else if("hangars".equals(request.getParameter("page"))){
+                session.setAttribute("lijstHangars", dahangar.Get_Hangars());
+                session.setAttribute("lijsthangarnamen", dahangar.get_namen((ArrayList<Hangar>)session.getAttribute("lijstHangars")));
+                url = "overzichtHangars.jsp";
+            }
             else{
                   url="StartAdmin.jsp";
             }
@@ -191,24 +203,43 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         session = request.getSession();
-     
-        if ("vlucht".equals(request.getParameter("choice"))) {
-            session.setAttribute("VarVlucht", request.getParameter("LstVluchten"));
-            Integer id;
-            ArrayList<Passagier> pasLijst;
-            pasLijst = (ArrayList<Passagier>) session.getAttribute("lijstPassagiers");
-            id = vluchtID((String) session.getAttribute("VarVlucht"),(ArrayList<Vlucht>)session.getAttribute("lijstVluchten"));
-            if (pasLijst != null) {
-                  request.setAttribute("Passagiers", pervlucht(id,pasLijst));
+         session.setAttribute("VarVlucht", request.getParameter("LstVluchten"));
+     Integer id;
+        if ("BemVlucht".equals(request.getParameter("choice"))) {
+           
+            ArrayList<Crew> crewLijst;
+            crewLijst = davlucht.Crew_per_vlucht((String)session.getAttribute("VarVlucht"));
+            ArrayList<Persoon> persoonlijst;
+            persoonlijst = dapersoon.GetPersonen();
+            id = davlucht.vluchtID((String) session.getAttribute("VarVlucht"),(ArrayList<Vlucht>)session.getAttribute("lijstVluchten"));
+            if (crewLijst.size() > 0) {
+                request.setAttribute("Bemanning", crewLijst);
+            }
+            else{
+                request.setAttribute("Bemanning", null );
             }
             
-          
-            request.setAttribute("Bemanning", davlucht.Crew_per_vlucht((String)session.getAttribute("VarVlucht")));
             url = "overzichtBemanning.jsp";
         }
+        else if("PasVlucht".equals(request.getParameter("choice"))){
+                id = davlucht.vluchtID((String) session.getAttribute("VarVlucht"),(ArrayList<Vlucht>)session.getAttribute("lijstVluchten"));
+                ArrayList<Passagier> pasLijst;
+                pasLijst = (ArrayList<Passagier>) session.getAttribute("lijstPassagiers");
+                        if (pasLijst.size() > 0) {
+                          request.setAttribute("Passagiers",davlucht.pervlucht(id,pasLijst,dapersoon));
+                        }
+                        else{
+                            request.setAttribute("Passagiers", null);
+                        }
+                  url = "overzichtPassagiers.jsp";
+        }
+        else if ("Hangar".equals(request.getParameter("choice"))){
+            request.setAttribute("VarHangar", request.getParameter("LstHangar"));
+            request.setAttribute("Hangar", dahangar.get_byName((ArrayList<Hangar>) session.getAttribute("lijstHangars"),(String) request.getAttribute("VarHangar")));
+            request.setAttribute("InhoudHangar", davliegtuig.Get_by_Hangar((String) request.getAttribute("VarHangar")));
+            url="overzichtHangars.jsp";
+        }
         else{
-            
-              
         session.setAttribute("VarLuchthaven", request.getParameter("LstHaven"));
         request.setAttribute("Luchthaven", daLuchthaven.getLuchthaven((String)session.getAttribute("VarLuchthaven")));
         url = "overzichtLuchthavens.jsp";
@@ -229,23 +260,6 @@ public class AdminServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public ArrayList<Passagier> pervlucht(Integer code, ArrayList<Passagier> lijst){
-        ArrayList<Passagier> outlijst = new ArrayList<>();
-        for (Passagier item : lijst ) {
-            if (code.equals(item.getVlucht_id())) {
-                outlijst.add(item);
-            }
-        }
-        return outlijst;
-    }
-    public Integer vluchtID(String code, ArrayList<Vlucht> lijst){
-        Integer out= null;
-        for (Vlucht vlucht : lijst) {
-            if (code.equals(vlucht.getCode())) {
-                out = vlucht.getId();
-            }
-        }
-        return out;
-        
-    }
+
+
 }

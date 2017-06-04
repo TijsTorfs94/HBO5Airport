@@ -6,6 +6,8 @@
 package hbo5.it.www.dataaccess;
 
 import hbo5.it.www.beans.Crew;
+import hbo5.it.www.beans.Passagier;
+import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.Vlucht;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,9 +15,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.apache.jasper.tagplugins.jstl.ForEach;
 
@@ -138,8 +145,11 @@ public DAVlucht (String url, String login, String password, String driver)   thr
                 V.setAankomstluchthaven_id(set.getInt("aankomstluchthaven_id"));
            
                }
+               connection.close();
+               statement.close();
          } catch (Exception e) {
          }
+         
          return V;
      }
    
@@ -293,5 +303,28 @@ public DAVlucht (String url, String login, String password, String driver)   thr
          return Lijst;
          
      }
+ 
+ public Map<Integer,Persoon> pervlucht(Integer code, ArrayList<Passagier> lijst, DAPersoon persoon){
+        
+        Map<Integer,Persoon> mMap = new HashMap<>();
+        for (Passagier item : lijst ) {
+            if (item.getVlucht_id() == code) {
+                Persoon p = persoon.Get_persoon_by_id(item.getPersoon_id());
+                mMap.put(item.getId(), p );
+            }
+        }
+        return mMap;
+    }
+     public Integer vluchtID(String code, ArrayList<Vlucht> lijst){
+        Integer out= null;
+        for (Vlucht vlucht : lijst) {
+            if (code.equals(vlucht.getCode())) {
+                out = vlucht.getId();
+            }
+        }
+        return out;
+        
+    }
+ 
 }
 
