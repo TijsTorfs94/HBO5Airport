@@ -1,9 +1,12 @@
 <%-- 
-    Document   : overzichtPersonen
+    Document   : overzichtBemmanning
     Created on : 23-mei-2017, 14:19:49
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Passagier"%>
+<%@page import="hbo5.it.www.beans.Crew"%>
+<%@page import="hbo5.it.www.beans.Vlucht"%>
 <%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -65,52 +68,63 @@
  
   
                                 </div>
-                                <form  action="PersoonServlet" method="POST">
+                                <form  action="AdminServlet?choice=vlucht" method="Post">
                                 <div class="form-group"> 
-                                    <label for="LstPersonen">kies een persoon</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="LstPersonen" style="width: 50%; margin: 15px">
+                                    <label for="LstVluchten">kies een vlucht</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="LstVluchten" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstpersonen");%>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstvluchten");%>
                                             <%for (String item : lijst) {%>
                                             <option value="<%=item%>" ><%=item%></option>
                                            <%}%>
                                     </select>
                                            
                                 </div>           
-                                           <%if (request.getAttribute("Persoon") != null) {%>
+                                         
    
 
                                     </form>
-                                           <%Persoon P = (Persoon) request.getAttribute("Persoon");%>
+                                      <%if (request.getAttribute("Bemanning") != null) {%>
+                                           <%ArrayList<Crew> crewlijst = (ArrayList<Crew>) request.getAttribute("Bemanning");%>
                                     <form >
-                                        <div>
-                                            <label for="txtId">id</label>
-                                            <input name="txtId" type="text" readonly="true" value="<%=P.getId()%>"/>
-                                             <label for="txtVoornaam">Voornaam</label>
-                                            <input name="txtVoornaam" type="text" value="<%=P.getVoornaam()%>"/>
-                                            <label for="txtNaam">Naam</label>
-                                            <input name="txtNaam" type="text" value="<%=P.getFamilienaam()%>"/>
-                                            <label for="txtStraat">Straat</label>
-                                            <input name="txtStraat" type="text" value="<%=P.getStraat()%>"/>
-                                            <label for="txtHuisnr">huisnummer</label>
-                                            <input name="txtHuisnr" type="text" value="<%=P.getHuisnr()%>"/>
-                                             <label for="txtPostcode">postcode</label>
-                                            <input name="txtPostcode" type="text" readonly="true" value="<%=P.getPostcode()%>"/>
-                                             <label for="txtWoonplaats">woonplaats</label>
-                                            <input name="txtWoonplaats" type="text" readonly="true" value="<%=P.getWoonplaats()%>"/>
-                                             <label for="txtLand">land</label>
-                                            <input name="txtLand" type="text" readonly="true" value="<%=P.getLand()%>"/>
-                                            <label for="txtdatum">geboortedatum</label>
-                                            <input name="txtdatum" type="date" value="<%=P.getGeboortedatum()%>"/>
-                                             <label for="txtUser">Username</label>
-                                            <input name="txtUser" type="text" readonly="true" value="<%=P.getLogin()%>"/>
-                                             <label for="txtPas">Paswoord</label>
-                                             <input name="txtPas" type="password" readonly="true" value="<%=P.getId()%>"/>
+                                        
+                                        <h3> overzicht van vlucht <%=crewlijst.get(1).getCode()%>
+                                        
+                                            <table title="Crew">
+                                                <caption>Crew</caption>
+                                                <th>functie</th>
+                                                <th>naam</th>
+                                        <%for (Crew item : crewlijst){%>
+                                                <tr>
+                                                    <td><%=item.getFunctie()%></td>
+                                                    <td><%=item.getNaam()%></td>
+                                                </tr>
+                                          
+                                        <%}%>
+                                       
+                                            </table>
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
-                                        </div>
                                     </form>
      <%}%>                               
+     <%if (request.getAttribute("Passagiers") != null) {%>
+     <%ArrayList<Passagier> pasLijst = (ArrayList<Passagier>) request.getAttribute("Passagiers");%>
+     <table>
+         <th>id</th>
+         <th>ingeschreven</th>
+         <th>plaats</th>
+  
+     <%for (Passagier item : pasLijst) {%>
+     <tr>
+    <td><%=item.getId()%></td>
+    <td><%=item.getIngecheckt()%></td>
+    <td><%=item.getPlaats()%></td>
+     </tr>
+     
+<%}%>
+       </table>
+     
+<%}%>
                                     
                                     
                                     

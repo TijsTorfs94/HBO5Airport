@@ -5,6 +5,7 @@
  */
 package hbo5.it.www.dataaccess;
 
+import hbo5.it.www.beans.Crew;
 import hbo5.it.www.beans.Vlucht;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,6 +32,25 @@ public DAVlucht (String url, String login, String password, String driver)   thr
         if (connection != null) {
             connection.close();
         }  
+    }
+    
+    public ArrayList<String> Vlucht_ids(){
+        ArrayList<String> Lijst = new ArrayList<>();
+         PreparedStatement statement = null;
+        ResultSet set = null;
+        
+        try {
+            statement = connection.prepareStatement("select code from vlucht");
+            set = statement.executeQuery();
+            while (set.next()) {                
+                Lijst.add(set.getString(1));
+            }
+        } catch (Exception e) {
+        }
+        return Lijst;
+        
+        
+        
     }
     
     public ArrayList<Vlucht> InkomendeVluchten(int LuchthavenID){
@@ -103,7 +123,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
         ResultSet set = null;
         
          try {
-                statement = connection.prepareStatement("select * from vlucht where id = ?");
+                statement = connection.prepareStatement("select * from vlucht where code = ?");
                statement.setString(1,code);
                set = statement.executeQuery();
                
@@ -213,7 +233,65 @@ public DAVlucht (String url, String login, String password, String driver)   thr
          }
          return Lijst;
      }
-    
-
+    public ArrayList<Crew> Crew_per_vlucht(String code){
+         PreparedStatement statement = null;
+        ResultSet set = null;
+        
+        ArrayList<Crew> Lijst = new ArrayList<>();
+        try {
+            StringBuilder SQL = new StringBuilder();
+            SQL.append("select v.code, vb.taak, p.VOORNAAM, p.FAMILIENAAM, lv.NAAM from vlucht v ");
+            SQL.append("inner join vluchtbemanning vb on v.id = vb.VLUCHT_ID ");
+            SQL.append("inner join bemanningslid b  on vb.BEMANNINGSLID_ID = b.id ");
+            SQL.append("inner join persoon p on p.id = b.PERSOON_ID ");
+            SQL.append("inner join LUCHTVAARTMAATSCHAPPIJ lv on lv.ID = b.LUCHTVAARTMAATSCHAPPIJ_ID ");
+            SQL.append("where v.code = ?");
+            
+            
+            statement = connection.prepareStatement(SQL.toString());
+            statement.setString(1, code);
+            set = statement.executeQuery();
+            while (set.next()) {                
+                Crew C = new Crew();
+                C.setCode(set.getString(1));
+                C.setFunctie(set.getString(2));
+                C.setNaam(set.getString(3));
+                C.setFamilienaam(set.getString(4));
+                C.setMaatschappij(set.getString(5));
+                Lijst.add(C);
+            }
+        } catch (Exception e) {
+        }
+        return Lijst;
+    }
+ public ArrayList<Vlucht> Vluchten(){
+         
+        ArrayList<Vlucht> Lijst = new ArrayList<>();
+        Vlucht V = null;
+        PreparedStatement statement = null;
+        ResultSet set = null;
+         
+         try{
+             statement = connection.prepareStatement("Select * from vlucht");
+           
+             set = statement.executeQuery();
+              while(set.next()) {
+                V = new Vlucht();
+                V.setId(set.getInt("id"));
+                V.setCode(set.getString("code"));
+                V.setVertrektijd(set.getTimestamp("vertrektijd"));
+                V.setAankomsttijd(set.getTimestamp("AANKOMSTTIJD"));
+                V.setVliegtuig_id(set.getInt("vliegtuig_id"));
+                V.setVertrekluchthaven_id(set.getInt("vertrekLuchthaven_id"));
+                V.setAankomstluchthaven_id(set.getInt("aankomstluchthaven_id"));
+                Lijst.add(V);
+               }
+             
+         }catch (Exception e){
+             
+         }
+         return Lijst;
+         
+     }
 }
 

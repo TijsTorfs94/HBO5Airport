@@ -6,16 +6,20 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.beans.Passagier;
+import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.dataaccess.DAHangar;
 import hbo5.it.www.dataaccess.DALeasemaatschappij;
 import hbo5.it.www.dataaccess.DALuchthaven;
 import hbo5.it.www.dataaccess.DALuchtvaartmaatschappij;
+import hbo5.it.www.dataaccess.DAPassagier;
 import hbo5.it.www.dataaccess.DAPersoon;
 import hbo5.it.www.dataaccess.DAVliegtuig;
 import hbo5.it.www.dataaccess.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,7 +46,9 @@ public class AdminServlet extends HttpServlet {
         private DAPersoon dapersoon = null;
         private DAVliegtuig davliegtuig = null;
         private DAHangar dahangar = null;
-          private DALeasemaatschappij dalease = null;
+        private DALeasemaatschappij dalease = null;
+        private DAVlucht davlucht = null;
+        private DAPassagier dapassagier = null;
         
         
         
@@ -72,6 +78,12 @@ public class AdminServlet extends HttpServlet {
             if (dalease == null) {
                 dalease = new DALeasemaatschappij(url, login, password, driver);
             }
+            if (davlucht == null){
+                davlucht = new DAVlucht(url, login, password, driver);
+            }
+            if(dapassagier == null){
+                dapassagier = new DAPassagier(url, login, password, driver);
+            }
         }catch (ClassNotFoundException | SQLException e) {
             throw new ServletException(e);
         }
@@ -98,6 +110,12 @@ public class AdminServlet extends HttpServlet {
             if (dalease != null) {
                 dalease.close();
             }
+            if(davlucht != null){
+                davlucht.close();
+            }
+            if (dapassagier != null) {
+                dapassagier.close();
+            }
         } catch (SQLException e) {
         }}
     
@@ -120,27 +138,12 @@ public class AdminServlet extends HttpServlet {
               session.setAttribute("lijstpersonen", dapersoon.get_names());
               session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
               session.setAttribute("lijstLease",dalease.get_leaseNamen());
-            if (request.getParameter("btnWijzig")!= null) {
-                rd = request.getRequestDispatcher("LoginPage.jsp");
-                    rd.forward(request, response);
-            }
-            else if (request.getParameter("btnVerwijder") != null) {
-                rd = request.getRequestDispatcher("LoginPage.jsp");
-                    rd.forward(request, response);
-            }
-            else{
-                                  
-                    
-                    rd = request.getRequestDispatcher("StartAdmin.jsp");
-                    rd.forward(request, response);
-            }
+   
+             
             
-            
-
-
-                    
-                  
         }
+         rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -155,9 +158,27 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        session = request.getSession();
+         session.setAttribute("lijstPassagiers",dapassagier.getPassagiers());
+         session.setAttribute("lijstVluchten", davlucht.Vluchten());
+        if (request.getParameter("btnWijzig")!= null) {
+                url="LoginPage.jsp";
+            }
+            else if (request.getParameter("btnVerwijder") != null) {
+                url="LoginPage.jsp";
+            }
+            else if ("bemanning".equals(request.getParameter("page"))){
+           session.setAttribute("lijstvluchten", davlucht.Vlucht_ids());
+                url="overzichtBemanning.jsp";
+            }
+            else{
+                  url="StartAdmin.jsp";
+            }
+   rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
+       // request.getRequestDispatcher(url).forward(request, response);
     }
-
+   String url = null;
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -170,9 +191,32 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         session = request.getSession();
+     
+        if ("vlucht".equals(request.getParameter("choice"))) {
+            session.setAttribute("VarVlucht", request.getParameter("LstVluchten"));
+            Integer id;
+            ArrayList<Passagier> pasLijst;
+            pasLijst = (ArrayList<Passagier>) session.getAttribute("lijstPassagiers");
+            id = vluchtID((String) session.getAttribute("VarVlucht"),(ArrayList<Vlucht>)session.getAttribute("lijstVluchten"));
+            if (pasLijst != null) {
+                  request.setAttribute("Passagiers", pervlucht(id,pasLijst));
+            }
+            
+          
+            request.setAttribute("Bemanning", davlucht.Crew_per_vlucht((String)session.getAttribute("VarVlucht")));
+            url = "overzichtBemanning.jsp";
+        }
+        else{
+            
+              
         session.setAttribute("VarLuchthaven", request.getParameter("LstHaven"));
         request.setAttribute("Luchthaven", daLuchthaven.getLuchthaven((String)session.getAttribute("VarLuchthaven")));
-          request.getRequestDispatcher("overzichtLuchthavens.jsp").forward(request, response);
+        url = "overzichtLuchthavens.jsp";
+        }
+        
+        
+      
+          request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**
@@ -185,4 +229,23 @@ public class AdminServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public ArrayList<Passagier> pervlucht(Integer code, ArrayList<Passagier> lijst){
+        ArrayList<Passagier> outlijst = new ArrayList<>();
+        for (Passagier item : lijst ) {
+            if (code.equals(item.getVlucht_id())) {
+                outlijst.add(item);
+            }
+        }
+        return outlijst;
+    }
+    public Integer vluchtID(String code, ArrayList<Vlucht> lijst){
+        Integer out= null;
+        for (Vlucht vlucht : lijst) {
+            if (code.equals(vlucht.getCode())) {
+                out = vlucht.getId();
+            }
+        }
+        return out;
+        
+    }
 }

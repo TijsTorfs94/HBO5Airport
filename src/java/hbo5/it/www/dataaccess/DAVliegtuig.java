@@ -11,7 +11,9 @@ import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import hbo5.it.www.beans.Stockage;
 import hbo5.it.www.beans.Vliegtuig;
+import hbo5.it.www.beans.Vliegtuig_extend;
 import hbo5.it.www.beans.Vlucht;
+import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -69,4 +71,38 @@ public DAVliegtuig (String url, String login, String password, String driver)   
         return lijst;
     }
     
-   
+    public Vliegtuig_extend Getvliegtuiginfo(String id){
+            Vliegtuig_extend E = new Vliegtuig_extend();
+            Integer ID = parseInt(id);
+        try {
+            
+            StringBuilder builder = new StringBuilder();
+            builder.append("select t.naam, m.naam, v.LEASEMAATSCHAPPIJ_ID from vliegtuig v ");
+            builder.append("inner join vliegtuigtype t on v.VLIEGTUIGTYPE_ID = t.ID ");
+            builder.append("inner join LUCHTVAARTMAATSCHAPPIJ m on v.LUCHTVAARTMAATSCHAPPIJ_ID = m.id ");
+            builder.append("where v.id = ?");
+           
+            
+            
+            
+            
+            statement = connection.prepareStatement(builder.toString());
+            statement.setString(1, id);
+            set = statement.executeQuery();   
+            while (set.next()){
+                String test = set.getString(3);
+               E.setType_naam(set.getString(1));
+               E.setMaatschappij_naam(set.getString(2));
+                if (set.getString(3) != null) {
+                    E.setLeased(true);
+                }
+                else{
+                    E.setLeased(false);
+                }
+               
+            }
+        } catch (Exception e) {
+        }
+return E;
+    }
+}

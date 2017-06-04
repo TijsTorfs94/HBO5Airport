@@ -23,16 +23,15 @@ import javax.servlet.http.HttpSession;
  *
  * @author steve
  */
-@WebServlet(name = "VliegtuigServlet", urlPatterns = {"/VliegtuigServlet"})
-public class VliegtuigServlet extends HttpServlet {
-
-    @WebServlet(name = "PersoonServlet", urlPatterns = {"/PersoonServlet"},
+@WebServlet(name = "VliegtuigServlet", urlPatterns = {"/VliegtuigServlet"},
         initParams = {
     @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE"),
     @WebInitParam(name = "driver", value = "oracle.jdbc.driver.OracleDriver"),
     @WebInitParam(name = "login", value = "c1035462"),
     @WebInitParam(name = "password", value = "7086")})
-public class PersoonServlet extends HttpServlet {
+public class VliegtuigServlet extends HttpServlet {
+
+
 
      private DAVliegtuig davliegtuig = null;
     @Override
@@ -67,7 +66,6 @@ public class PersoonServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
              rd = request.getRequestDispatcher("overzichtvliegtuigen.jsp");
          rd.forward(request, response);
         }
@@ -84,7 +82,7 @@ public class PersoonServlet extends HttpServlet {
             throws ServletException, IOException {
         session = request.getSession();
         session.setAttribute("Varvliegtuig",request.getParameter("LstVliegtuigen"));
-        request.setAttribute("Vliegtuigen",davliegtuig.Getvliegtuiginfo());
+        request.setAttribute("Vliegtuig",davliegtuig.Getvliegtuiginfo((String)session.getAttribute("Varvliegtuig")));
         request.getRequestDispatcher("overzichtvliegtuigen.jsp").forward(request, response);
     
     }
@@ -97,6 +95,6 @@ public class PersoonServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
-    }}
+  }

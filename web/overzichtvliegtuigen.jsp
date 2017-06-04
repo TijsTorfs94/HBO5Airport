@@ -4,7 +4,8 @@
     Author     : steve
 --%>
 
-<%@page import="javafx.scene.input.KeyCode.O"%>
+
+<%@page import="hbo5.it.www.beans.Vliegtuig_extend"%>
 <%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -78,18 +79,28 @@
                                     </select>
                                            
                                 </div>           
-                                           <%if (request.getAttribute("Vliegtuigen") != null) {%>
+                                           <%if (request.getAttribute("Vliegtuig") != null) {%>
    
 
                                     </form>
-                                           <%Persoon P = (Persoon) request.getAttribute("Persoon");%>
+                                           <%Vliegtuig_extend V = (Vliegtuig_extend) request.getAttribute("Vliegtuig");%>
                                            
                                     <form >
                                         <div>
-                                            <label for="txtId">id</label>
-                                            <input name="txtId" type="text" readonly="true" value="<%=P.getId()%>"/>
-                                            <label for="txtNaam">Naam</label>
-                                            <input name="txtNaam" type="text" value="<%=P.getFamilienaam()%>"/>
+                                           
+                                            <label for="txtType">VliegtuigType</label>
+                                            <input name="txtType" type="text" value="<%=V.getType_naam()%>"/>
+                                            <label for="txtMaatschappij">Vliegtuig Maatschappij</label>
+                                            <input name="txtMaatschappij" type="text" value="<%=V.getMaatschappij_naam()%>"/>
+                                             <label for="chkLeased">Leased?</label>
+                                             <% if (V.isLeased()){%>
+                                             <input name="chkLeased" type="checkbox" checked/>
+                                             <input name="txtMaatschappij" type="text" value="<%=V.getMaatschappij_naam()%>"/>
+                                             <label for="chkLeased">Leased?</label>
+                                             
+                                             <%} else{%>
+                                              <input name="chkLeased" type="checkbox" />
+                                              <%}%>
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>
