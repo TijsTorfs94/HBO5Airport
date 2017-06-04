@@ -50,6 +50,7 @@ public class PersoonServlet extends HttpServlet {
         }
     }
 
+    
     @Override
     public void destroy() {
         try {
@@ -64,6 +65,7 @@ public class PersoonServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
              rd = request.getRequestDispatcher("overzichtvliegtuigen.jsp");
@@ -80,10 +82,10 @@ public class PersoonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                session = request.getSession();
-        session.setAttribute("Varvliegtuig",request.getParameter("LstPersonen"));
-        request.setAttribute("Vliegtuig",davliegtuig.getList_ids());
-        request.getRequestDispatcher("overzichtPersonen.jsp").forward(request, response);
+        session = request.getSession();
+        session.setAttribute("Varvliegtuig",request.getParameter("LstVliegtuigen"));
+        request.setAttribute("Vliegtuigen",davliegtuig.Getvliegtuiginfo());
+        request.getRequestDispatcher("overzichtvliegtuigen.jsp").forward(request, response);
     
     }
 

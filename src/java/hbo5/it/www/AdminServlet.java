@@ -95,6 +95,9 @@ public class AdminServlet extends HttpServlet {
             if (dahangar != null) {
                 dahangar.close();
             }
+            if (dalease != null) {
+                dalease.close();
+            }
         } catch (SQLException e) {
         }}
     
@@ -104,15 +107,7 @@ public class AdminServlet extends HttpServlet {
     
     
     
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -124,6 +119,7 @@ public class AdminServlet extends HttpServlet {
               session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
               session.setAttribute("lijstpersonen", dapersoon.get_names());
               session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
+              session.setAttribute("lijstLease",dalease.get_leaseNamen());
             if (request.getParameter("btnWijzig")!= null) {
                 rd = request.getRequestDispatcher("LoginPage.jsp");
                     rd.forward(request, response);

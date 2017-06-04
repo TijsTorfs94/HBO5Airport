@@ -57,7 +57,7 @@ public DALeasemaatschappij(String url, String login, String password, String dri
     }
     
     public ArrayList<String> get_leaseNamen(){
-        ArrayList<Leasemaatschappij> lijstLeasemaatschappij = new ArrayList<>();
+        ArrayList<Leasemaatschappij> lijstLeasemaatschappij = get_Leasemaatschappij();
         ArrayList<String> lijst = new ArrayList<>();
         for (Leasemaatschappij leasemaatschappij : lijstLeasemaatschappij) {
             lijst.add(leasemaatschappij.getNaam());

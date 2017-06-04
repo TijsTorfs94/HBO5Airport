@@ -68,10 +68,10 @@
                                 </div>
                                 <form  action="LeaseServlet" method="POST">
                                 <div class="form-group"> 
-                                    <label for="LstLeas">kies een persoon</label>
+                                    <label for="LstLease">kies een maatschappij</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstLease" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstlease");%>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstLease");%>
                                             <%for (String item : lijst) {%>
                                             <option value="<%=item%>" ><%=item%></option>
                                            <%}%>

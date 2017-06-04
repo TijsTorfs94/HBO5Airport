@@ -65,6 +65,7 @@ public class LeaseServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
    rd = request.getRequestDispatcher("overzichtLease.jsp");
          rd.forward(request, response);
@@ -100,7 +101,7 @@ public class LeaseServlet extends HttpServlet {
             throws ServletException, IOException {
         session = request.getSession();
         session.setAttribute("VarLease",request.getParameter("LstLease"));
-     //   request.setAttribute("Lease",dalease.get_leaseNamen((String) session.getAttribute("VarLease")) );
+   //    request.setAttribute("Lease",dalease.get_leaseNamen((String) session.getAttribute("VarLease")) );
         request.getRequestDispatcher("overzichtLease.jsp").forward(request, response);
     }
 

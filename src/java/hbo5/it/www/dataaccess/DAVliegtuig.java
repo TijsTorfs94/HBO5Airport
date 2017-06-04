@@ -5,7 +5,13 @@
  */
 package hbo5.it.www.dataaccess;
 
+import hbo5.it.www.beans.Hangar;
+import hbo5.it.www.beans.Leasemaatschappij;
+import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.beans.Luchtvaartmaatschappij;
+import hbo5.it.www.beans.Stockage;
 import hbo5.it.www.beans.Vliegtuig;
+import hbo5.it.www.beans.Vlucht;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -63,12 +69,4 @@ public DAVliegtuig (String url, String login, String password, String driver)   
         return lijst;
     }
     
-    
-    
-    
-    
-    
-    
-    
-     
-}
+   

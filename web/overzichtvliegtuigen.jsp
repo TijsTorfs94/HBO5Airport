@@ -4,6 +4,7 @@
     Author     : steve
 --%>
 
+<%@page import="javafx.scene.input.KeyCode.O"%>
 <%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -77,11 +78,12 @@
                                     </select>
                                            
                                 </div>           
-                                           <%if (request.getAttribute("Persoon") != null) {%>
+                                           <%if (request.getAttribute("Vliegtuigen") != null) {%>
    
 
                                     </form>
                                            <%Persoon P = (Persoon) request.getAttribute("Persoon");%>
+                                           
                                     <form >
                                         <div>
                                             <label for="txtId">id</label>
