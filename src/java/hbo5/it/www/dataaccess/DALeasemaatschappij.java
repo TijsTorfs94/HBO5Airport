@@ -51,6 +51,8 @@ public DALeasemaatschappij(String url, String login, String password, String dri
                 L.setNaam(set.getString("naam"));
                 lijst.add(L);
             }
+            statement.close();
+            set.close();
         } catch (Exception e) {
         }
  return lijst;
@@ -65,6 +67,75 @@ public DALeasemaatschappij(String url, String login, String password, String dri
         return lijst;
     }
     
+    public Leasemaatschappij get_maatschappij(String naam){
+        Leasemaatschappij L = new Leasemaatschappij();
+        ArrayList<Leasemaatschappij> lijst = get_Leasemaatschappij();
+        for (Leasemaatschappij leasemaatschappij : lijst) {
+            if (leasemaatschappij.getNaam().equals(naam)) {
+                L = leasemaatschappij;
+            }
+        }
+        return L;
+    }
+    public Integer getTopId( String Table){
+        Integer I = null;
+        StringBuilder builder = new StringBuilder();
+        builder.append("Select id from ");
+        builder.append(Table);
+        builder.append(" where rownum = 1 ");
+        builder.append("order by id desc ");
+        try {
+        statement = connection.prepareStatement(builder.toString());
+        set = statement.executeQuery();
+        if (set.next()) {
+            I = set.getInt(1) +1;
+        }
+              } catch (Exception e) {
+        }
+        return I;
+    }
+    
+          
+    public void Add_maatschappij(Integer id, String Naam){
+  StringBuilder builder = new StringBuilder();
+        builder.append("insert into leasemaatschappij ");
+        builder.append(" values (  ");
+        builder.append(id);
+        builder.append(" , '");
+        builder.append(Naam);
+        builder.append("')");
+        
+        try {
+               statement = connection.prepareStatement(builder.toString());
+            
+               statement.executeUpdate();
+               connection.commit();
+               
+        } catch (Exception e) {
+        }
+    }
+    public void Update_maatschappij(Integer id, String Naam){
+         StringBuilder builder = new StringBuilder();
+         builder.append("update leasemaatschappij ");
+         builder.append("set NAAM = '");
+         builder.append(Naam);
+         builder.append("' where id = ");
+         builder.append(id);
+         try {
+            statement = connection.prepareStatement(builder.toString());
+            statement.executeUpdate();
+            connection.commit();
+            statement.close();
+            connection.close();
+            
+             
+        } catch (Exception e) {
+        }
+         
+         
+         
+         
+    }
     
     
 

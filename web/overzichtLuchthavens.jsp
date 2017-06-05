@@ -65,7 +65,7 @@
  
   
                                 </div>
-                                <form  action="AdminServlet" method="POST">
+                                <form  action="AdminServlet?choice=haven" method="POST">
                                 <div class="form-group"> 
                                     <label for="LstHaven">kies een luchthaven</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstHaven" style="width: 50%; margin: 15px">

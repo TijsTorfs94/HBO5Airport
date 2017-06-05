@@ -1,11 +1,10 @@
 <%-- 
-    Document   : overzichtMaatschappijen
-    Created on : 23-mei-2017, 14:19:49
+    HBO5 Programeren 4
+    Document   : newitem
+    Created on : 5-jun-2017, 13:45:19
     Author     : steve
 --%>
 
-<%@page import="hbo5.it.www.beans.Luchtvaartmaatschappij"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -65,47 +64,22 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=maatschappij" method="POST">
-                                <div class="form-group"> 
-                                    <label for="LstMaatschappij">kies een maatschappij</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="LstMaatschappij" style="width: 50%; margin: 15px">
-                                        <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstmaatschappijen");%>
-                                            <%for (String item : lijst) {%>
-                                            <option value="<%=item%>" ><%=item%></option>
-                                           <%}%>
-                                    </select>
-                                           
-                                </div>           
-                                           <%if (request.getAttribute("Maatschappij") != null) {%>
-   
+                                <form action="AdminServlet?choice=submit" method="get" >
+                                    
+                                <table>
+                                    <th>id</th>
+                                    <th>naam</th>
+                                    <%if ("lease".equals(request.getParameter("kind"))) {%>
+                                    <tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=request.getAttribute("topId")%>"/> </td>
+                                            <td><input  type="text" name="txtnaam" id="Naam" /></td> 
+                                    </tr>
+                                    <%}%>
+                                    
+                                    <input type="submit" name="nieuw">
+                                </table>
+                                                                        </form>
 
-                                    </form>
-                                           <%Luchtvaartmaatschappij L = (Luchtvaartmaatschappij) request.getAttribute("Maatschappij");%>
-                                           <form action="AdminServlet" >
-                                        <div>
-                                            <label for="txtId">id</label>
-                                            <input name="txtId" type="text" readonly="true" value="<%=L.getId()%>"/>
-                                            <label for="txtNaam">Naam</label>
-                                            <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
-                                            <input type="submit" name="btnWijzig" value="Wijzig"/>
-                                            <input type="submit" name="btnVerwijder" value="Verwijder"/>
-                                        </div>
-                                    </form>
-     <%}%>                               
-                                    
-                                    
-                                    
-                                    
-         
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                </div>
-       
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            

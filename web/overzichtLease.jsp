@@ -66,7 +66,7 @@
  
   
                                 </div>
-                                <form  action="LeaseServlet" method="POST">
+                                <form  action="AdminServlet?choice=Leasemaatschappij" method="POST">
                                 <div class="form-group"> 
                                     <label for="LstLease">kies een maatschappij</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstLease" style="width: 50%; margin: 15px">
@@ -94,7 +94,32 @@
                                         </div>
                                     </form>
      <%}%>                               
-                                    
+     
+     
+     
+     <%if (request.getAttribute("VarLeasemaatschappij") != null){
+         Leasemaatschappij L = (Leasemaatschappij) request.getAttribute("VarLeasemaatschappij");
+         session.setAttribute("L",request.getAttribute("VarLeasemaatschappij") );
+     %>
+         
+         <table>
+             <tr>
+                 <td><input value="<%=L.getNaam()%>" name="txtnaam"></</td>
+                 <td><input value="<%=L.getId()%>" name="txtid"></td>
+                 
+             </tr>
+             <td><a href=AdminServlet?choice=add&kind=lease>Nieuwe leasemaatschappij</a></td>
+             <td><a href=AdminServlet?choice=update&kind=lease>Gegevens wijzigen</td>
+         </table>
+         
+         
+         
+         
+         
+         
+     <%}%>
+     
+                 
                                     
                                     
                                     

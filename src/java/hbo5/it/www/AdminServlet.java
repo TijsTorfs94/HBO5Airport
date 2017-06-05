@@ -136,13 +136,13 @@ public class AdminServlet extends HttpServlet {
         session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
 
-              session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
-              session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
-              session.setAttribute("lijstpersonen", dapersoon.get_names());
-              session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
-              session.setAttribute("lijstLease",dalease.get_leaseNamen());
+//              session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
+//              session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
+//              session.setAttribute("lijstpersonen", dapersoon.get_names());
+//              session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
+//              session.setAttribute("lijstLease",dalease.get_leaseNamen());
    
-             
+          
             
         }
          rd = request.getRequestDispatcher(url);
@@ -161,28 +161,64 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        session = request.getSession();
-         session.setAttribute("lijstPassagiers",dapassagier.getPassagiers());
-         session.setAttribute("lijstVluchten", davlucht.Vluchten());
+              session = request.getSession();
+              session.setAttribute("lijstPassagiers",dapassagier.getPassagiers());
+              session.setAttribute("lijstVluchten", davlucht.Vluchten());
+              session.setAttribute("lijstvluchten", davlucht.Vlucht_ids());
+              session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
+              session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
+              session.setAttribute("lijstpersonen", dapersoon.get_names());
+              session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
+              session.setAttribute("lijstLease",dalease.get_leaseNamen());
+   
         if (request.getParameter("btnWijzig")!= null) {
                 url="LoginPage.jsp";
             }
+
             else if (request.getParameter("btnVerwijder") != null) {
                 url="LoginPage.jsp";
             }
+            else if("luchthavens".equals( request.getParameter("page"))){
+                url= "overzichtLuchthavens.jsp";
+            }
             else if ("bemanning".equals(request.getParameter("page"))){
-           session.setAttribute("lijstvluchten", davlucht.Vlucht_ids());
                 url="overzichtBemanning.jsp";
             }
             else if ("passagiers".equals(request.getParameter("page"))){
-                session.setAttribute("lijstvluchten", davlucht.Vlucht_ids());
                 url="overzichtPassagiers.jsp";
             }
+             else if ("Leasemaatschappij".equals(request.getParameter("page"))){
+                url="overzichtLease.jsp";
+            }
+             else if ("maatschappij".equals(request.getParameter("page"))){
+                url="overzichtMaatschappijen.jsp";
+            }
+            
             else if("hangars".equals(request.getParameter("page"))){
                 session.setAttribute("lijstHangars", dahangar.Get_Hangars());
                 session.setAttribute("lijsthangarnamen", dahangar.get_namen((ArrayList<Hangar>)session.getAttribute("lijstHangars")));
                 url = "overzichtHangars.jsp";
             }
+             else  if ("add".equals(request.getParameter("choice"))){
+             if ("lease".equals(request.getParameter("kind"))) {
+                 request.setAttribute("topId", dalease.getTopId("Leasemaatschappij"));
+                url="newitem.jsp";
+            }
+         }
+             else if ("update".equals(request.getParameter("choice"))) {
+                  if ("lease".equals(request.getParameter("kind"))) {
+                  
+                url="wijzigitem.jsp";
+            }
+            
+        }
+             else if (request.getParameter("nieuw") != null) {
+            dalease.Add_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );
+        }
+             else if (request.getParameter("update") != null) {
+            dalease.Update_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );
+            url = "startAdmin.jsp";
+        }
             else{
                   url="StartAdmin.jsp";
             }
@@ -239,11 +275,23 @@ public class AdminServlet extends HttpServlet {
             request.setAttribute("InhoudHangar", davliegtuig.Get_by_Hangar((String) request.getAttribute("VarHangar")));
             url="overzichtHangars.jsp";
         }
-        else{
+        else if ("Haven".equals(request.getParameter("choice"))){
         session.setAttribute("VarLuchthaven", request.getParameter("LstHaven"));
         request.setAttribute("Luchthaven", daLuchthaven.getLuchthaven((String)session.getAttribute("VarLuchthaven")));
         url = "overzichtLuchthavens.jsp";
         }
+        else if ("maatschappij".equals(request.getParameter("choice"))){
+        session.setAttribute("Varmaatschappij",request.getParameter("LstMaatschappij"));
+        request.setAttribute("Maatschappij",damaatschappij.getMaatschappij((String) session.getAttribute("Varmaatschappij")) );
+        url="overzichtMaatschappijen.jsp";
+        }
+         else if ("Leasemaatschappij".equals(request.getParameter("choice"))){
+          session = request.getSession();
+       // session.setAttribute("VarLease",request.getParameter("LstLease"));
+        request.setAttribute("VarLeasemaatschappij", dalease.get_maatschappij(request.getParameter("LstLease")));
+        url="overzichtLease.jsp";
+        }
+  
         
         
       
