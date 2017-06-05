@@ -67,7 +67,7 @@
  
   
                                 </div>
-                                <form  action="VliegtuigServlet" method="POST">
+                                <form  action="AdminServlet?choice=Vliegtuig" method="POST">
                                 <div class="form-group"> 
                                     <label for="LstVliegtuigen">kies een vliegtuig</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstVliegtuigen" style="width: 50%; margin: 15px">
@@ -94,8 +94,8 @@
                                             <input name="txtMaatschappij" type="text" value="<%=V.getMaatschappij_naam()%>"/>
                                              <label for="chkLeased">Leased?</label>
                                              <% if (V.isLeased()){%>
-                                             <input name="chkLeased" type="checkbox" checked/>
-                                             <input name="txtMaatschappij" type="text" value="<%=V.getMaatschappij_naam()%>"/>
+                                             <input name="chkLeased" type="checkbox" checked/>                  
+                                             <input name="txtMaatschappij" type="text" value="<%=V.getLease_maatschappij_naam()%>"/>
                                              <label for="chkLeased">Leased?</label>
                                              
                                              <%} else{%>

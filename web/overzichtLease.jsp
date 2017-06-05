@@ -110,6 +110,7 @@
              </tr>
              <td><a href=AdminServlet?choice=add&kind=lease>Nieuwe leasemaatschappij</a></td>
              <td><a href=AdminServlet?choice=update&kind=lease>Gegevens wijzigen</td>
+             <td><a href=AdminServlet?choice=delete&kind=lease>wissen</td>
          </table>
          
          

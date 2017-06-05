@@ -81,28 +81,26 @@ public DAVliegtuig (String url, String login, String password, String driver)   
         try {
             
             StringBuilder builder = new StringBuilder();
-            builder.append("select t.naam, m.naam, v.LEASEMAATSCHAPPIJ_ID from vliegtuig v ");
+            builder.append("select t.naam, m.naam, v.LEASEMAATSCHAPPIJ_ID, l.naam from vliegtuig v ");
             builder.append("inner join vliegtuigtype t on v.VLIEGTUIGTYPE_ID = t.ID ");
             builder.append("inner join LUCHTVAARTMAATSCHAPPIJ m on v.LUCHTVAARTMAATSCHAPPIJ_ID = m.id ");
+            builder.append("inner join  LEASEMAATSCHAPPIJ l on l.id = v.LEASEMAATSCHAPPIJ_ID ");
             builder.append("where v.id = ?");
-           
-            
-            
-            
-            
             statement = connection.prepareStatement(builder.toString());
             statement.setString(1, id);
             set = statement.executeQuery();   
             while (set.next()){
-                String test = set.getString(3);
+
                E.setType_naam(set.getString(1));
                E.setMaatschappij_naam(set.getString(2));
                 if (set.getString(3) != null) {
                     E.setLeased(true);
+                    E.setLease_maatschappij_naam(set.getString(4));
                 }
                 else{
                     E.setLeased(false);
                 }
+             
                
             }
         } catch (Exception e) {

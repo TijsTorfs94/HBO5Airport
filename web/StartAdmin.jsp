@@ -28,7 +28,7 @@
                                             <li class="active"><a href="AdminServlet?page=luchthavens" id="Luchthavens">luchthavens</a></li>
                                             <li class="active"><a href="AdminServlet?page=maatschappij" id="Maatschappijen">luchtvaartmaatschappijen</a></li>
                                             <li class="active"><a href="AdminServlet?page=Leasemaatschappij">eigenaarsgegevens (leasemaatschappij)</a></li>
-                                            <li class="active"><a href="overzichtvliegtuigen.jsp">vliegtuigen</a></li>
+                                            <li class="active"><a href="AdminServlet?page=vliegtuig">vliegtuigen</a></li>
                                             <li class="active"><a href="overzichtPersonen.jsp">personen</a></li>
                                             <li class="active"><a href="AdminServlet?page=bemanning">bemanning en vluchtbemanning</a></li>
                                             <li class="active"><a href="AdminServlet?page=passagiers">passagiers</a></li>

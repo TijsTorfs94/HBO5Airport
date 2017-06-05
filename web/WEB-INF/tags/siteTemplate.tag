@@ -54,6 +54,9 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
+                       
+
+
 				<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
 			</div> <!-- /.navbar-header -->
 

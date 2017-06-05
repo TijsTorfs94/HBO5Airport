@@ -94,6 +94,22 @@ public DALeasemaatschappij(String url, String login, String password, String dri
         }
         return I;
     }
+    public void DeleteItem(String Table, Integer id){
+        StringBuilder builder = new StringBuilder();
+        builder.append("delete from ");
+        builder.append(Table);
+        builder.append(" where id = ");
+        builder.append(id);
+        try{
+            statement = connection.prepareStatement(builder.toString());
+            statement.executeUpdate();
+            connection.commit();
+        }
+        catch(Exception e){
+            
+        }
+                
+    }
     
           
     public void Add_maatschappij(Integer id, String Naam){

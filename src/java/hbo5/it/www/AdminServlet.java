@@ -193,6 +193,9 @@ public class AdminServlet extends HttpServlet {
              else if ("maatschappij".equals(request.getParameter("page"))){
                 url="overzichtMaatschappijen.jsp";
             }
+              else if ("vliegtuig".equals(request.getParameter("page"))){
+                url="overzichtvliegtuigen.jsp";
+            }
             
             else if("hangars".equals(request.getParameter("page"))){
                 session.setAttribute("lijstHangars", dahangar.Get_Hangars());
@@ -207,18 +210,27 @@ public class AdminServlet extends HttpServlet {
          }
              else if ("update".equals(request.getParameter("choice"))) {
                   if ("lease".equals(request.getParameter("kind"))) {
-                  
                 url="wijzigitem.jsp";
             }
-            
+        }
+              else if ("delete".equals(request.getParameter("choice"))) {
+                  if ("lease".equals(request.getParameter("kind"))) {
+                url="deleteitem.jsp";
+            }
         }
              else if (request.getParameter("nieuw") != null) {
             dalease.Add_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );
+            url = "StartAdmin.jsp";
         }
              else if (request.getParameter("update") != null) {
             dalease.Update_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );
-            url = "startAdmin.jsp";
+            url = "StartAdmin.jsp";
         }
+             else if(request.getParameter("delete") != null){
+                 dalease.DeleteItem("Leasemaatschappij",Integer.parseInt( request.getParameter("txtid")) );
+                  url = "StartAdmin.jsp";
+             }
+             
             else{
                   url="StartAdmin.jsp";
             }
@@ -290,6 +302,12 @@ public class AdminServlet extends HttpServlet {
        // session.setAttribute("VarLease",request.getParameter("LstLease"));
         request.setAttribute("VarLeasemaatschappij", dalease.get_maatschappij(request.getParameter("LstLease")));
         url="overzichtLease.jsp";
+        }
+         else if ("Vliegtuig".equals(request.getParameter("choice"))){
+          session = request.getSession();
+          session.setAttribute("Varvliegtuig",request.getParameter("LstVliegtuigen"));
+          request.setAttribute("Vliegtuig",davliegtuig.Getvliegtuiginfo((String)session.getAttribute("Varvliegtuig")));
+          url="overzichtvliegtuigen.jsp";
         }
   
         
