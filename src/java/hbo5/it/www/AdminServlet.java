@@ -196,12 +196,16 @@ public class AdminServlet extends HttpServlet {
               else if ("vliegtuig".equals(request.getParameter("page"))){
                 url="overzichtvliegtuigen.jsp";
             }
+             else if ("persoon".equals(request.getParameter("page"))){
+                url="overzichtPersonen.jsp";
+            }
             
             else if("hangars".equals(request.getParameter("page"))){
                 session.setAttribute("lijstHangars", dahangar.Get_Hangars());
                 session.setAttribute("lijsthangarnamen", dahangar.get_namen((ArrayList<Hangar>)session.getAttribute("lijstHangars")));
                 url = "overzichtHangars.jsp";
             }
+            
              else  if ("add".equals(request.getParameter("choice"))){
              if ("lease".equals(request.getParameter("kind"))) {
                  request.setAttribute("topId", dalease.getTopId("Leasemaatschappij"));
@@ -308,6 +312,11 @@ public class AdminServlet extends HttpServlet {
           session.setAttribute("Varvliegtuig",request.getParameter("LstVliegtuigen"));
           request.setAttribute("Vliegtuig",davliegtuig.Getvliegtuiginfo((String)session.getAttribute("Varvliegtuig")));
           url="overzichtvliegtuigen.jsp";
+        }
+        else if ("Persoon".equals(request.getParameter("choice"))){
+        session.setAttribute("Varpersoon",request.getParameter("LstPersonen"));
+        request.setAttribute("Persoon",dapersoon.GetPersoonByname((String) session.getAttribute("Varpersoon")) );
+        url="overzichtPersonen.jsp";
         }
   
         
