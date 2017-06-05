@@ -208,9 +208,14 @@ public class AdminServlet extends HttpServlet {
             
              else  if ("add".equals(request.getParameter("choice"))){
              if ("lease".equals(request.getParameter("kind"))) {
-                 request.setAttribute("topId", dalease.getTopId("Leasemaatschappij"));
-                url="newitem.jsp";
+                 request.setAttribute("topId", dalease.getTopId("Leasemaatschappij"));   
+                 request.setAttribute("kind", "lease");
             }
+             else if ("haven".equals(request.getParameter("kind"))) {
+                request.setAttribute("topId", dalease.getTopId("Luchthaven"));
+               
+            }
+             url="newitem.jsp";
          }
              else if ("update".equals(request.getParameter("choice"))) {
                   if ("lease".equals(request.getParameter("kind"))) {

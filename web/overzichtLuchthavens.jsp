@@ -45,7 +45,16 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-	<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+	  <%session = request.getSession();
+                            String url= "";
+                                if ("Admin".equals(session.getAttribute("paswoord"))) {
+                                   url = "StartAdmin.jsp";}
+                                else if("Director".equals(session.getAttribute("paswoord"))){
+                                   url = "StartDirector.jsp";}
+                                else{
+                                    url = "index.jsp";}%>
+
+                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
                         </div> 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
@@ -65,7 +74,7 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=haven" method="POST">
+                                <form  action="AdminServlet?choice=Haven" method="POST">
                                 <div class="form-group"> 
                                     <label for="LstHaven">kies een luchthaven</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstHaven" style="width: 50%; margin: 15px">
@@ -81,8 +90,12 @@
    
 
                                     </form>
-                                           <%Luchthaven L = (Luchthaven) request.getAttribute("Luchthaven");%>
-                                    <form >
+                                          
+                                           <form action="AdminServlet" method="get" >
+                                         <%Luchthaven L = (Luchthaven) request.getAttribute("Luchthaven");%>
+                                         <%session = request.getSession();
+                                         session.setAttribute("ChosenHaven", L);%>
+                                         
                                         <div>
                                             <label for="txtId">id</label>
                                             <input name="txtId" type="text" readonly="true" value="<%=L.getId()%>"/>
@@ -94,6 +107,10 @@
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>
+                                            <td><a href=AdminServlet?choice=add&kind=haven>Nieuwe Luchthaven</a></td>
+                                            <td><a href=AdminServlet?choice=update&kind=haven>Gegevens wijzigen</td>
+                                            <td><a href=AdminServlet?choice=delete&kind=haven>wissen</td>
+                                            
                                     </form>
      <%}%>                               
                                     

@@ -5,6 +5,7 @@
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -75,11 +76,27 @@
                                             <td><input  type="text" name="txtnaam" id="Naam" /></td> 
                                     </tr>
                                     <%}%>
+                                 
+   
+
+                                    <% if ("haven".equals(request.getParameter("kind"))){
+                                           if (session.getAttribute("ChosenHaven") != null) {
+                                            Luchthaven H = (Luchthaven) session.getAttribute("ChosenHaven");%>
+                                            
+                                            <th>stad</th>
+                                            <tr>
+                                                <td><input type="text" name="txtid" readonly="true" value="<%=request.getAttribute("topId")%>"/> </td>
+                                                <td><input  type="text" name="txtnaam" value="<%=H.getNaam()%>" /></td>
+                                                <td><input type="text" name="txtstad" value="<%=H.getStad()%>"/></td>
+                                            </tr>
+                                       <%}%>     
+                                            
                                     
                                     <input type="submit" name="nieuw">
                                 </table>
                                                                         </form>
 
+<%}%>
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            
