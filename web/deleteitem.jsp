@@ -5,6 +5,7 @@
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page import="java.lang.String"%>
 <%@page import="hbo5.it.www.beans.Leasemaatschappij"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -69,24 +70,40 @@
                                 <form action="AdminServlet?choice=submit" method="get" >
                                     <% session = request.getSession();
                                         if (session.getAttribute("L") != null) {
-                                        Leasemaatschappij L =(Leasemaatschappij) session.getAttribute("L");%>
+                                        Leasemaatschappij L =(Leasemaatschappij) session.getAttribute("L");
+                                        session.setAttribute("delItem", "Lease"); %>
 
                                         <h3> bent u zeker dat u <%=L.getNaam()%> wilt wissen?
-                                <table>
-                                    <th>id</th>
-                                    <th>naam</th>
-                                    <%if ("lease".equals(request.getParameter("kind"))) {%>
-                                    <tr>
+                                             <table>
+                                                <th>id</th>
+                                                <th>naam</th>
+                                     <tr>
                                             <td><input type="text" name="txtid" readonly="true" value="<%=L.getId()%>"/> </td>
                                             <td><input  type="text" name="txtnaam" id="Naam" value="<%=L.getNaam()%>" /></td> 
                                     </tr>
-                                    <%}%>
+                                            <%}%>
+                                            <%  if (session.getAttribute("ChosenHaven") != null) {
+                                                Luchthaven LH = (Luchthaven) session.getAttribute("ChosenHaven");
+                                            session.setAttribute("delItem", "Haven"); %>
+                                            <h3> bent u zeker dat u <%=LH.getNaam()%> wilt wissen?
+                                             <table>
+                                                <th>id</th>
+                                                <th>naam</th>
+                                     <tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=LH.getId()%>"/> </td>
+                                            <td><input  type="text" name="txtnaam" id="Naam" value="<%=LH.getNaam()%>" /></td> 
+                                    </tr>
+                                                
+<%}%>
+                               
+                                  
+   
                                     
                                     <input type="submit" name="delete">
                                     <input type="submit" name="home">
                                 </table>
                                                                         </form>
-<%}%>
+
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            

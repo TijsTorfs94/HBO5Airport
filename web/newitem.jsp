@@ -71,6 +71,7 @@
                                     <th>id</th>
                                     <th>naam</th>
                                     <%if ("lease".equals(request.getParameter("kind"))) {%>
+                                    <%session.setAttribute("newItem", "Lease");%>
                                     <tr>
                                             <td><input type="text" name="txtid" readonly="true" value="<%=request.getAttribute("topId")%>"/> </td>
                                             <td><input  type="text" name="txtnaam" id="Naam" /></td> 
@@ -81,13 +82,15 @@
 
                                     <% if ("haven".equals(request.getParameter("kind"))){
                                            if (session.getAttribute("ChosenHaven") != null) {
-                                            Luchthaven H = (Luchthaven) session.getAttribute("ChosenHaven");%>
+                                            Luchthaven H = (Luchthaven) session.getAttribute("ChosenHaven");
+                                        session.setAttribute("newItem", "Haven");
+                                    %>
                                             
                                             <th>stad</th>
                                             <tr>
                                                 <td><input type="text" name="txtid" readonly="true" value="<%=request.getAttribute("topId")%>"/> </td>
-                                                <td><input  type="text" name="txtnaam" value="<%=H.getNaam()%>" /></td>
-                                                <td><input type="text" name="txtstad" value="<%=H.getStad()%>"/></td>
+                                                <td><input  type="text" name="txtnaam" value="" /></td>
+                                                <td><input type="text" name="txtstad" value=""/></td>
                                             </tr>
                                        <%}%>     
                                             

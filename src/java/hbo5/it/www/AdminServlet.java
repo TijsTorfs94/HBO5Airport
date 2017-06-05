@@ -213,7 +213,6 @@ public class AdminServlet extends HttpServlet {
             }
              else if ("haven".equals(request.getParameter("kind"))) {
                 request.setAttribute("topId", dalease.getTopId("Luchthaven"));
-               
             }
              url="newitem.jsp";
          }
@@ -221,22 +220,44 @@ public class AdminServlet extends HttpServlet {
                   if ("lease".equals(request.getParameter("kind"))) {
                 url="wijzigitem.jsp";
             }
+                  if ("haven".equals(request.getParameter("kind"))) {
+                url="wijzigitem.jsp";
+            }
         }
               else if ("delete".equals(request.getParameter("choice"))) {
                   if ("lease".equals(request.getParameter("kind"))) {
+                      session.setAttribute("ChosenHaven", null);
                 url="deleteitem.jsp";
             }
+                  if ("haven".equals(request.getParameter("kind"))) {
+                      session.setAttribute("L", null);
+                 url="deleteitem.jsp";
+            } 
         }
              else if (request.getParameter("nieuw") != null) {
+                   if ("Lease".equals(session.getAttribute("newItem"))) {
             dalease.Add_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );
-            url = "StartAdmin.jsp";
+                   }
+                   else   if ("Haven".equals(session.getAttribute("newItem"))) {
+                       daLuchthaven.Add_luchthaven(Integer.parseInt(request.getParameter("txtid")), request.getParameter("txtnaam"), request.getParameter("txtstad"));
+                        session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
+                       url="overzichtLuchthavens.jsp";
+                   }
+       //     url = "StartAdmin.jsp";
         }
              else if (request.getParameter("update") != null) {
             dalease.Update_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );
             url = "StartAdmin.jsp";
         }
              else if(request.getParameter("delete") != null){
-                 dalease.DeleteItem("Leasemaatschappij",Integer.parseInt( request.getParameter("txtid")) );
+                 String obj="";
+                  if ("Lease".equals(session.getAttribute("delItem"))) {
+                      obj = "Leasemaatschappij";
+                  }
+                  else   if ("Haven".equals(session.getAttribute("delItem"))) {
+                      obj = "luchthaven";
+                  }
+                  dalease.DeleteItem(obj,Integer.parseInt( request.getParameter("txtid")) );
                   url = "StartAdmin.jsp";
              }
              
