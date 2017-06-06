@@ -47,8 +47,16 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-	<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
-                        </div> 
+  <%session = request.getSession();
+                            String url= "";
+                                if ("Admin".equals(session.getAttribute("paswoord"))) {
+                                   url = "StartAdmin.jsp";}
+                                else if("Director".equals(session.getAttribute("paswoord"))){
+                                   url = "StartDirector.jsp";}
+                                else{
+                                    url = "index.jsp";}%>
+
+                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>                        </div> 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown">
@@ -79,10 +87,13 @@
                                     <tr>
                                             <td><input type="text" name="txtid" readonly="true" value="<%=L.getId()%>"/> </td>
                                             <td><input  type="text" name="txtnaam" id="Naam" value="<%=L.getNaam()%>" /></td> 
+                                            
                                     </tr>
                                     <%}%>
-                                    <% if ("Haven".equals(request.getParameter("kind"))) {
-                                        Luchthaven LH = (Luchthaven) session.getAttribute("ChosenHaven");%>
+                                    <%}%>
+                                    <% if(session.getAttribute("ChosenHaven") != null) {
+                                        Luchthaven LH = (Luchthaven) session.getAttribute("ChosenHaven");
+                                        session.setAttribute("newItem", "haven"); %>
 <table>
                                     <th>id</th>
                                     <th>naam</th>
@@ -90,13 +101,14 @@
                                     <tr>
                                             <td><input type="text" name="txtid" readonly="true" value="<%=LH.getId()%>"/> </td>
                                             <td><input  type="text" name="txtnaam" id="Naam" value="<%=LH.getNaam()%>" /></td> 
+                                            <td><input  type="text" name="txtstad" id="Naam" value="<%=LH.getStad()%>" /></td> 
                                     </tr>
 <%}%>
                                     
                                     <input type="submit" name="update">
                                 </table>
                                                                         </form>
-<%}%>
+
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            

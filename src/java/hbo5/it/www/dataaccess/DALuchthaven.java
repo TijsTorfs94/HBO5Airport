@@ -87,14 +87,14 @@ public DALuchthaven (String url, String login, String password, String driver)  
         return  lijstLuchthavens;
     }
         
-       public Luchthaven getLuchthaven(String naam ){
+       public Luchthaven getLuchthaven(String id ){
         PreparedStatement statement1 = null;
         ResultSet set1 = null;
         Luchthaven L = new Luchthaven();
         try {
             
-             statement1 = connection.prepareStatement("Select * from luchthaven where naam = ?");
-             statement1.setString(1,naam); 
+             statement1 = connection.prepareStatement("Select * from luchthaven where id = ?");
+             statement1.setString(1,id); 
              set1 = statement1.executeQuery();
              if (set1.next()) {
                  
@@ -130,15 +130,17 @@ public DALuchthaven (String url, String login, String password, String driver)  
         public void Update_Luchthaven(Integer id, String naam, String stad){
             StringBuilder builder = new StringBuilder();
             builder.append("update luchthaven ");
-            builder.append("set naam = '?' , stad = '?' ");
-            builder.append("where id = ?");
+            builder.append("set naam = '");
+            builder.append(naam);
+            builder.append("' , stad = '");
+            builder.append(stad);
+            builder.append("' ");
+            builder.append("where id = ");
+            builder.append(id);
             
             try {
                 statement = connection.prepareStatement(builder.toString());
-                statement.setInt(3, id);
-                statement.setString(1, naam);
-                statement.setString(2, stad);
-                
+                                
                 statement.executeUpdate();
                 connection.commit();
             } catch (Exception e) {

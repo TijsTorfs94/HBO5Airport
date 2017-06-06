@@ -80,9 +80,7 @@
                                  
    
 
-                                    <% if ("haven".equals(request.getParameter("kind"))){
-                                           if (session.getAttribute("ChosenHaven") != null) {
-                                            Luchthaven H = (Luchthaven) session.getAttribute("ChosenHaven");
+                                    <% if ("haven".equals(request.getParameter("kind"))){ 
                                         session.setAttribute("newItem", "Haven");
                                     %>
                                             
@@ -95,11 +93,12 @@
                                        <%}%>     
                                             
                                     
-                                    <input type="submit" name="nieuw">
+                                   
                                 </table>
+                                        <input type="submit" name="nieuw">
                                                                         </form>
 
-<%}%>
+
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            

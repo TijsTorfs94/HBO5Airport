@@ -204,6 +204,7 @@ public class AdminServlet extends HttpServlet {
             }
              else if ("haven".equals(request.getParameter("kind"))) {
                 request.setAttribute("topId", dalease.getTopId("Luchthaven"));
+                request.setAttribute("kind", "haven");
             }
              url="newitem.jsp";
          }
@@ -234,7 +235,7 @@ public class AdminServlet extends HttpServlet {
                    }
                    else   if ("Haven".equals(session.getAttribute("newItem"))) {
                        daLuchthaven.Add_luchthaven(Integer.parseInt(request.getParameter("txtid")), request.getParameter("txtnaam"), request.getParameter("txtstad"));
-                        session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
+                        session.setAttribute("lijsthavens",  daLuchthaven.getLuchthavens());
                        url="overzichtLuchthavens.jsp";
                    }
        //     url = "StartAdmin.jsp";
@@ -242,8 +243,8 @@ public class AdminServlet extends HttpServlet {
              else if (request.getParameter("update") != null) {
                    if ("Lease".equals(session.getAttribute("newItem"))) {
             dalease.Update_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );}
-                    else   if ("Haven".equals(session.getAttribute("newItem"))) {
-                        daLuchthaven.Update_Luchthaven(Integer.parseInt(url), url, url);
+                    else   if ("haven".equals(session.getAttribute("newItem"))) {
+                        daLuchthaven.Update_Luchthaven(Integer.parseInt(request.getParameter("txtid")), request.getParameter("txtnaam"),request.getParameter("txtstad"));
                     }
             url = "StartAdmin.jsp";
         }
