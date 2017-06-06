@@ -101,11 +101,13 @@
                                              <%} else{%>
                                               <input name="chkLeased" type="checkbox" />
                                               <%}%>
-                                            <input type="submit" name="btnWijzig" value="Wijzig"/>
-                                            <input type="submit" name="btnVerwijder" value="Verwijder"/>
+                                             <%}%>    
+                                             <td><a href=AdminServlet?choice=add&kind=vliegtuig>Nieuw vliegtuig</a></td>
+                                            <td><a href=AdminServlet?choice=update&kind=vliegtuig>Gegevens wijzigen</td>
+                                            <td><a href=AdminServlet?choice=delete&kind=vliegtuig>wissen</td>
                                         </div>
                                     </form>
-     <%}%>                               
+                              
                                     
                                     
                                     

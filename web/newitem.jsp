@@ -5,6 +5,8 @@
     Author     : steve
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="hbo5.it.www.beans.Leasemaatschappij"%>
 <%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -99,7 +101,29 @@
                                             <td><input  type="text" name="txtnaam" id="Naam" /></td> 
                                     </tr>
 <%}%>
-                                   
+<%if ("vliegtuig".equals(request.getParameter("kind"))) {
+    session.setAttribute("newItem", "vliegtuig");%>
+                                     <tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=request.getAttribute("topId")%>"/> </td>
+                                            <td><input  type="text" name="txtnaam" id="Naam" /></td> 
+                                            <td>
+                                                <select>
+                                                    <% ArrayList<Leasemaatschappij> lijst = (ArrayList<Leasemaatschappij>) session.getAttribute("maatschappijen");
+                                                    for (Leasemaatschappij item : lijst) {%>
+                                                    <option> <%=item.getNaam()%> </option>
+
+<%}%>
+                                                </select>
+                                            </td>
+                                    </tr>
+<%}%>
+
+
+
+
+
+
+
                                 </table>
                                         <input type="submit" name="nieuw">
                                                                         </form>

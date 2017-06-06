@@ -210,6 +210,11 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("topId", dalease.getTopId("Luchtvaartmaatschappij"));
                 request.setAttribute("kind", "maatschappij");
             }
+             else if ("vliegtuig".equals(request.getParameter("kind"))) {
+                 session.setAttribute("maatschappijen", dalease.get_Leasemaatschappij());
+                request.setAttribute("topId", dalease.getTopId("vliegtuig"));
+                request.setAttribute("kind", "vliegtuig");
+            }
              
              
              

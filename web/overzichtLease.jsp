@@ -115,7 +115,7 @@
              <tr>
                  <td><input value="<%=L.getNaam()%>" name="txtnaam"></</td>
                  <td><input value="<%=L.getId()%>" name="txtid"></td>
-                 
+                     <%}%>
              </tr>
              <td><a href=AdminServlet?choice=add&kind=lease>Nieuwe leasemaatschappij</a></td>
              <td><a href=AdminServlet?choice=update&kind=lease>Gegevens wijzigen</td>
@@ -127,7 +127,7 @@
          
          
          
-     <%}%>
+ 
      
                  
                                     
