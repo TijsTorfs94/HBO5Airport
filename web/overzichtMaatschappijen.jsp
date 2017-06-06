@@ -70,9 +70,9 @@
                                     <label for="LstMaatschappij">kies een maatschappij</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstMaatschappij" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstmaatschappijen");%>
-                                            <%for (String item : lijst) {%>
-                                            <option value="<%=item%>" ><%=item%></option>
+                                         <%ArrayList<Luchtvaartmaatschappij> lijst =(ArrayList<Luchtvaartmaatschappij>) session.getAttribute("lijstmaatschappijen");%>
+                                            <%for (Luchtvaartmaatschappij item : lijst) {%>
+                                            <option value="<%=item.getNaam()%>" ><%=item.getNaam()%></option>
                                            <%}%>
                                     </select>
                                            

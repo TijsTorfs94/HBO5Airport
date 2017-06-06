@@ -81,25 +81,39 @@ public DAVliegtuig (String url, String login, String password, String driver)   
         try {
             
             StringBuilder builder = new StringBuilder();
-            builder.append("select t.naam, m.naam, v.LEASEMAATSCHAPPIJ_ID, l.naam from vliegtuig v ");
-            builder.append("inner join vliegtuigtype t on v.VLIEGTUIGTYPE_ID = t.ID ");
-            builder.append("inner join LUCHTVAARTMAATSCHAPPIJ m on v.LUCHTVAARTMAATSCHAPPIJ_ID = m.id ");
-            builder.append("inner join  LEASEMAATSCHAPPIJ l on l.id = v.LEASEMAATSCHAPPIJ_ID ");
-            builder.append("where v.id = ?");
+            builder.append("select t.naam, m.naam, v.LEASEMAATSCHAPPIJ_ID, l.naam, v.id, v.vliegtuigtype_id, v.luchtvaartmaatschappij_id from vliegtuig v ");
+            builder.append("left outer join vliegtuigtype t on v.VLIEGTUIGTYPE_ID = t.ID ");
+            builder.append("left outer join LUCHTVAARTMAATSCHAPPIJ m on v.LUCHTVAARTMAATSCHAPPIJ_ID = m.id ");
+            builder.append("left outer join  LEASEMAATSCHAPPIJ l on l.id = v.LEASEMAATSCHAPPIJ_ID ");
+            builder.append("where v.id = ");
+            builder.append(id);
             statement = connection.prepareStatement(builder.toString());
-            statement.setString(1, id);
+            
             set = statement.executeQuery();   
             while (set.next()){
-
-               E.setType_naam(set.getString(1));
-               E.setMaatschappij_naam(set.getString(2));
+                if (set.getString(1) != null) {
+                     E.setType_naam(set.getString(1));
+                }
+                else{
+                     E.setType_naam("n.v.t");
+                }
+                if (set.getString(2) != null) {
+                    E.setMaatschappij_naam(set.getString(2));
+                }
+                else{
+                    E.setMaatschappij_naam("n.v.t");
+                }
                 if (set.getString(3) != null) {
                     E.setLeased(true);
+                    E.setLeasemaatschappij_id(Integer.parseInt(set.getString(3)));
                     E.setLease_maatschappij_naam(set.getString(4));
                 }
                 else{
                     E.setLeased(false);
                 }
+             E.setId(set.getInt(5));
+             E.setVliegtuigtype_id(6);
+             E.setLuchtvaartmaatschappij_id(7);
              
                
             }
@@ -131,20 +145,57 @@ return E;
                    lijst.add(set.getString(5));
                    nMap.put(set.getInt(1),lijst);
                    
-               }
-               
-               
+               }    
            } catch (SQLException ex) {
                Logger.getLogger(DAVliegtuig.class.getName()).log(Level.SEVERE, null, ex);
-           }
-        
+           }     
         return nMap;
-        
-        
-        
-        
     }
     
-    
-    
+    public void AddVliegtuig(Integer id, Integer typeid, Integer LeaseId, Integer LuchtvaartId){
+        
+        String b;
+        b="insert into vliegtuig values ( "+id+" , "+typeid+" , "+LeaseId+" , "+LuchtvaartId+" )";
+        
+        try {
+            statement = connection.prepareStatement(b);
+            statement.executeUpdate();
+            connection.commit();
+        } catch (Exception e) {
+        }
+    }
+    public void UpdateVliegtuig(Integer Id, String table, Map<String,Object> Parameters){
+        StringBuilder b = new StringBuilder();
+        b.append("update ");
+        b.append(table);
+        b.append(" set ");
+        Integer teller = 0;
+        for (Map.Entry<String, Object> entry : Parameters.entrySet()) {
+            teller++;
+            String s = entry.getKey()+" = '"+entry.getValue()+"' ";
+            b.append(s);
+            if (Parameters.size() > teller) {
+                b.append(", ");
+            }
+        }
+        b.append(" where id =  ");
+        b.append(Id);
+         try {
+            statement = connection.prepareStatement(b.toString());
+            statement.executeUpdate();
+            connection.commit();         
+        } catch (Exception e) {
+        }
+    }
+          public Vliegtuig get_by_id ( Integer id)
+        {
+            ArrayList<Vliegtuig> lijst = getVliegtuigLijst();
+            Vliegtuig v = new Vliegtuig();
+            for (Vliegtuig vliegtuig : lijst) {
+                if (vliegtuig.getId() == id) {
+                    v = vliegtuig;
+                }
+            }
+           return v;
+        }
 }

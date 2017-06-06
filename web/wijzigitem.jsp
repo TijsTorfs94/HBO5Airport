@@ -5,6 +5,10 @@
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Vliegtuig"%>
+<%@page import="hbo5.it.www.beans.Luchtvaartmaatschappij"%>
+<%@page import="hbo5.it.www.beans.Vliegtuigtype"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page import="java.lang.String"%>
 <%@page import="hbo5.it.www.beans.Leasemaatschappij"%>
@@ -84,6 +88,7 @@
                                     <th>id</th>
                                     <th>naam</th>
                                     <%if ("lease".equals(request.getParameter("kind"))) {%>
+                                    <% session.setAttribute("newItem", "Lease");%>
                                     <tr>
                                             <td><input type="text" name="txtid" readonly="true" value="<%=L.getId()%>"/> </td>
                                             <td><input  type="text" name="txtnaam" id="Naam" value="<%=L.getNaam()%>" /></td> 
@@ -104,7 +109,53 @@
                                             <td><input  type="text" name="txtstad" id="Naam" value="<%=LH.getStad()%>" /></td> 
                                     </tr>
 <%}%>
-                                    
+                                     <%if (session.getAttribute("ChosenPlane") != null) {
+                                         Vliegtuig V = (Vliegtuig) session.getAttribute("ChosenPlane");
+                                         session.setAttribute("newItem", "vliegtuig");
+                                     String select = "";%>
+                                     
+    <th>Leasemaatschappij</th>    
+    <th>Luchtvaartmaatschappij</th>
+    <tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=V.getId()%>"/> </td>
+                                            <td>
+                                                <select name="LstType">
+                                                    <% ArrayList<Vliegtuigtype> vlieglijst = (ArrayList<Vliegtuigtype>) session.getAttribute("lijstTypes");
+                                                    for (Vliegtuigtype item : vlieglijst) {
+                                                    %>
+                                                    <% if (item.getId() == V.getVliegtuigtype_id()){select = "selected";}else{ select = "";}%>
+                                                    <option value="<%=item.getId()%>" <%=select%> > <%=item.getNaam()%> </option>
+                                                    <%}%>
+ 
+                                                </select>
+                                            </td> 
+                                            <td>
+                                                <select name="LstLease">
+                                                    <% ArrayList<Leasemaatschappij> lijst = (ArrayList<Leasemaatschappij>) session.getAttribute("maatschappijen");
+                                                    for (Leasemaatschappij item : lijst) {%>
+                                                     <% if (item.getId() == V.getLeasemaatschappij_id()){select = "selected";}else{ select = "";}%>
+                                                    <option value="<%=item.getId()%>" <%=select%>> <%=item.getNaam()%> </option>
+
+<%}%>
+                                                </select>
+                                                
+                                                <select name="LstMaatschappij">
+                                                    <% ArrayList<Luchtvaartmaatschappij> luchtvaartlijst = (ArrayList<Luchtvaartmaatschappij>) session.getAttribute("lijstmaatschappijen");
+                                                    for (Luchtvaartmaatschappij item : luchtvaartlijst) {%>
+                                                      <% if (item.getId() == V.getLuchtvaartmaatschappij_id()){select = "selected";}else{ select = "";}%>
+                                                    <option value="<%=item.getId()%>" <%=select%>> <%=item.getNaam()%> </option>
+                                                    <%}%>
+                                                </select>
+                                            </td>
+                                    </tr>
+<%}%>
+
+
+
+
+
+
+
                                     <input type="submit" name="update">
                                 </table>
                                                                         </form>

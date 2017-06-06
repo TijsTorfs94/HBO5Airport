@@ -5,6 +5,9 @@
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Luchtvaartmaatschappij"%>
+<%@page import="hbo5.it.www.beans.Vliegtuigtype"%>
+<%@page import="hbo5.it.www.beans.Vliegtuig"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="hbo5.it.www.beans.Leasemaatschappij"%>
 <%@page import="hbo5.it.www.beans.Luchthaven"%>
@@ -101,18 +104,35 @@
                                             <td><input  type="text" name="txtnaam" id="Naam" /></td> 
                                     </tr>
 <%}%>
-<%if ("vliegtuig".equals(request.getParameter("kind"))) {
+    <%if ("vliegtuig".equals(request.getParameter("kind"))) {
     session.setAttribute("newItem", "vliegtuig");%>
-                                     <tr>
+    <th>Leasemaatschappij</th>    
+    <th>Luchtvaartmaatschappij</th>
+    <tr>
                                             <td><input type="text" name="txtid" readonly="true" value="<%=request.getAttribute("topId")%>"/> </td>
-                                            <td><input  type="text" name="txtnaam" id="Naam" /></td> 
                                             <td>
-                                                <select>
+                                                <select name="LstType">
+                                                    <% ArrayList<Vliegtuigtype> vlieglijst = (ArrayList<Vliegtuigtype>) session.getAttribute("lijstTypes");
+                                                    for (Vliegtuigtype item : vlieglijst) {%>
+                                                    <option value="<%=item.getId()%>"> <%=item.getNaam()%> </option>
+                                                    <%}%>
+ 
+                                                </select>
+                                            </td> 
+                                            <td>
+                                                <select name="LstLease">
                                                     <% ArrayList<Leasemaatschappij> lijst = (ArrayList<Leasemaatschappij>) session.getAttribute("maatschappijen");
                                                     for (Leasemaatschappij item : lijst) {%>
-                                                    <option> <%=item.getNaam()%> </option>
+                                                    <option value="<%=item.getId()%>"> <%=item.getNaam()%> </option>
 
 <%}%>
+                                                </select>
+                                                
+                                                <select name="LstMaatschappij">
+                                                    <% ArrayList<Luchtvaartmaatschappij> luchtvaartlijst = (ArrayList<Luchtvaartmaatschappij>) session.getAttribute("lijstmaatschappijen");
+                                                    for (Luchtvaartmaatschappij item : luchtvaartlijst) {%>
+                                                    <option value="<%=item.getId()%>"> <%=item.getNaam()%> </option>
+                                                    <%}%>
                                                 </select>
                                             </td>
                                     </tr>

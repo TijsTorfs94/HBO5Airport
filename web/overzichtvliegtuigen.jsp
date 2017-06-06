@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="hbo5.it.www.beans.Vliegtuig"%>
 <%@page import="hbo5.it.www.beans.Vliegtuig_extend"%>
 <%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="java.util.ArrayList"%>
@@ -72,9 +73,9 @@
                                     <label for="LstVliegtuigen">kies een vliegtuig</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstVliegtuigen" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<Integer> lijst =(ArrayList<Integer>) session.getAttribute("lijstvliegtuigen");%>
-                                            <%for (Integer item : lijst) {%>
-                                            <option value="<%=item%>" ><%=item%></option>
+                                         <%ArrayList<Vliegtuig> lijst =(ArrayList<Vliegtuig>) session.getAttribute("lijstvliegtuigen");%>
+                                            <%for (Vliegtuig item : lijst) {%>
+                                            <option value="<%=item.getId()%>" ><%=item.getId()%></option>
                                            <%}%>
                                     </select>
                                            
@@ -83,11 +84,17 @@
    
 
                                     </form>
-                                           <%Vliegtuig_extend V = (Vliegtuig_extend) request.getAttribute("Vliegtuig");%>
+                                           <%Vliegtuig_extend V = (Vliegtuig_extend) request.getAttribute("Vliegtuig");
+                                           
+                                           %>
+                                           
                                            
                                     <form >
                                         <div>
-                                           
+                                            <input  name="txtvliegtuigid" hidden="true" value="<%=V.getVliegtuigtype_id() %>"/>
+                                             <input  name="txtLeaseid" hidden="true" value="<%=V.getLeasemaatschappij_id()%>"/>
+                                              <input  name="txtmaatschappijid" hidden="true" value="<%=V.getLuchtvaartmaatschappij_id()%>"/>
+                                              <%session.setAttribute("currentId", V.getId());%>
                                             <label for="txtType">VliegtuigType</label>
                                             <input name="txtType" type="text" value="<%=V.getType_naam()%>"/>
                                             <label for="txtMaatschappij">Vliegtuig Maatschappij</label>

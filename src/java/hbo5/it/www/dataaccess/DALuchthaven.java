@@ -5,7 +5,6 @@
  */
 package hbo5.it.www.dataaccess;
 
-import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 import com.sun.xml.internal.ws.policy.subject.WsdlBindingSubject;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Persoon;
