@@ -107,12 +107,13 @@
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>
+                                             <%}%>  
                                             <td><a href=AdminServlet?choice=add&kind=haven>Nieuwe Luchthaven</a></td>
                                             <td><a href=AdminServlet?choice=update&kind=haven>Gegevens wijzigen</td>
                                             <td><a href=AdminServlet?choice=delete&kind=haven>wissen</td>
                                             
                                     </form>
-     <%}%>                               
+                                 
                                     
                                     
                                     

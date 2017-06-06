@@ -5,6 +5,7 @@
  */
 package hbo5.it.www.dataaccess;
 
+import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 import com.sun.xml.internal.ws.policy.subject.WsdlBindingSubject;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Persoon;
@@ -126,6 +127,26 @@ public DALuchthaven (String url, String login, String password, String driver)  
             }
         }
         
+        public void Update_Luchthaven(Integer id, String naam, String stad){
+            StringBuilder builder = new StringBuilder();
+            builder.append("update luchthaven ");
+            builder.append("set naam = '?' , stad = '?' ");
+            builder.append("where id = ?");
+            
+            try {
+                statement = connection.prepareStatement(builder.toString());
+                statement.setInt(3, id);
+                statement.setString(1, naam);
+                statement.setString(2, stad);
+                
+                statement.executeUpdate();
+                connection.commit();
+            } catch (Exception e) {
+            }
+            
+            
+          
+        }
         
     }
     

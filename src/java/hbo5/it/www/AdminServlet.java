@@ -135,15 +135,6 @@ public class AdminServlet extends HttpServlet {
         
         session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-
-//              session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
-//              session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
-//              session.setAttribute("lijstpersonen", dapersoon.get_names());
-//              session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
-//              session.setAttribute("lijstLease",dalease.get_leaseNamen());
-   
-          
-            
         }
          rd = request.getRequestDispatcher(url);
                     rd.forward(request, response);
@@ -165,7 +156,7 @@ public class AdminServlet extends HttpServlet {
               session.setAttribute("lijstPassagiers",dapassagier.getPassagiers());
               session.setAttribute("lijstVluchten", davlucht.Vluchten());
               session.setAttribute("lijstvluchten", davlucht.Vlucht_ids());
-              session.setAttribute("lijsthavens",  daLuchthaven.Get_naam_luchtHaven());
+              session.setAttribute("lijsthavens",  daLuchthaven.getLuchthavens());
               session.setAttribute("lijstmaatschappijen",damaatschappij.Get_Names());
               session.setAttribute("lijstpersonen", dapersoon.get_names());
               session.setAttribute("lijstvliegtuigen",davliegtuig.getList_ids());
@@ -218,11 +209,14 @@ public class AdminServlet extends HttpServlet {
          }
              else if ("update".equals(request.getParameter("choice"))) {
                   if ("lease".equals(request.getParameter("kind"))) {
-                url="wijzigitem.jsp";
+                      session.setAttribute("ChosenHaven", null);
+                
             }
                   if ("haven".equals(request.getParameter("kind"))) {
-                url="wijzigitem.jsp";
+                       session.setAttribute("L", null);
+                
             }
+                  url="wijzigitem.jsp";
         }
               else if ("delete".equals(request.getParameter("choice"))) {
                   if ("lease".equals(request.getParameter("kind"))) {
@@ -246,7 +240,11 @@ public class AdminServlet extends HttpServlet {
        //     url = "StartAdmin.jsp";
         }
              else if (request.getParameter("update") != null) {
-            dalease.Update_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );
+                   if ("Lease".equals(session.getAttribute("newItem"))) {
+            dalease.Update_maatschappij(Integer.parseInt( request.getParameter("txtid")), request.getParameter("txtnaam") );}
+                    else   if ("Haven".equals(session.getAttribute("newItem"))) {
+                        daLuchthaven.Update_Luchthaven(Integer.parseInt(url), url, url);
+                    }
             url = "StartAdmin.jsp";
         }
              else if(request.getParameter("delete") != null){

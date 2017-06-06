@@ -5,6 +5,7 @@
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page import="hbo5.it.www.beans.Vlucht"%>
 <%@page import="java.util.ArrayList"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -77,9 +78,9 @@
                 <label for="Luchthaven">kies een luchthaven</label>
                                     <select onchange="this.form.submit()" class="form-control" name="Luchthaven" style="width: 50%; margin: 15px">
                                         <option selected="true" value ="0"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijsthavens");%>
-                                            <%for (String item : lijst) {%>
-                                            <option value="<%=teller%>" ><%=item%></option>
+                                        <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
+                                        <%for (Luchthaven item : lijst) {%>
+                                            <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
                                            <%teller++;}%>
                                     </select>
         

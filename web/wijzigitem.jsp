@@ -5,6 +5,7 @@
     Author     : steve
 --%>
 
+<%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page import="java.lang.String"%>
 <%@page import="hbo5.it.www.beans.Leasemaatschappij"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -80,6 +81,17 @@
                                             <td><input  type="text" name="txtnaam" id="Naam" value="<%=L.getNaam()%>" /></td> 
                                     </tr>
                                     <%}%>
+                                    <% if ("Haven".equals(request.getParameter("kind"))) {
+                                        Luchthaven LH = (Luchthaven) session.getAttribute("ChosenHaven");%>
+<table>
+                                    <th>id</th>
+                                    <th>naam</th>
+                                    
+                                    <tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=LH.getId()%>"/> </td>
+                                            <td><input  type="text" name="txtnaam" id="Naam" value="<%=LH.getNaam()%>" /></td> 
+                                    </tr>
+<%}%>
                                     
                                     <input type="submit" name="update">
                                 </table>

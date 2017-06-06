@@ -83,7 +83,7 @@ public class ZoekServlet extends HttpServlet {
         session = request.getSession();
         
         if (session.getAttribute("lijsthavens")== null) {
-            session.setAttribute("lijsthavens", daluchthaven.Get_naam_luchtHaven());
+            session.setAttribute("lijsthavens", daluchthaven.getLuchthavens());
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -121,7 +121,7 @@ public class ZoekServlet extends HttpServlet {
             }
         else {
              if (session.getAttribute("lijsthavens")== null) {
-            session.setAttribute("lijsthavens", daluchthaven.Get_naam_luchtHaven());
+            session.setAttribute("lijsthavens", daluchthaven.getLuchthavens());
         }
             ArrayList<Vlucht> vluchten;
             vluchten = davlucht.InkomendeVluchten(1);
