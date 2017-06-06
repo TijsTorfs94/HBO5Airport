@@ -63,17 +63,7 @@
             <!--for demo wrap-->
             <h1 class="tour section-wrapper container">Inkomende vluchten</h1>
             <form action="ZoekServlet">
-           <%--     <select name="Luchthaven" class="col-md-offset-1">             
-                    <option value="1">Brussels Airport</option>
-                    <option value="2">Schiphol</option>
-                    <option value="3">Charles de Gaulle</option>
-                    <option value="4">Heathrow</option>
-                    <option value="5">Tegel</option>
-                    <option value="6">Goteborg City Airport</option>
-                    <option value="7">Venice VCE</option>
-                    <option value="8">Abu Dhabi</option>
-                    <option value="9">Sri Guru Ram DassJee</option>
-                </select> --%>
+         
                 <%int teller = 1;%>
                 <label for="Luchthaven">kies een luchthaven</label>
                                     <select onchange="this.form.submit()" class="form-control" name="Luchthaven" style="width: 50%; margin: 15px">

@@ -79,9 +79,9 @@
                                     <label for="LstHaven">kies een luchthaven</label>
                                     <select onchange="this.form.submit()" class="form-control" name="LstHaven" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijsthavens");%>
-                                            <%for (String item : lijst) {%>
-                                            <option value="<%=item%>" ><%=item%></option>
+                                         <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
+                                            <%for (Luchthaven item : lijst) {%>
+                                            <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
                                            <%}%>
                                     </select>
                                            
