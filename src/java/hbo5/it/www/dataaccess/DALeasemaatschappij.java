@@ -112,9 +112,10 @@ public DALeasemaatschappij(String url, String login, String password, String dri
     }
     
           
-    public void Add_maatschappij(Integer id, String Naam){
+    public void Add_maatschappij(Integer id, String Naam, String Table){
   StringBuilder builder = new StringBuilder();
-        builder.append("insert into leasemaatschappij ");
+        builder.append("insert into ");
+        builder.append(Table);
         builder.append(" values (  ");
         builder.append(id);
         builder.append(" , '");

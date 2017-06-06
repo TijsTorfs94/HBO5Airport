@@ -91,6 +91,9 @@
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>
+                                            <td><a href=AdminServlet?choice=add&kind=maatschappij>Nieuwe Luchthavenmaatschappij</a></td>
+                                            <td><a href=AdminServlet?choice=update&kind=maatschappij>Gegevens wijzigen</td>
+                                            <td><a href=AdminServlet?choice=delete&kind=maatschappij>wissen</td>
                                     </form>
      <%}%>                               
                                     

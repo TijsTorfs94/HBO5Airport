@@ -92,7 +92,13 @@
                                             </tr>
                                        <%}%>     
                                             
-                                    
+                                       <%if ("maatschappij".equals(request.getParameter("kind"))) {
+                                           session.setAttribute("newItem", "maatschappij");%>
+<tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=request.getAttribute("topId")%>"/> </td>
+                                            <td><input  type="text" name="txtnaam" id="Naam" /></td> 
+                                    </tr>
+<%}%>
                                    
                                 </table>
                                         <input type="submit" name="nieuw">
