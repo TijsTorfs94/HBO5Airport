@@ -5,6 +5,7 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.dataaccess.DALuchthaven;
 import hbo5.it.www.dataaccess.DAPersoon;
@@ -83,7 +84,7 @@ public class ZoekServlet extends HttpServlet {
         session = request.getSession();
         
         if (session.getAttribute("lijsthavens")== null) {
-            session.setAttribute("lijsthavens", daluchthaven.getLuchthavens());
+            session.setAttribute("lijsthavens", daluchthaven.Get_naam_luchtHaven());
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -114,21 +115,102 @@ public class ZoekServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         session = request.getSession();
-        if (request.getParameter("Luchthaven") != null){
-            String luchthavenid = request.getParameter("Luchthaven");
-            ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(Integer.parseInt(luchthavenid));
-            request.setAttribute("vluchten", vluchten);
+               
+        if ("inkomend".equals(request.getParameter("Zoeken"))){
+            session.setAttribute("Search", 0);
+        }
+        else if ("uitgaand".equals(request.getParameter("Zoeken"))){
+            session.setAttribute("Search", 1);
+        }
+        else if ("Zoeken".equals(request.getParameter("Zoeken"))){
+            session.setAttribute("Search", 2);
+        }
+        else if ("Details".equals(request.getParameter("Zoeken"))){
+            session.setAttribute("Search", 3);
+        }
+        
+        if ((Integer)session.getAttribute("Search") == 0) {
+            if (request.getParameter("Luchthaven") != null){
+                String luchthavenid = request.getParameter("Luchthaven");
+                ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(Integer.parseInt(luchthavenid));
+                request.setAttribute("vluchten", vluchten);
+                }
+            else {
+                 if (session.getAttribute("lijsthavens")== null) {
+                session.setAttribute("lijsthavens",  daluchthaven.getLuchthavens());
             }
-        else {
-             if (session.getAttribute("lijsthavens")== null) {
-            session.setAttribute("lijsthavens", daluchthaven.getLuchthavens());
+                ArrayList<Vlucht> vluchten;
+                vluchten = davlucht.InkomendeVluchten(0);
+                request.setAttribute("vluchten", vluchten);
+            }
+             // Will be available as ${vluchten} in JSP
+            request.getRequestDispatcher("inkomend.jsp").forward(request, response);
         }
-            ArrayList<Vlucht> vluchten;
-            vluchten = davlucht.InkomendeVluchten(1);
-            request.setAttribute("vluchten", vluchten);
+        
+        else if ((Integer)session.getAttribute("Search") == 1) {
+            if (request.getParameter("Luchthaven") != null){
+                String luchthavenid = request.getParameter("Luchthaven");
+                ArrayList<Vlucht> vluchten = davlucht.UitgaandeVluchten(Integer.parseInt(luchthavenid));
+                request.setAttribute("vluchten", vluchten);
+                }
+            else {
+                 if (session.getAttribute("lijsthavens")== null) {
+                session.setAttribute("lijsthavens",  daluchthaven.getLuchthavens());
+            }
+                ArrayList<Vlucht> vluchten;
+                vluchten = davlucht.UitgaandeVluchten(0);
+                request.setAttribute("vluchten", vluchten);
+            }
+             // Will be available as ${vluchten} in JSP
+            request.getRequestDispatcher("uitgaand.jsp").forward(request, response);
         }
-         // Will be available as ${vluchten} in JSP
-        request.getRequestDispatcher("inkomend.jsp").forward(request, response);
+        
+        else if ((Integer)session.getAttribute("Search") == 2){
+            if  ("vluchtnummer".equals(request.getParameter("optie"))){
+                String input = request.getParameter("input");
+                String optie = "met " + request.getParameter("optie");
+                ArrayList<Vlucht> vluchten = davlucht.VluchtOpCode(input);
+                request.setAttribute("vluchten", vluchten);
+                request.setAttribute("input", input);
+                request.setAttribute("optie", optie);
+                request.getRequestDispatcher("zoekresult.jsp").forward(request, response);
+            }
+            else if ("datum".equals(request.getParameter("optie"))){
+                String input = request.getParameter("date") + " 00:00:00";
+                String optie = "vanaf " + request.getParameter("optie");
+                ArrayList<Vlucht> vluchten = davlucht.VluchtOpDatum(input);
+                request.setAttribute("vluchten", vluchten);
+                String date  = request.getParameter("date");
+                request.setAttribute("input", date);
+                request.setAttribute("optie", optie);
+                request.getRequestDispatcher("zoekresult.jsp").forward(request, response);
+            }
+            else if ("bestemming".equals(request.getParameter("optie"))){
+                String input = request.getParameter("input");
+                String optie ="met " + request.getParameter("optie");
+                ArrayList<Vlucht> vluchten = davlucht.VluchtOpBestemming(input);
+                request.setAttribute("vluchten", vluchten);
+                request.setAttribute("input", input);
+                request.setAttribute("optie", optie);
+                request.getRequestDispatcher("zoekresult.jsp").forward(request, response);
+            }
+            else if ("luchtvaartmaatschappij".equals(request.getParameter("optie"))){
+                String input = request.getParameter("input");
+                String optie = "met " + request.getParameter("optie");
+                ArrayList<Vlucht> vluchten = davlucht.VluchtOpLuchtvaartmaatschappij(input);
+                request.setAttribute("vluchten", vluchten);
+                request.setAttribute("input", input);
+                request.setAttribute("optie", optie);
+                request.getRequestDispatcher("zoekresult.jsp").forward(request, response);
+            }
+        }
+        else if ((Integer)session.getAttribute("Search") == 3){
+            Vlucht v = davlucht.ZoekDetails(Integer.parseInt(request.getParameter("id")));
+            ArrayList<Passagier> passagiers = davlucht.DetailsPassagiers(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("vlucht", v);
+            request.setAttribute("passagiers", passagiers);
+            request.getRequestDispatcher("details.jsp").forward(request, response);
+        }
     }
 
     /**

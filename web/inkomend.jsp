@@ -48,11 +48,11 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="ZoekServlet">Inkomende vluchten</a></li>
-                                            <li><a href="uitgaand.jsp">Uitgaande vluchten</a></li>
+                                            <li><a href="ZoekServlet?Zoeken=inkomend">Inkomende vluchten</a></li>
+                                            <li><a href="ZoekServlet?Zoeken=uitgaand">Uitgaande vluchten</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#"> Zoeken </a></li>   
+                                    <li><a href="zoektest.jsp"> Zoeken </a></li>   
                                     <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
@@ -64,21 +64,20 @@
             <h1 class="tour section-wrapper container">Inkomende vluchten</h1>
             <form action="ZoekServlet">
          
-                <%int teller = 1;%>
                 <label for="Luchthaven">kies een luchthaven</label>
                                     <select onchange="this.form.submit()" class="form-control" name="Luchthaven" style="width: 50%; margin: 15px">
                                         <option selected="true" value ="0"></option>
                                         <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
                                         <%for (Luchthaven item : lijst) {%>
                                             <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
-                                           <%teller++;}%>
+                                            <%}%>
                                     </select>
+                                    
         
             <table cellpadding="0" cellspacing="0" border="0" id="myTable" class="tablecontainer tablesorter">
                     <thead>              
                         <tr>
                             <th>Vluchtnummer</th>
-                            <th>Vliegtuig</th>
                             <th>Vertrek</th>
                             <th>Aankomst</th>
                             <th>Aankomsttijd</th>
@@ -90,13 +89,15 @@
                 (ArrayList<Vlucht>) request.getAttribute("vluchten");
 
 		for (Vlucht vlucht: resultaat){%>
+                <form action="">
                 <tr>
-                    <td><%=vlucht.getCode()%></td>
-                    <td><%=vlucht.getVliegtuig_id()%></td>
-                    <td><%=vlucht.getVertrekluchthaven_id()%></td>
-                    <td><%=vlucht.getAankomstluchthaven_id() %></td>
+                    <td><a href="ZoekServlet?Zoeken=Details&id=<%=vlucht.getId()%>"><%=vlucht.getCode()%></a></td>
+                    <td><%=vlucht.getVertrekluchthaven().getNaam()%></td>
+                    <td><%=vlucht.getAankomstluchthaven().getNaam()%></td>
                     <td><%=vlucht.getAankomsttijd() %></td>
+                    <td><button name="Boeken" value="<%=vlucht.getId()%>" type="submit">Boeken</button></td>
                 </tr>
+                </form>
                 
 		<%}%>
             </tbody>

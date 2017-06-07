@@ -5,7 +5,6 @@
     Author     : steve
 --%>
 
-<%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page import="hbo5.it.www.beans.Vlucht"%>
 <%@page import="java.util.ArrayList"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -61,49 +60,44 @@
         </div>
         <section class="tour section-wrapper tablecontainer">
             <!--for demo wrap-->
-            <h1 class="tour section-wrapper container">Uitgaand vluchten</h1>
-            <form action="ZoekServlet">
-         
-                <label for="Luchthaven">kies een luchthaven</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="Luchthaven" style="width: 50%; margin: 15px">
-                                        <option selected="true" value ="0"></option>
-                                        <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
-                                        <%for (Luchthaven item : lijst) {%>
-                                            <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
-                                            <%}%>
-                                    </select>
-                                    
-        
-            <table cellpadding="0" cellspacing="0" border="0" id="myTable" class="tablecontainer tablesorter">
-                    <thead>              
-                        <tr>
-                            <th>Vluchtnummer</th>
-                            <th>Vertrek</th>
-                            <th>Vertrektijd</th>
-                            <th>Aankomst</th>
-                            <th>Aankomsttijd</th>
-                        </tr>
-                    </thead>
-                <tbody>
-            </section>
-                <%ArrayList<Vlucht> resultaat = 
-                (ArrayList<Vlucht>) request.getAttribute("vluchten");
+            <h1 class="tour section-wrapper container">Vluchten ${optie} ${input}</h1>
+            <a class="btn btn-default col-md-offset-1" href="zoektest.jsp">Return</a>
+           <%ArrayList<Vlucht> resultaat = 
+                (ArrayList<Vlucht>) request.getAttribute("vluchten");                
+                if (resultaat.isEmpty()) {%>
+                    <div class="col-md-offset-2">
+                        <h3>! Er zijn geen vluchten gevonden !</h3>
+                    </div>
+                <%}
 
-		for (Vlucht vlucht: resultaat){%>
-                <form action="">
-                <tr>
-                    <td><a href="ZoekServlet?Zoeken=Details&id=<%=vlucht.getId()%>"><%=vlucht.getCode()%></a></td>
-                    <td><%=vlucht.getVertrekluchthaven().getNaam()%></td>
-                    <td><%=vlucht.getVertrektijd() %></td>
-                    <td><%=vlucht.getAankomstluchthaven().getNaam()%></td>
-                    <td><%=vlucht.getAankomsttijd() %></td>
-                    <td><button name="Boeken" value="<%=vlucht.getId()%>" type="submit">Boeken</button></td>
-                </tr>
-                </form>
-                
-		<%}%>
-            </tbody>
-            </table>
+                else {%>
+                    <table cellpadding="0" cellspacing="0" border="0" id="myTable" class="tablecontainer tablesorter">
+                        <thead>              
+                            <tr>
+                                <th>Vluchtnummer</th>
+                                <th>Vliegtuig</th>
+                                <th>Vertrek</th>
+                                <th>Aankomst</th>
+                                <th>Aankomsttijd</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for (Vlucht vlucht: resultaat){%>
+                                <form action="">
+                                    <tr>
+                                        <td><a href="ZoekServlet?Zoeken=Details&id=<%=vlucht.getId()%>"><%=vlucht.getCode()%></a></td>
+                                        <td><%=vlucht.getVliegtype().getNaam()%></td>
+                                        <td><%=vlucht.getVertrekluchthaven().getNaam()%></td>
+                                        <td><%=vlucht.getAankomstluchthaven().getNaam()%></td>
+                                        <td><%=vlucht.getAankomsttijd() %></td>
+                                        <td><button name="Boeken" value="<%=vlucht.getId()%>" type="Boeken">Boeken</button></td>
+                                    </tr>
+                                </form>
+                            <%}%>
+                        </tbody>
+                    </table>
+                <%}%>
+        </section>
 
 
 

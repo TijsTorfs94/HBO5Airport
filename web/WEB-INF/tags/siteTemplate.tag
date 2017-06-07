@@ -73,11 +73,11 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="ZoekServlet">Inkomende vluchten</a></li>
-                                            <li><a href="uitgaand.jsp">Uitgaande vluchten</a></li>
+                                            <li><a href="ZoekServlet?Zoeken=inkomend">Inkomende vluchten</a></li>
+                                            <li><a href="ZoekServlet?Zoeken=uitgaand">Uitgaande vluchten</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#"> Zoeken </a></li>   
+                                    <li><a href="zoektest.jsp"> Zoeken </a></li>    
                                     <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
