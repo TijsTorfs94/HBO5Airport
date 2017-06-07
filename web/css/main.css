@@ -690,6 +690,11 @@ body {
   text-align: center;
 }
 
+.select {
+    width: 20%;
+    margin: 15px;
+}
+
 .date {
     display: none;
 }

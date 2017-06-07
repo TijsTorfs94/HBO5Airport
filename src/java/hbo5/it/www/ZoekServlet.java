@@ -116,20 +116,24 @@ public class ZoekServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         session = request.getSession();
                
-        if ("inkomend".equals(request.getParameter("Zoeken"))){
-            session.setAttribute("Search", 0);
-        }
-        else if ("uitgaand".equals(request.getParameter("Zoeken"))){
-            session.setAttribute("Search", 1);
-        }
-        else if ("Zoeken".equals(request.getParameter("Zoeken"))){
-            session.setAttribute("Search", 2);
-        }
-        else if ("Details".equals(request.getParameter("Zoeken"))){
-            session.setAttribute("Search", 3);
+        if (null != request.getParameter("Zoeken"))switch (request.getParameter("Zoeken")) {
+            case "inkomend":
+                session.setAttribute("Search", "inkomend");
+                break;
+            case "uitgaand":
+                session.setAttribute("Search", "uitgaand");
+                break;
+            case "Zoeken":
+                session.setAttribute("Search", "zoeken");
+                break;
+            case "Details":
+                session.setAttribute("Search", "details");
+                break;
+            default:
+                break;
         }
         
-        if ((Integer)session.getAttribute("Search") == 0) {
+        if (session.getAttribute("Search") == "inkomend") {
             if (request.getParameter("Luchthaven") != null){
                 String luchthavenid = request.getParameter("Luchthaven");
                 ArrayList<Vlucht> vluchten = davlucht.InkomendeVluchten(Integer.parseInt(luchthavenid));
@@ -147,7 +151,7 @@ public class ZoekServlet extends HttpServlet {
             request.getRequestDispatcher("inkomend.jsp").forward(request, response);
         }
         
-        else if ((Integer)session.getAttribute("Search") == 1) {
+        else if (session.getAttribute("Search") == "uitgaand") {
             if (request.getParameter("Luchthaven") != null){
                 String luchthavenid = request.getParameter("Luchthaven");
                 ArrayList<Vlucht> vluchten = davlucht.UitgaandeVluchten(Integer.parseInt(luchthavenid));
@@ -165,7 +169,7 @@ public class ZoekServlet extends HttpServlet {
             request.getRequestDispatcher("uitgaand.jsp").forward(request, response);
         }
         
-        else if ((Integer)session.getAttribute("Search") == 2){
+        else if (session.getAttribute("Search") == "zoeken"){
             if  ("vluchtnummer".equals(request.getParameter("optie"))){
                 String input = request.getParameter("input");
                 String optie = "met " + request.getParameter("optie");
@@ -204,9 +208,9 @@ public class ZoekServlet extends HttpServlet {
                 request.getRequestDispatcher("zoekresult.jsp").forward(request, response);
             }
         }
-        else if ((Integer)session.getAttribute("Search") == 3){
+        else if (session.getAttribute("Search") == "details"){
             Vlucht v = davlucht.ZoekDetails(Integer.parseInt(request.getParameter("id")));
-            ArrayList<Passagier> passagiers = davlucht.DetailsPassagiers(Integer.parseInt(request.getParameter("id")));
+            ArrayList<Passagier> passagiers = davlucht.Passagiers_per_vlucht(Integer.parseInt(request.getParameter("id")));
             request.setAttribute("vlucht", v);
             request.setAttribute("passagiers", passagiers);
             request.getRequestDispatcher("details.jsp").forward(request, response);

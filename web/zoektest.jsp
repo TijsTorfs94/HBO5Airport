@@ -21,12 +21,12 @@
     <jsp:attribute name="content">
          <section class="tour section-wrapper container">
 		<h2 class="section-title">
-			Find a Tour
+			Vind een vlucht !
 		</h2>
 		<p class="section-subtitle">
-			Where would you like to go?
+			Waar zou jij graag naartoe willen gaan?
 		</p>
-		<div class="row">
+		<div class="row col-md-offset-3">
 			<div class="col-md-3 col-sm-6">
 				<form action="ZoekServlet" role="form" class="form-dropdown">
 					<div class="form-group">
@@ -71,11 +71,12 @@
 			</div>
 
 			<div class="col-md-3 col-sm-6">
-                            <input type="submit" name="Zoeken" value="Zoeken" class="btn btn-default">
+                            <input type="submit" name="Zoeken" value="Zoeken" class="btn btn-default btn-lg">
 			</div>
                                 </form>
 		</div>
 	</section> <!-- /.tour -->
+        
     </jsp:attribute>
     
 

@@ -39,7 +39,16 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+				<%session = request.getSession();
+                                String url= "";
+                                if ("Admin".equals(session.getAttribute("paswoord"))) {
+                                   url = "StartAdmin.jsp";}
+                                else if("Director".equals(session.getAttribute("paswoord"))){
+                                   url = "StartDirector.jsp";}
+                                else{
+                                    url = "index.jsp";}%>
+
+                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
 			</div> <!-- /.navbar-header -->
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,18 +70,18 @@
         </div>
         <section class="tour section-wrapper tablecontainer">
             <!--for demo wrap-->
-            <h1 class="tour section-wrapper container">Uitgaand vluchten</h1>
+            <h1 class="tour section-wrapper container section-title">Uitgaand vluchten</h1>
             <form action="ZoekServlet">
-         
-                <label for="Luchthaven">kies een luchthaven</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="Luchthaven" style="width: 50%; margin: 15px">
-                                        <option selected="true" value ="0"></option>
-                                        <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
-                                        <%for (Luchthaven item : lijst) {%>
-                                            <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
-                                            <%}%>
-                                    </select>
-                                    
+                <div class="col-md-offset-1">
+                    <label for="Luchthaven">kies een luchthaven</label>
+                        <select onchange="this.form.submit()" class="form-control select" name="Luchthaven">
+                            <option selected="true" value ="0"></option>
+                            <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
+                            <%for (Luchthaven item : lijst) {%>
+                                <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
+                                <%}%>
+                        </select>
+                </div>
         
             <table cellpadding="0" cellspacing="0" border="0" id="myTable" class="tablecontainer tablesorter">
                     <thead>              
@@ -111,7 +120,18 @@
 
        
        <footer>
-           <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>          
+           <div class="container">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="text-left">
+						&copy; Copyright Java Travels
+					</div>
+				</div>
+				<div class="col-xs-4">
+					Project gemaakt door team 2 (Steve Dekerf, Tijs Torfs en Peter Haest)
+				</div>
+			</div>
+		</div>	
        </footer>
     </body>
 </html>

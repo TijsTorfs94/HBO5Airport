@@ -38,7 +38,16 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+				<%session = request.getSession();
+                                String url= "";
+                                if ("Admin".equals(session.getAttribute("paswoord"))) {
+                                   url = "StartAdmin.jsp";}
+                                else if("Director".equals(session.getAttribute("paswoord"))){
+                                   url = "StartDirector.jsp";}
+                                else{
+                                    url = "index.jsp";}%>
+
+                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
 			</div> <!-- /.navbar-header -->
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -60,8 +69,8 @@
         </div>
         <section class="tour section-wrapper tablecontainer">
             <!--for demo wrap-->
-            <h1 class="tour section-wrapper container">Vluchten ${optie} ${input}</h1>
-            <a class="btn btn-default col-md-offset-1" href="zoektest.jsp">Return</a>
+            <h1 class="tour section-wrapper container section-title">Vluchten ${optie} ${input}</h1>
+            <a class="btn btn-default col-md-offset-1 btn-lg" style="margin-bottom: 15px" href="zoektest.jsp">Nieuwe zoekopdracht</a>
            <%ArrayList<Vlucht> resultaat = 
                 (ArrayList<Vlucht>) request.getAttribute("vluchten");                
                 if (resultaat.isEmpty()) {%>
@@ -105,7 +114,25 @@
 
        
        <footer>
-           <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>          
+           <div class="container">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="text-left">
+						&copy; Copyright Java Travels
+					</div>
+				</div>
+				<div class="col-xs-4">
+					Project gemaakt door team 2 (Steve Dekerf, Tijs Torfs en Peter Haest)
+				</div>
+				<div class="col-xs-4">
+					<div class="top">
+						<a href="#header">
+							<i class="ion-arrow-up-b"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>	
        </footer>
     </body>
 </html>

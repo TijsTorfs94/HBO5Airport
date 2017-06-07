@@ -170,7 +170,6 @@ public class AdminServlet extends HttpServlet {
               session.setAttribute("lijsthavens",  daLuchthaven.getLuchthavens());
               session.setAttribute("lijstmaatschappijen",damaatschappij.get_luchtvaartmaatschapijen());
               session.setAttribute("lijstpersonen", dapersoon.get_names());
-              
               session.setAttribute("lijstLease",dalease.get_leaseNamen());
             
    

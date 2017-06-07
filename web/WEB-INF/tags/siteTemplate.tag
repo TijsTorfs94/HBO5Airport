@@ -77,7 +77,7 @@
                                             <li><a href="ZoekServlet?Zoeken=uitgaand">Uitgaande vluchten</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="zoektest.jsp"> Zoeken </a></li>    
+                                    <li><a href="zoektest.jsp"> Zoeken </a></li>   
                                     <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
 				</ul> <!-- /.nav -->
 		    </div><!-- /.navbar-collapse -->
@@ -88,8 +88,18 @@
         
        
        <footer>
-           <p>Project gemaakt door team 2 (Steve Dekerf, Tijs Torfs en Peter Haest)</p>
-           
+           <div class="container">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="text-left">
+						&copy; Copyright Java Travels
+					</div>
+				</div>
+				<div class="col-xs-4">
+					Project gemaakt door team 2 (Steve Dekerf, Tijs Torfs en Peter Haest)
+				</div>
+			</div>
+		</div>	
        </footer>
 <jsp:invoke fragment="footer"></jsp:invoke>
 

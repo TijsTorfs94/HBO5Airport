@@ -386,7 +386,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
          return V;
      }
         
-    public ArrayList<Passagier> DetailsPassagiers(int vlucht_id){
+    public ArrayList<Passagier> Passagiers_per_vlucht(int vlucht_id){
          
         ArrayList<Passagier> Lijst = new ArrayList<>();
         Passagier P = null;
