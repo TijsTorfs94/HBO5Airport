@@ -1,10 +1,17 @@
 <%-- 
-    Document   : overzichtLuchthavens
+    Document   : overzichtBemmanning
     Created on : 23-mei-2017, 14:19:49
     Author     : steve
 --%>
 
-<%@page import="hbo5.it.www.beans.Luchthaven"%>
+<%@page import="java.util.Iterator"%>
+
+<%@page import="java.util.Set"%>
+<%@page import="java.util.Map"%>
+<%@page import="hbo5.it.www.beans.Passagier"%>
+<%@page import="hbo5.it.www.beans.Crew"%>
+<%@page import="hbo5.it.www.beans.Vlucht"%>
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,16 +52,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-	  <%session = request.getSession();
-                            String url= "";
-                                if ("Admin".equals(session.getAttribute("paswoord"))) {
-                                   url = "StartAdmin.jsp";}
-                                else if("Director".equals(session.getAttribute("paswoord"))){
-                                   url = "StartDirector.jsp";}
-                                else{
-                                    url = "index.jsp";}%>
-
-                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+	<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
                         </div> 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
@@ -74,46 +72,46 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=Luchthaven" method="POST">
+                                <form  action="AdminServlet?choice=PasVlucht" method="Post">
                                 <div class="form-group"> 
-                                    <label for="LstHaven">kies een luchthaven</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="LstHaven" style="width: 50%; margin: 15px">
+                                    <label for="LstVluchten">kies een vlucht</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="LstVluchten" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
-                                            <%for (Luchthaven item : lijst) {%>
-                                            <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstvluchten");%>
+                                            <%for (String item : lijst) {%>
+                                            <option value="<%=item%>" ><%=item%></option>
                                            <%}%>
                                     </select>
                                            
                                 </div>           
-                                           <%if (request.getAttribute("Luchthaven") != null) {%>
+                                         
    
 
                                     </form>
-                                          
-                                           <form action="AdminServlet" method="get" >
-                                         <%Luchthaven L = (Luchthaven) request.getAttribute("Luchthaven");%>
-                                         <%session = request.getSession();
-                                         session.setAttribute("ChosenHaven", L);%>
-                                         
-                                        <div>
-                                            <label for="txtid">id</label>
-                                            <input name="txtid" type="text" readonly="true" value="<%=L.getId()%>"/>
-                                            <label for="txtNaam">Naam</label>
-                                            <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
-                                            <label for="txtStad">Stad</label>
-                                            <input type="text" name="txtStad" value="<%=L.getStad()%>"/>
-                                            
-                                            <input type="submit" name="btnWijzig" value="Wijzig"/>
+                                    
+                                           
+                                                                
+     <%if (request.getAttribute("Passagiers") != null) {%>
+     <% Map<Integer,Persoon> perslijst =(Map<Integer,Persoon>) request.getAttribute("Passagiers");%>
+     <%Set set = perslijst.entrySet();%>
+     <% Iterator iterator = set.iterator();%>
+     
+     
+     <table>
+         <%while (iterator.hasNext()) {%>
+         <%Map.Entry mentry = (Map.Entry) iterator.next();%>
+         <tr>    
+             <%Persoon p =(Persoon) mentry.getValue();%>
+             <td><%=p.getNaam()%></td>
+         </tr>
+                 
+
+<%}%>
+     </table>
+      <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
-                                        </div>
-                                             <%}%>  
-                                            <td><a href=AdminServlet?choice=add&kind=Luchthaven>Nieuwe Luchthaven</a></td>
-                                            <td><a href=AdminServlet?choice=update&kind=Luchthaven>Gegevens wijzigen</td>
-                                            <td><a href=AdminServlet?choice=delete&kind=Luchthaven>wissen</td>
-                                            
-                                    </form>
-                                 
+
+<%}%>
                                     
                                     
                                     
@@ -137,7 +135,7 @@
 
 
 
-    <%session.setAttribute("currentPage", "overzichtLuchthavens.jsp");%>
+    <%session.setAttribute("currentPage", "overzichtPassagiers.jsp");%>
 
     </body>
 </html>

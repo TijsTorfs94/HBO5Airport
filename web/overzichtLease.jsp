@@ -1,10 +1,11 @@
 <%-- 
-    Document   : overzichtLuchthavens
+    Document   : overzichtLease
     Created on : 23-mei-2017, 14:19:49
     Author     : steve
 --%>
 
-<%@page import="hbo5.it.www.beans.Luchthaven"%>
+<%@page import="hbo5.it.www.beans.Leasemaatschappij"%>
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -74,47 +75,61 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=Luchthaven" method="POST">
+                                <form  action="AdminServlet?choice=Leasemaatschappij" method="POST">
                                 <div class="form-group"> 
-                                    <label for="LstHaven">kies een luchthaven</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="LstHaven" style="width: 50%; margin: 15px">
+                                    <label for="LstLease">kies een maatschappij</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="LstLease" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
-                                            <%for (Luchthaven item : lijst) {%>
-                                            <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstLease");%>
+                                            <%for (String item : lijst) {%>
+                                            <option value="<%=item%>" ><%=item%></option>
                                            <%}%>
                                     </select>
                                            
                                 </div>           
-                                           <%if (request.getAttribute("Luchthaven") != null) {%>
+                                           <%if (request.getAttribute("Persoon") != null) {%>
    
 
                                     </form>
-                                          
-                                           <form action="AdminServlet" method="get" >
-                                         <%Luchthaven L = (Luchthaven) request.getAttribute("Luchthaven");%>
-                                         <%session = request.getSession();
-                                         session.setAttribute("ChosenHaven", L);%>
-                                         
+                                           <%Leasemaatschappij L = (Leasemaatschappij) request.getAttribute("Lease");%>
+                                    <form >
                                         <div>
-                                            <label for="txtid">id</label>
-                                            <input name="txtid" type="text" readonly="true" value="<%=L.getId()%>"/>
+                                            <label for="txtId">id</label>
+                                            <input name="txtId" type="text" readonly="true" value="<%=L.getId()%>"/>
                                             <label for="txtNaam">Naam</label>
                                             <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
-                                            <label for="txtStad">Stad</label>
-                                            <input type="text" name="txtStad" value="<%=L.getStad()%>"/>
-                                            
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>
-                                             <%}%>  
-                                            <td><a href=AdminServlet?choice=add&kind=Luchthaven>Nieuwe Luchthaven</a></td>
-                                            <td><a href=AdminServlet?choice=update&kind=Luchthaven>Gegevens wijzigen</td>
-                                            <td><a href=AdminServlet?choice=delete&kind=Luchthaven>wissen</td>
-                                            
                                     </form>
-                                 
-                                    
+     <%}%>                               
+     
+     
+     
+     <%if (request.getAttribute("VarLeasemaatschappij") != null){
+         Leasemaatschappij L = (Leasemaatschappij) request.getAttribute("VarLeasemaatschappij");
+         session.setAttribute("L",request.getAttribute("VarLeasemaatschappij") );
+     %>
+         
+         <table>
+             <tr>
+                 <td><input value="<%=L.getNaam()%>" name="txtnaam"></</td>
+                 <td><input value="<%=L.getId()%>" name="txtid"></td>
+                     <%}%>
+             </tr>
+             <td><a href=AdminServlet?choice=add&kind=lease>Nieuwe leasemaatschappij</a></td>
+             <td><a href=AdminServlet?choice=update&kind=lease>Gegevens wijzigen</td>
+             <td><a href=AdminServlet?choice=delete&kind=lease>wissen</td>
+         </table>
+         
+         
+         
+         
+         
+         
+ 
+     
+                 
                                     
                                     
                                     
@@ -137,7 +152,7 @@
 
 
 
-    <%session.setAttribute("currentPage", "overzichtLuchthavens.jsp");%>
 
+    <%session.setAttribute("currentPage", "overzichtLease.jsp");%>
     </body>
 </html>

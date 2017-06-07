@@ -96,19 +96,30 @@ public DAPersoon(String url, String login, String password, String driver)   thr
         }
         
         
-public Persoon GetPersoon(String Voornaam, String Naam, int Id){
+public ArrayList<Persoon> GetPersonen(){
+           ArrayList<Persoon> lijst = new ArrayList<>();
 try {
+     
             statement = conn.prepareStatement
-                                ("select Voornaam, Naam, Id from Persoon");
+                                ("select * from Persoon");
             set = statement.executeQuery(); 
-            if (set.next()) {
+            while (set.next()) {
                 
                 P = new Persoon();
                 
                 P.setFamilienaam(set.getString("FAMILIENAAM"));
+                P.setGeboortedatum(set.getDate("GEBOORTEDATUM"));
+                P.setHuisnr(set.getString("HUISNR"));
+                P.setLand(set.getString("LAND"));
+                P.setLogin(set.getString("LOGIN"));
+                P.setPaswoord(set.getString("PASWOORD"));
+                P.setPostcode(set.getString("postcode"));
+                P.setStraat(set.getString("STRAAT"));
                 P.setVoornaam(set.getString("VOORNAAM"));
+                P.setWoonplaats(set.getString("WOONPLAATS"));
                 P.setId(set.getInt("ID"));
 
+                lijst.add(P);
 
 
                 }
@@ -117,7 +128,7 @@ try {
     }
                 
         
-        return P;
+        return lijst;
         
     }
    
@@ -151,6 +162,38 @@ public Persoon GetPersoon(String Login){
             statement = conn.prepareStatement
                                 ("select * from Persoon where Login = ?");
             statement.setString(1,Login);
+            set = statement.executeQuery(); 
+            if (set.next()) {
+               
+                    P = new Persoon();
+                
+                P.setFamilienaam(set.getString("FAMILIENAAM"));
+                P.setGeboortedatum(set.getDate("GEBOORTEDATUM"));
+                P.setHuisnr(set.getString("HUISNR"));
+                P.setLand(set.getString("LAND"));
+                P.setLogin(set.getString("LOGIN"));
+                P.setPaswoord(set.getString("PASWOORD"));
+                P.setPostcode(set.getString("postcode"));
+                P.setStraat(set.getString("STRAAT"));
+                P.setVoornaam(set.getString("VOORNAAM"));
+                P.setWoonplaats(set.getString("WOONPLAATS"));
+                P.setId(set.getInt("ID"));
+
+                
+            }
+        }
+  catch (Exception e) {
+    }
+return  P;
+    }
+public Persoon GetPersoonByname(String name){
+     String[] elements = name.split("\\s+");
+        
+        try {
+            statement = conn.prepareStatement
+                                ("select * from Persoon where voornaam = ? and familienaam = ?");
+            statement.setString(1,elements[1]);
+            statement.setString(2, elements[0]);
             set = statement.executeQuery(); 
             if (set.next()) {
                
@@ -248,11 +291,32 @@ public ArrayList<Persoon> PersoonPerVlucht(int vluchtID){
             personen.add(P);
             
         }
+        statement.close();
+        connection.close();
     }
     catch (Exception e)
     {}
     
     return personen;
     
+}
+public ArrayList<String> get_names(){
+    ArrayList<String> lijst = new ArrayList<>();
+    ArrayList<Persoon> lijstpersonen = GetPersonen();
+    for (Persoon persoon : lijstpersonen) {
+        lijst.add(persoon.getNaam());
+    }
+    return lijst;
+}
+public Persoon Get_persoon_by_id(int id){
+    Persoon P = new Persoon();
+    ArrayList<Persoon> lijst = GetPersonen();
+    for (Persoon persoon : lijst) {
+        if (persoon.getId() == id) {
+            P = persoon;
+            
+        }
+    }
+    return P;
 }
 }

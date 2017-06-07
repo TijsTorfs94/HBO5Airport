@@ -54,7 +54,17 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+                       
+                            <%session = request.getSession();
+                            String url= "";
+                                if ("Admin".equals(session.getAttribute("paswoord"))) {
+                                   url = "StartAdmin.jsp";}
+                                else if("Director".equals(session.getAttribute("paswoord"))){
+                                   url = "StartDirector.jsp";}
+                                else{
+                                    url = "index.jsp";}%>
+
+                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
 			</div> <!-- /.navbar-header -->
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->

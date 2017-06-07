@@ -111,6 +111,9 @@ public class Persoon {
         this.paswoord = paswoord;
     }
  
+    public String getNaam(){
+        return getFamilienaam()+" "+getVoornaam();
+    }
     
     
     public void CheckLogin(String Login, String Pass){

@@ -1,10 +1,13 @@
 <%-- 
-    Document   : overzichtLuchthavens
+    Document   : overzichtvliegtuigen
     Created on : 23-mei-2017, 14:19:49
     Author     : steve
 --%>
 
-<%@page import="hbo5.it.www.beans.Luchthaven"%>
+
+<%@page import="hbo5.it.www.beans.Vliegtuig"%>
+<%@page import="hbo5.it.www.beans.Vliegtuig_extend"%>
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,16 +48,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-	  <%session = request.getSession();
-                            String url= "";
-                                if ("Admin".equals(session.getAttribute("paswoord"))) {
-                                   url = "StartAdmin.jsp";}
-                                else if("Director".equals(session.getAttribute("paswoord"))){
-                                   url = "StartDirector.jsp";}
-                                else{
-                                    url = "index.jsp";}%>
-
-                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+	<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
                         </div> 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
@@ -74,46 +68,53 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=Luchthaven" method="POST">
+                                <form  action="AdminServlet?choice=Vliegtuig" method="POST">
                                 <div class="form-group"> 
-                                    <label for="LstHaven">kies een luchthaven</label>
-                                    <select onchange="this.form.submit()" class="form-control" name="LstHaven" style="width: 50%; margin: 15px">
+                                    <label for="LstVliegtuigen">kies een vliegtuig</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="LstVliegtuigen" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
-                                         <%ArrayList<Luchthaven> lijst =(ArrayList<Luchthaven>) session.getAttribute("lijsthavens");%>
-                                            <%for (Luchthaven item : lijst) {%>
-                                            <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
+                                         <%ArrayList<Vliegtuig> lijst =(ArrayList<Vliegtuig>) session.getAttribute("lijstvliegtuigen");%>
+                                            <%for (Vliegtuig item : lijst) {%>
+                                            <option value="<%=item.getId()%>" ><%=item.getId()%></option>
                                            <%}%>
                                     </select>
                                            
                                 </div>           
-                                           <%if (request.getAttribute("Luchthaven") != null) {%>
+                                           <%if (request.getAttribute("Vliegtuig") != null) {%>
    
 
                                     </form>
-                                          
-                                           <form action="AdminServlet" method="get" >
-                                         <%Luchthaven L = (Luchthaven) request.getAttribute("Luchthaven");%>
-                                         <%session = request.getSession();
-                                         session.setAttribute("ChosenHaven", L);%>
-                                         
+                                           <%Vliegtuig_extend V = (Vliegtuig_extend) request.getAttribute("Vliegtuig");
+                                           
+                                           %>
+                                           
+                                           
+                                    <form >
                                         <div>
-                                            <label for="txtid">id</label>
-                                            <input name="txtid" type="text" readonly="true" value="<%=L.getId()%>"/>
-                                            <label for="txtNaam">Naam</label>
-                                            <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
-                                            <label for="txtStad">Stad</label>
-                                            <input type="text" name="txtStad" value="<%=L.getStad()%>"/>
-                                            
-                                            <input type="submit" name="btnWijzig" value="Wijzig"/>
-                                            <input type="submit" name="btnVerwijder" value="Verwijder"/>
+                                            <input  name="txtvliegtuigid" hidden="true" value="<%=V.getVliegtuigtype_id() %>"/>
+                                             <input  name="txtLeaseid" hidden="true" value="<%=V.getLeasemaatschappij_id()%>"/>
+                                              <input  name="txtmaatschappijid" hidden="true" value="<%=V.getLuchtvaartmaatschappij_id()%>"/>
+                                              <%session.setAttribute("currentId", V.getId());%>
+                                            <label for="txtType">VliegtuigType</label>
+                                            <input name="txtType" type="text" value="<%=V.getType_naam()%>"/>
+                                            <label for="txtMaatschappij">Vliegtuig Maatschappij</label>
+                                            <input name="txtMaatschappij" type="text" value="<%=V.getMaatschappij_naam()%>"/>
+                                             <label for="chkLeased">Leased?</label>
+                                             <% if (V.isLeased()){%>
+                                             <input name="chkLeased" type="checkbox" checked/>                  
+                                             <input name="txtMaatschappij" type="text" value="<%=V.getLease_maatschappij_naam()%>"/>
+                                             <label for="chkLeased">Leased?</label>
+                                             
+                                             <%} else{%>
+                                              <input name="chkLeased" type="checkbox" />
+                                              <%}%>
+                                             <%}%>    
+                                             <td><a href=AdminServlet?choice=add&kind=vliegtuig>Nieuw vliegtuig</a></td>
+                                            <td><a href=AdminServlet?choice=update&kind=vliegtuig>Gegevens wijzigen</td>
+                                            <td><a href=AdminServlet?choice=delete&kind=vliegtuig>wissen</td>
                                         </div>
-                                             <%}%>  
-                                            <td><a href=AdminServlet?choice=add&kind=Luchthaven>Nieuwe Luchthaven</a></td>
-                                            <td><a href=AdminServlet?choice=update&kind=Luchthaven>Gegevens wijzigen</td>
-                                            <td><a href=AdminServlet?choice=delete&kind=Luchthaven>wissen</td>
-                                            
                                     </form>
-                                 
+                              
                                     
                                     
                                     
@@ -137,7 +138,7 @@
 
 
 
-    <%session.setAttribute("currentPage", "overzichtLuchthavens.jsp");%>
+                                <%session.setAttribute("currentPage", "overzichtvliegtuigen.jsp");%>
 
     </body>
 </html>
