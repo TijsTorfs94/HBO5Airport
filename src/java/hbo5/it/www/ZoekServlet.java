@@ -5,11 +5,15 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.dataaccess.DALuchthaven;
 import hbo5.it.www.dataaccess.DAPersoon;
 import hbo5.it.www.dataaccess.DAVlucht;
+import hbo5.it.www.dataaccess.DALuchtvaartmaatschappij;
+import hbo5.it.www.dataaccess.DAPassagier;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,6 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebInitParam;
@@ -43,6 +49,8 @@ public class ZoekServlet extends HttpServlet {
 
     private DAVlucht davlucht = null;
     private DALuchthaven daluchthaven = null;
+    private DALuchtvaartmaatschappij daluchtvaartmaatschappij = null;
+    private DAPassagier dapassagier = null;
     @Override
     public void init() throws ServletException {
         try {
@@ -55,6 +63,16 @@ public class ZoekServlet extends HttpServlet {
             }
             if(daluchthaven == null){
                 daluchthaven = new DALuchthaven(url, login, password, driver);
+            }
+            
+            if(daluchtvaartmaatschappij == null){
+                daluchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
+            }
+            if(daluchtvaartmaatschappij == null){
+                daluchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
+            }
+            if(dapassagier == null){
+                dapassagier = new DAPassagier(url, login, password, driver);
             }
             
         }catch (ClassNotFoundException | SQLException e) {
@@ -71,6 +89,12 @@ public class ZoekServlet extends HttpServlet {
             if (daluchthaven!= null) {
                 daluchthaven.close();
             }
+            if (daluchtvaartmaatschappij!= null) {
+                daluchtvaartmaatschappij.close();
+            }
+            if (dapassagier!= null) {
+                dapassagier.close();
+            }
         } catch (SQLException e) {
         }
     }
@@ -85,6 +109,9 @@ public class ZoekServlet extends HttpServlet {
         
         if (session.getAttribute("lijsthavens")== null) {
             session.setAttribute("lijsthavens", daluchthaven.Get_naam_luchtHaven());
+        }
+        if (session.getAttribute("lijstvluchten")== null) {
+            session.setAttribute("lijstvluchten", davlucht.Vluchten());
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -128,6 +155,9 @@ public class ZoekServlet extends HttpServlet {
                 break;
             case "Details":
                 session.setAttribute("Search", "details");
+                break;
+            case "statistieken":
+                session.setAttribute("Search", "statistieken");
                 break;
             default:
                 break;
@@ -210,10 +240,83 @@ public class ZoekServlet extends HttpServlet {
         }
         else if (session.getAttribute("Search") == "details"){
             Vlucht v = davlucht.ZoekDetails(Integer.parseInt(request.getParameter("id")));
-            ArrayList<Passagier> passagiers = davlucht.Passagiers_per_vlucht(Integer.parseInt(request.getParameter("id")));
+            ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_vlucht(Integer.parseInt(request.getParameter("id")));
             request.setAttribute("vlucht", v);
             request.setAttribute("passagiers", passagiers);
             request.getRequestDispatcher("details.jsp").forward(request, response);
+        }
+        else if (session.getAttribute("Search") == "statistieken"){
+            if (session.getAttribute("lijstvluchten")== null) {
+            session.setAttribute("lijstvluchten", davlucht.Vluchten());
+            }
+            if (session.getAttribute("lijsthavens")== null) {
+                session.setAttribute("lijsthavens",  daluchthaven.getLuchthavens());
+            }
+            if (session.getAttribute("lijstluchtvaartmaatschappijen")== null){
+                session.setAttribute("lijstluchtvaartmaatschappijen", daluchtvaartmaatschappij.get_luchtvaartmaatschapijen());
+            }
+            if ("Luchthaven".equals(request.getParameter("Search"))){
+                if (request.getParameter("Luchthaven") != null){
+                    ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_luchthaven(Integer.parseInt(request.getParameter("Luchthaven")));
+                    Luchthaven l = daluchthaven.getLuchthaven(request.getParameter("Luchthaven"));
+                    String optie = " bij vluchten met aankomstluchthaven " + l.getNaam();
+                    request.setAttribute("passagiers", passagiers);
+                    request.setAttribute("optie", optie);
+                    }
+                else {
+
+                    ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_luchthaven(1);
+                    Luchthaven l = daluchthaven.getLuchthaven("1");
+                    String optie = " bij vluchten met aankomstluchthaven " + l.getNaam();
+                    request.setAttribute("passagiers", passagiers);
+                    request.setAttribute("optie", optie);
+                }
+            }
+            else if ("Vlucht".equals(request.getParameter("Search"))){
+                if (request.getParameter("Vlucht") != null){
+                    ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_vlucht(Integer.parseInt(request.getParameter("Vlucht")));
+                    Vlucht v = davlucht.ZoekDetails(Integer.parseInt(request.getParameter("Vlucht")));
+                    String optie = " bij vluchten met vluchtcode " + v.getCode();
+                    request.setAttribute("passagiers", passagiers);
+                    request.setAttribute("optie", optie);
+                    }
+                else {
+                    ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_vlucht(1);
+                    Vlucht v = davlucht.ZoekDetails(1);
+                    String optie = " bij vluchten met vluchtcode " + v.getCode();
+                    request.setAttribute("passagiers", passagiers);
+                    request.setAttribute("optie", optie);
+                }
+            }
+            else if ("Dag".equals(request.getParameter("Search"))){
+                    ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_dag(request.getParameter("date"));
+                    String optie = " bij vluchten met Datum " + request.getParameter("date");
+                    request.setAttribute("passagiers", passagiers);
+                    request.setAttribute("optie", optie);
+                    
+                        }
+            else if ("Luchtvaartmaatschappij".equals(request.getParameter("Search"))){                
+                ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_luchtvaartmaatschappij(Integer.parseInt(request.getParameter("luchtvaartmaatschappij")));
+                Luchtvaartmaatschappij lvm = daluchtvaartmaatschappij.get_luchtvaartmaatschapijen_by_id(Integer.parseInt(request.getParameter("luchtvaartmaatschappij")));
+                
+                String optie = " bij vluchten met Luchtvaartmaatschappij " + lvm.getNaam();
+                request.setAttribute("passagiers", passagiers);
+                request.setAttribute("optie", optie);
+            }
+            else if ("Gemiddelde".equals(request.getParameter("Search"))){          
+                    ArrayList<Passagier> passagiers = dapassagier.Passagiers_per_luchthaven(Integer.parseInt(request.getParameter("Gemiddelde")));
+                    int totaleleeftijd = 0;
+                    int teller = 0;
+                    LocalDate today = LocalDate.now();
+                    for (Passagier p : passagiers) {
+                        Date birthday = p.getPersoon().getGeboortedatum();
+                        totaleleeftijd += (Integer)today.getYear();
+                        teller++;
+                    }
+                    totaleleeftijd = totaleleeftijd/teller;
+                    request.setAttribute("totaleleeftijd", totaleleeftijd);
+            }
+            request.getRequestDispatcher("Statistieken.jsp").forward(request, response);
         }
     }
 

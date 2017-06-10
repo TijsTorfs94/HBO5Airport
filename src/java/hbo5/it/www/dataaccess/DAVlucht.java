@@ -385,52 +385,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
          }
          return V;
      }
-        
-    public ArrayList<Passagier> Passagiers_per_vlucht(int vlucht_id){
-         
-        ArrayList<Passagier> Lijst = new ArrayList<>();
-        Passagier P = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
-         
-         try {
-             statement = connection.prepareStatement("SELECT * FROM PASSAGIER inner join persoon on persoon_id = persoon.id WHERE vlucht_id = ?");
-             statement.setInt(1, vlucht_id);
-             set = statement.executeQuery();
-             while(set.next()) {
-                P = new Passagier();
-                P.setId(set.getInt("id"));
-                P.setIngeschreven(set.getInt("ingeschreven"));
-                P.setIngecheckt(set.getInt("ingecheckt"));
-                P.setKlasse_id(set.getInt("klasse_id"));
-                P.setPlaats(set.getString("plaats"));
-                P.setVlucht_id(set.getInt("vlucht_id"));
-                P.setPersoon_id(set.getInt("persoon_id"));
-                Persoon pers = new Persoon();
-                pers.setId(set.getInt("persoon_id"));
-                pers.setVoornaam(set.getString("voornaam"));
-                pers.setFamilienaam(set.getString("familienaam"));
-                pers.setStraat(set.getString("straat"));
-                pers.setHuisnr(set.getString("huisnr"));
-                pers.setPostcode(set.getString("postcode"));
-                pers.setWoonplaats(set.getString("woonplaats"));
-                pers.setLand(set.getString("land"));
-                pers.setGeboortedatum(set.getDate("geboortedatum"));
-                pers.setLogin("");
-                pers.setPaswoord("");
-                P.setPersoon(pers);              
-                Lijst.add(P);
-               }
-             
-             
-             
-         } catch (Exception e) {
-         }
-         
-         
-         return  Lijst;
-         
-     }
+    
     
     public ArrayList<Crew> Crew_per_vlucht(String code){
          PreparedStatement statement = null;

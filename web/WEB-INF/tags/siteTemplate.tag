@@ -13,14 +13,6 @@
 <%@ attribute name="footer" fragment="true"%>
 
 <html>
-    <style>
-        .footer{
-            position:absolute;
-    	width:100%;
-        bottom:0;
-    	height:60px;
-        }
-    </style>
     <head>
 		<!-- meta -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,6 +62,9 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+                                    <%if("Director".equals(session.getAttribute("paswoord"))){%>
+                                        <li><a href="ZoekServlet?Zoeken=statistieken&Search=Luchthaven">Statistieken</a></li>
+                                            <%}%>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
                                         <ul class="dropdown-menu">

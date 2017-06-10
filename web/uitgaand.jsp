@@ -54,6 +54,9 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+                                    <%if("Director".equals(session.getAttribute("paswoord"))){%>
+                                        <li><a href="ZoekServlet?Zoeken=statistieken">Statistieken</a></li>
+                                            <%}%>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
@@ -68,11 +71,11 @@
 	  	</div><!-- /.container -->
 	</nav>
         </div>
-        <section class="tour section-wrapper tablecontainer">
+        <section class="tour section-wrapper container">
             <!--for demo wrap-->
-            <h1 class="tour section-wrapper container section-title">Uitgaand vluchten</h1>
+            <h2 class="tour section-title">Uitgaande vluchten</h2>
+            <p class="tour section-subtitle">Een overzicht van alle uitgaande vluchten per luchthaven.</p>
             <form action="ZoekServlet">
-                <div class="col-md-offset-1">
                     <label for="Luchthaven">kies een luchthaven</label>
                         <select onchange="this.form.submit()" class="form-control select" name="Luchthaven">
                             <option selected="true" value ="0"></option>
@@ -81,8 +84,8 @@
                                 <option value="<%=item.getId()%>" ><%=item.getNaam()%></option>
                                 <%}%>
                         </select>
-                </div>
-        
+            </section>                       
+            <section class="tour section-wrapper tablecontainer">
             <table cellpadding="0" cellspacing="0" border="0" id="myTable" class="tablecontainer tablesorter">
                     <thead>              
                         <tr>
