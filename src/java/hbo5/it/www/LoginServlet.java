@@ -79,6 +79,7 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
       session = request.getSession();
+      String url = "";
             /* TODO output your page here. You may use following sample code. */
             if (request.getParameter("login") != null){
                 String naam = request.getParameter("Username");
@@ -109,14 +110,14 @@ public class LoginServlet extends HttpServlet {
                     }
                     session.setAttribute("Crew",dapersoon.CheckIfCrew(Persoon) );
                             
-               
+               url = "index.jsp";
                 }
                 else {
-                    rd = request.getRequestDispatcher("LoginPage.jsp");
-                    rd.forward(request, response);
+                 url = "LoginPage.jsp";
                 }
            
-   
+      rd = request.getRequestDispatcher(url);
+                    rd.forward(request, response);
 }
            
             

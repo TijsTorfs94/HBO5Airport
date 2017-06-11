@@ -19,8 +19,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -28,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import oracle.sql.DATE;
 
 
 
@@ -47,8 +50,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
     
     public ArrayList<String> Vlucht_ids(){
         ArrayList<String> Lijst = new ArrayList<>();
-         PreparedStatement statement = null;
-        ResultSet set = null;
+
         
         try {
             statement = connection.prepareStatement("select code from vlucht");
@@ -68,8 +70,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
               
         ArrayList<Vlucht> Lijst = new ArrayList<>();
         Vlucht V = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+    
                 
         try {
             statement = connection.prepareStatement("select * from vlucht inner join luchthaven on vlucht.aankomstluchthaven_ID = luchthaven.ID inner join luchthaven lh2 on vlucht.VERTREKLUCHTHAVEN_ID = lh2.ID inner join vliegtuig on vlucht.VLIEGTUIG_ID = vliegtuig.ID inner join vliegtuigtype on vliegtuig.VLIEGTUIGTYPE_ID = vliegtuigtype.ID where aankomstluchthaven_ID = ?");
@@ -113,8 +114,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
               
         ArrayList<Vlucht> Lijst = new ArrayList<>();
         Vlucht V = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+     
                 
         try {
             statement = connection.prepareStatement("select * from vlucht \n" +
@@ -161,8 +161,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
               
         ArrayList<Vlucht> Lijst = new ArrayList<>();
         Vlucht V = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+     
         
          try {
                 statement = connection.prepareStatement("select * from vlucht inner join luchthaven on vlucht.vertrekLuchthaven_id = luchthaven.ID inner join luchthaven lh2 on vlucht.aankomstluchthaven_id = lh2.ID inner join vliegtuig on vlucht.VLIEGTUIG_ID = vliegtuig.ID inner join vliegtuigtype on vliegtuig.VLIEGTUIGTYPE_ID = vliegtuigtype.ID where lower(code) like ?");
@@ -205,8 +204,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
          
         ArrayList<Vlucht> Lijst = new ArrayList<>();
         Vlucht V = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+       
          
          try{
              statement = connection.prepareStatement("Select * from vlucht inner join luchthaven on vlucht.vertrekLuchthaven_id = luchthaven.ID inner join luchthaven lh2 on vlucht.aankomstluchthaven_id = lh2.ID inner join vliegtuig on vlucht.VLIEGTUIG_ID = vliegtuig.ID inner join vliegtuigtype on vliegtuig.VLIEGTUIGTYPE_ID = vliegtuigtype.ID where vertrektijd >= to_timestamp(?, 'yyyy-mm-dd hh24:mi:ss')");
@@ -251,8 +249,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
          
         ArrayList<Vlucht> Lijst = new ArrayList<>();
         Vlucht V = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+     
          
          try {
              statement = connection.prepareStatement("select * from vlucht inner join luchthaven on vlucht.vertrekLuchthaven_id = luchthaven.ID inner join luchthaven lh2 on vlucht.aankomstluchthaven_id = lh2.ID inner join vliegtuig on vlucht.VLIEGTUIG_ID = vliegtuig.ID inner join vliegtuigtype on vliegtuig.VLIEGTUIGTYPE_ID = vliegtuigtype.ID where lower(lh2.naam) like ?");
@@ -300,8 +297,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
          
         ArrayList<Vlucht> Lijst = new ArrayList<>();
         Vlucht V = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+     
             try {
                 statement = connection.prepareStatement("select * from vlucht inner join luchthaven on vlucht.vertrekLuchthaven_id = luchthaven.ID inner join luchthaven lh2 on vlucht.aankomstluchthaven_id = lh2.ID inner join vliegtuig on vlucht.VLIEGTUIG_ID = vliegtuig.ID inner join vliegtuigtype on vliegtuig.VLIEGTUIGTYPE_ID = vliegtuigtype.ID inner join luchtvaartmaatschappij on VLIEGTUIG.LUCHTVAARTMAATSCHAPPIJ_ID = luchtvaartmaatschappij.id where lower(luchtvaartmaatschappij.naam) like ?");
                 
@@ -342,8 +338,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
     public Vlucht ZoekDetails(int id){
               
         Vlucht V = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
+  
         
          try {
                 statement = connection.prepareStatement("select * from vlucht inner join luchthaven on vlucht.vertrekLuchthaven_id = luchthaven.ID inner join luchthaven lh2 on vlucht.aankomstluchthaven_id = lh2.ID inner join vliegtuig on vlucht.VLIEGTUIG_ID = vliegtuig.ID inner join vliegtuigtype on vliegtuig.VLIEGTUIGTYPE_ID = vliegtuigtype.ID inner join luchtvaartmaatschappij on vliegtuig.LUCHTVAARTMAATSCHAPPIJ_ID = luchtvaartmaatschappij.ID where vlucht.id = ?");
@@ -388,8 +383,7 @@ public DAVlucht (String url, String login, String password, String driver)   thr
     
     
     public ArrayList<Crew> Crew_per_vlucht(String code){
-         PreparedStatement statement = null;
-        ResultSet set = null;
+       
         
         ArrayList<Crew> Lijst = new ArrayList<>();
         try {
@@ -418,6 +412,8 @@ public DAVlucht (String url, String login, String password, String driver)   thr
         }
         return Lijst;
     }
+       PreparedStatement statement = null;
+        ResultSet set = null;
  public ArrayList<Vlucht> Vluchten(){
          
         ArrayList<Vlucht> Lijst = new ArrayList<>();
@@ -470,9 +466,56 @@ public DAVlucht (String url, String login, String password, String driver)   thr
         
     }
      
+     public Map<Integer,ArrayList<String>> vluchtenperpersoon(Integer id){
+
+         Map<Integer,ArrayList<String>> nMap = new HashMap<>();
+         ResultSet set2;
+         PreparedStatement statement2;
+         
+         StringBuilder b = new StringBuilder();
+         b.append("select v.id, v.CODE, vt.NAAM, l.NAAM,lg.NAAM, v.VERTREKTIJD, v.AANKOMSTTIJD from vlucht v ");
+         b.append("left join LUCHTHAVEN l on l.ID = v.VERTREKLUCHTHAVEN_ID ");
+         b.append("left join Luchthaven lg on l.ID = v.AANKOMSTLUCHTHAVEN_ID ");
+         b.append("left join VLIEGTUIG vl on v.VLIEGTUIG_ID = vl.ID ");
+         b.append("left join vliegtuigtype vt on vt.ID = vl.VLIEGTUIGTYPE_ID ");
+         b.append("where v.id = ");
+         try {
+             Integer teller = 1;
+             statement = connection.prepareStatement("select Vlucht_id from passagier where persoon_id = ?");
+             statement.setInt(1, id);
+             set = statement.executeQuery();
+             while(set.next()){
+                 try {
+                     b.append(set.getInt("Vlucht_id"));
+                     statement2 = connection.prepareStatement(b.toString());
+                     set2 = statement2.executeQuery();
+                     
+                     while (set2.next()) {
+                        ArrayList<String> lijst = new ArrayList<>();
+                         lijst.add(set2.getString(2));
+                         lijst.add(set2.getString(3));
+                         lijst.add(set2.getString(4));
+                         lijst.add(set2.getString(5));
+                         lijst.add(set2.getDate(6).toString());
+                         lijst.add(set2.getDate(7).toString());
+                         nMap.put(teller, lijst);
+                         teller++;
+                         
+                     }
+                 } catch (Exception e) {
+                 }
+             }
+              } catch (Exception e) {
+         }  
+         return nMap;
+             
+             
+             
+        
+         
+     }
      
-     
-     
- 
 }
+ 
+
 

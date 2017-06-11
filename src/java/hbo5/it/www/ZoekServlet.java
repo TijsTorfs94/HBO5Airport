@@ -143,7 +143,25 @@ public class ZoekServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         session = request.getSession();
                
-        if (null != request.getParameter("Zoeken"))switch (request.getParameter("Zoeken")) {
+        if (request.getParameter("choice").equals("huidigeVluchten")) {
+            session.setAttribute("huidigeVluchten", davlucht.vluchtenperpersoon((Integer)session.getAttribute("id")));
+            request.getRequestDispatcher("huidigeVluchten.jsp").forward(request, response);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        else if (null != request.getParameter("Zoeken"))switch (request.getParameter("Zoeken")) {
             case "inkomend":
                 session.setAttribute("Search", "inkomend");
                 break;
@@ -334,7 +352,7 @@ public class ZoekServlet extends HttpServlet {
 //        if (request.getParameter("Login") != null) {
 //            CheckLogin();
 //        }
-        
+        String s = null;
         
         
         
