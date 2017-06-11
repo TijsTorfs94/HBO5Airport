@@ -1,30 +1,16 @@
-
 <%-- 
-    Document   : overzichtBemmanning
-    Created on : 23-mei-2017, 14:19:49
+    HBO5 Programeren 4
+    Document   : deleteitem
+    Created on : 5-jun-2017, 19:31:34
     Author     : steve
 --%>
 
-<%@page import="java.util.Iterator"%>
-
-<%@page import="java.util.Set"%>
-<%@page import="java.util.Map"%>
-<%@page import="hbo5.it.www.beans.Passagier"%>
-<%@page import="hbo5.it.www.beans.Crew"%>
-<%@page import="hbo5.it.www.beans.Vlucht"%>
-<%@page import="hbo5.it.www.beans.Persoon"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="hbo5.it.www.beans.Luchthaven"%>
+<%@page import="java.lang.String"%>
+<%@page import="hbo5.it.www.beans.Leasemaatschappij"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <style>
-        .footer{
-            position:absolute;
-    	width:100%;
-        bottom:0;
-    	height:60px;
-        }
-    </style>
     <head>
 		<!-- meta -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -76,7 +62,7 @@
                                             <li><a href="ZoekServlet?Zoeken=uitgaand">Uitgaande vluchten</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="zoektest.jsp"> Zoeken </a></li>      
+                                    <li><a href="zoektest.jsp"> Zoeken </a></li>    
                                     <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
 				</ul> 
 		    </div>
@@ -85,60 +71,46 @@
  
   
                                 </div>
-                                <form  action="AdminServlet?choice=PasVlucht" method="Post">
-                                <div class="form-group"> 
-                                    <h1 class="tour section-wrapper container section-title">Overzicht van passagiers per vlucht.</h1>
-                                    <label for="LstVluchten">kies een vlucht</label>
-                                    <select onchange="this.form.submit()" class="form-control select" name="LstVluchten">
-                                        <option selected="true"></option>
-                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstvluchten");%>
-                                            <%for (String item : lijst) {%>
-                                            <option value="<%=item%>" ><%=item%></option>
-                                           <%}%>
-                                    </select>
-                                           
-                                </div>           
-                                         
+                                <form action="AdminServlet?choice=submit" method="get" >
+                                    <% session = request.getSession();
+                                        if (session.getAttribute("L") != null) {
+                                        Leasemaatschappij L =(Leasemaatschappij) session.getAttribute("L");
+                                        session.setAttribute("delItem", "Lease"); %>
+
+                                        <h3> bent u zeker dat u <%=L.getNaam()%> wilt wissen?
+                                             <table>
+                                                <th>id</th>
+                                                <th>naam</th>
+                                     <tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=L.getId()%>"/> </td>
+                                            <td><input  type="text" name="txtnaam" id="Naam" value="<%=L.getNaam()%>" /></td> 
+                                    </tr>
+                                            <%}%>
+                                            <%  if (session.getAttribute("ChosenHaven") != null) {
+                                                Luchthaven LH = (Luchthaven) session.getAttribute("ChosenHaven");
+
+                                            session.setAttribute("delItem", "Luchthaven"); %>
+
+
+                                            <h3> bent u zeker dat u <%=LH.getNaam()%> wilt wissen?
+                                             <table>
+                                                <th>id</th>
+                                                <th>naam</th>
+                                     <tr>
+                                            <td><input type="text" name="txtid" readonly="true" value="<%=LH.getId()%>"/> </td>
+                                            <td><input  type="text" name="txtnaam" id="Naam" value="<%=LH.getNaam()%>" /></td> 
+                                    </tr>
+                                                
+<%}%>
+                               
+                                  
    
+                                    
+                                    <input type="submit" name="delete">
+                                    <input type="submit" name="home">
+                                </table>
+                                                                        </form>
 
-                                    </form>
-                                    
-                                           
-                                                                
-     <%if (request.getAttribute("Passagiers") != null) {%>
-     <% Map<Integer,Persoon> perslijst =(Map<Integer,Persoon>) request.getAttribute("Passagiers");%>
-     <%Set set = perslijst.entrySet();%>
-     <% Iterator iterator = set.iterator();%>
-     
-     
-     <table>
-         <%while (iterator.hasNext()) {%>
-         <%Map.Entry mentry = (Map.Entry) iterator.next();%>
-         <tr>    
-             <%Persoon p =(Persoon) mentry.getValue();%>
-             <td><%=p.getNaam()%></td>
-         </tr>
-                 
-
-<%}%>
-     </table>
-      <input type="submit" name="btnWijzig" value="Wijzig"/>
-                                            <input type="submit" name="btnVerwijder" value="Verwijder"/>
-
-<%}%>
-                                    
-                                    
-                                    
-                                    
-         
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                </div>
-       
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
            
@@ -150,7 +122,6 @@
 
 
 
-    <%session.setAttribute("currentPage", "overzichtPassagiers.jsp");%>
-
 
     </body>
+</html>
