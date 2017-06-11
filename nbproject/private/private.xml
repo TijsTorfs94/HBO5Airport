@@ -7,13 +7,16 @@
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/index.jsp</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/LoginPage.jsp</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/StartPagePassagier.jsp</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/beans/Luchtvaartmaatschappij.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/Statistieken.jsp</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/dataaccess/DALuchtvaartmaatschappij.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/zoekresult.jsp</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/css/main.css</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/StartDirector.jsp</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/dataaccess/DAPersoon.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/dataaccess/DALuchthaven.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/images/visit-1.png</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/beans/Luchthaven.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/overzichtLuchthavens.jsp</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/dataaccess/DAVlucht.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/StartAdmin.jsp</file>
@@ -39,6 +42,7 @@
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/dataaccess/DAPassagier.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/overzichtPersonen.jsp</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/images/visit-3.png</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/beans/Persoon.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/beans/Passagier.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/src/java/hbo5/it/www/AdminServlet.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/HBO5Airport-duizendstekeer/web/details.jsp</file>
