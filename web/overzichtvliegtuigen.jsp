@@ -1,4 +1,3 @@
-
 <%-- 
     Document   : overzichtvliegtuigen
     Created on : 23-mei-2017, 14:19:49
@@ -13,6 +12,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <style>
+        .footer{
+            position:absolute;
+    	width:100%;
+        bottom:0;
+    	height:60px;
+        }
+    </style>
     <head>
 		<!-- meta -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,30 +48,18 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-	<%session = request.getSession();
-                                String url= "";
-                                if ("Admin".equals(session.getAttribute("paswoord"))) {
-                                   url = "StartAdmin.jsp";}
-                                else if("Director".equals(session.getAttribute("paswoord"))){
-                                   url = "StartDirector.jsp";}
-                                else{
-                                    url = "index.jsp";}%>
-
-                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+	<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
                         </div> 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <%if("Director".equals(session.getAttribute("paswoord"))){%>
-                                        <li><a href="ZoekServlet?Zoeken=statistieken">Statistieken</a></li>
-                                            <%}%>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="ZoekServlet?Zoeken=inkomend">Inkomende vluchten</a></li>
-                                            <li><a href="ZoekServlet?Zoeken=uitgaand">Uitgaande vluchten</a></li>
+                                            <li><a href="#">Inkomende vluchten</a></li>
+                                            <li><a href="#">Uitgaande vluchten</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="zoektest.jsp"> Zoeken </a></li>    
+                                    <li><a href="#"> Zoeken </a></li>   
                                     <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
 				</ul> 
 		    </div>
@@ -74,10 +69,9 @@
   
                                 </div>
                                 <form  action="AdminServlet?choice=Vliegtuig" method="POST">
-                                <div class="form-group">
-                                    <h1 class="tour section-wrapper container section-title">Overzicht van alle vliegtuigen.</h1>
+                                <div class="form-group"> 
                                     <label for="LstVliegtuigen">kies een vliegtuig</label>
-                                    <select onchange="this.form.submit()" class="form-control select" name="LstVliegtuigen">
+                                    <select onchange="this.form.submit()" class="form-control" name="LstVliegtuigen" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
                                          <%ArrayList<Vliegtuig> lijst =(ArrayList<Vliegtuig>) session.getAttribute("lijstvliegtuigen");%>
                                             <%for (Vliegtuig item : lijst) {%>
@@ -144,9 +138,7 @@
 
 
 
-
                                 <%session.setAttribute("currentPage", "overzichtvliegtuigen.jsp");%>
 
     </body>
-
 </html>

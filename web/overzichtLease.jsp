@@ -1,4 +1,3 @@
-
 <%-- 
     Document   : overzichtLease
     Created on : 23-mei-2017, 14:19:49
@@ -11,6 +10,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <style>
+        .footer{
+            position:absolute;
+    	width:100%;
+        bottom:0;
+    	height:60px;
+        }
+    </style>
     <head>
 		<!-- meta -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,106 +36,113 @@
 </head>
     <body>
         
-            <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                            <%session = request.getSession();
+        <div>
+        <nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+                        <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+	  <%session = request.getSession();
                             String url= "";
-                            if ("Admin".equals(session.getAttribute("paswoord"))) {
-                                url = "StartAdmin.jsp";}
-                            else if("Director".equals(session.getAttribute("paswoord"))){
-                                url = "StartDirector.jsp";}
-                            else{
-                                url = "index.jsp";}%>
+                                if ("Admin".equals(session.getAttribute("paswoord"))) {
+                                   url = "StartAdmin.jsp";}
+                                else if("Director".equals(session.getAttribute("paswoord"))){
+                                   url = "StartDirector.jsp";}
+                                else{
+                                    url = "index.jsp";}%>
 
-                        <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
-                    </div> 
+                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+                        </div> 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <%if("Director".equals(session.getAttribute("paswoord"))){%>
-                                        <li><a href="ZoekServlet?Zoeken=statistieken">Statistieken</a></li>
-                                            <%}%>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="ZoekServlet?Zoeken=inkomend">Inkomende vluchten</a></li>
-                                    <li><a href="ZoekServlet?Zoeken=uitgaand">Uitgaande vluchten</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="zoektest.jsp"> Zoeken </a></li>   
-                            <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
-                        </ul> 
-                    </div>
-                </div>
-            </nav>
-                        
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Inkomende vluchten</a></li>
+                                            <li><a href="#">Uitgaande vluchten</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#"> Zoeken </a></li>   
+                                    <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
+				</ul> 
+		    </div>
+	  	</div>
+	</nav>
+ 
+  
+                                </div>
+                                <form  action="AdminServlet?choice=Leasemaatschappij" method="POST">
+                                <div class="form-group"> 
+                                    <label for="LstLease">kies een maatschappij</label>
+                                    <select onchange="this.form.submit()" class="form-control" name="LstLease" style="width: 50%; margin: 15px">
+                                        <option selected="true"></option>
+                                         <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstLease");%>
+                                            <%for (String item : lijst) {%>
+                                            <option value="<%=item%>" ><%=item%></option>
+                                           <%}%>
+                                    </select>
+                                           
+                                </div>           
+                                           <%if (request.getAttribute("Persoon") != null) {%>
+   
 
-            <form  action="AdminServlet?choice=Leasemaatschappij" method="POST">
-            <h1 class="tour section-wrapper container section-title">Lease overzicht.</h1>
-            <div class="form-group col-md-offset-2"> 
-
-                <label for="LstLease">kies een maatschappij</label>
-                <select onchange="this.form.submit()" class="form-control select" name="LstLease">
-                    <option selected="true"></option>
-                     <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstLease");%>
-                        <%for (String item : lijst) {%>
-                        <option value="<%=item%>" ><%=item%></option>
-                       <%}%>
-                </select>
-
-            </div>           
-            <%if (request.getAttribute("Persoon") != null) {%>
-
-            <div class="form-group col-md-offset-2"> 
-                </form>
-                <%Leasemaatschappij L = (Leasemaatschappij) request.getAttribute("Lease");%>
-                <form >
-                    <div>
-                        <label for="txtId">id</label>
-                        <input name="txtId" type="text" readonly="true" value="<%=L.getId()%>"/>
-                        <label for="txtNaam">Naam</label>
-                        <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
-                        <input type="submit" name="btnWijzig" value="Wijzig"/>
-                        <input type="submit" name="btnVerwijder" value="Verwijder"/>
-                    </div>
-                </form>
-                <%}%>                               
-            </div>
+                                    </form>
+                                           <%Leasemaatschappij L = (Leasemaatschappij) request.getAttribute("Lease");%>
+                                    <form >
+                                        <div>
+                                            <label for="txtId">id</label>
+                                            <input name="txtId" type="text" readonly="true" value="<%=L.getId()%>"/>
+                                            <label for="txtNaam">Naam</label>
+                                            <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
+                                            <input type="submit" name="btnWijzig" value="Wijzig"/>
+                                            <input type="submit" name="btnVerwijder" value="Verwijder"/>
+                                        </div>
+                                    </form>
+     <%}%>                               
+     
      
      
      <%if (request.getAttribute("VarLeasemaatschappij") != null){
          Leasemaatschappij L = (Leasemaatschappij) request.getAttribute("VarLeasemaatschappij");
          session.setAttribute("L",request.getAttribute("VarLeasemaatschappij") );
      %>
-    <div class="form-group col-md-offset-2">  
+         
          <table>
-             <tr>
-                 <th>Naam</th>
-                 <th>Id</th>
-             </tr>
              <tr>
                  <td><input value="<%=L.getNaam()%>" name="txtnaam"></</td>
                  <td><input value="<%=L.getId()%>" name="txtid"></td>
                      <%}%>
-            </tr>
-            <tr>
-                <td><a href=AdminServlet?choice=add&kind=lease>Nieuwe leasemaatschappij</a></td>
-            </tr>
-            <tr>
-                <td><a href=AdminServlet?choice=update&kind=lease>Gegevens wijzigen</td>
-            </tr>
-            <tr>
-                <td><a href=AdminServlet?choice=delete&kind=lease>wissen</td>
-            </tr>
-            
-         </table>       
-    </div>
+             </tr>
+             <td><a href=AdminServlet?choice=add&kind=lease>Nieuwe leasemaatschappij</a></td>
+             <br>
+             <td><a href=AdminServlet?choice=update&kind=lease>Gegevens wijzigen</td>
+             <br>
+             <td><a href=AdminServlet?choice=delete&kind=lease>wissen</td>
+         </table>
+         
+         
+         
+         
+         
+         
+ 
+     
+                 
+                                    
+                                    
+                                    
+         
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </div>
        
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
@@ -141,9 +155,6 @@
 
 
 
-
     <%session.setAttribute("currentPage", "overzichtLease.jsp");%>
-
     </body>
-
 </html>

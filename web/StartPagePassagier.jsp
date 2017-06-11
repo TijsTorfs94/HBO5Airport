@@ -28,7 +28,7 @@
         </div>
     </div>  
       
-
+      <p>Welkom </p>
     </jsp:attribute>
 
 </template:siteTemplate>

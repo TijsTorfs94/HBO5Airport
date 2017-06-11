@@ -113,8 +113,7 @@ public class RegisterServlet extends HttpServlet {
         
         
         
-        Date time = Date.valueOf(request.getParameter("geboorte"));
-       
+        Timestamp time = new Timestamp(Long.parseLong(request.getParameter("geboorte")));
         dapersoon.Add_Persoon(
                         
                         Integer.parseInt( request.getParameter("id")),

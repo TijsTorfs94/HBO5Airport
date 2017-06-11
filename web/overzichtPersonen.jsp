@@ -1,4 +1,3 @@
-
 <%-- 
     Document   : overzichtPersonen
     Created on : 23-mei-2017, 14:19:49
@@ -10,6 +9,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <style>
+        .footer{
+            position:absolute;
+    	width:100%;
+        bottom:0;
+    	height:60px;
+        }
+    </style>
     <head>
 		<!-- meta -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,30 +45,18 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-	<%session = request.getSession();
-                                String url= "";
-                                if ("Admin".equals(session.getAttribute("paswoord"))) {
-                                   url = "StartAdmin.jsp";}
-                                else if("Director".equals(session.getAttribute("paswoord"))){
-                                   url = "StartDirector.jsp";}
-                                else{
-                                    url = "index.jsp";}%>
-
-                                    <a class="navbar-brand" href="<%=url%>" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
+	<a class="navbar-brand" href="index.jsp" title="HOME"><i class="ion-paper-airplane"></i> Java <span>travel</span></a>
                         </div> 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <%if("Director".equals(session.getAttribute("paswoord"))){%>
-                                        <li><a href="ZoekServlet?Zoeken=statistieken">Statistieken</a></li>
-                                            <%}%>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">vluchtoverzicht <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="ZoekServlet?Zoeken=inkomend">Inkomende vluchten</a></li>
-                                            <li><a href="ZoekServlet?Zoeken=uitgaand">Uitgaande vluchten</a></li>
+                                            <li><a href="#">Inkomende vluchten</a></li>
+                                            <li><a href="#">Uitgaande vluchten</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="zoektest.jsp"> Zoeken </a></li>   
+                                    <li><a href="#"> Zoeken </a></li>   
                                     <li><a href="LoginPage.jsp"><i class="ion-person"></i>${status}</a></li>
 				</ul> 
 		    </div>
@@ -71,10 +66,9 @@
   
                                 </div>
                                 <form  action="AdminServlet?choice=Persoon" method="POST">
-                                <div class="form-group">
-                                    <h1 class="tour section-wrapper container section-title">Overzicht van alle personen.</h1>
+                                <div class="form-group"> 
                                     <label for="LstPersonen">kies een persoon</label>
-                                    <select onchange="this.form.submit()" class="form-control select" name="LstPersonen">
+                                    <select onchange="this.form.submit()" class="form-control" name="LstPersonen" style="width: 50%; margin: 15px">
                                         <option selected="true"></option>
                                          <%ArrayList<String> lijst =(ArrayList<String>) session.getAttribute("lijstpersonen");%>
                                             <%for (String item : lijst) {%>
@@ -87,36 +81,58 @@
    
 
                                     </form>
-
                                            <%Persoon P = (Persoon) request.getAttribute("Persoon");
                                             session = request.getSession();
 session.setAttribute("ChosenPerson", request.getAttribute("Persoon")); %>
-
                                     <form >
-                                        <div>
-                                            <label for="txtId">id</label>
+                                        <div form-group>
+                                            <label for="txtId">id</label>             
                                             <input name="txtId" type="text" readonly="true" value="<%=P.getId()%>"/>
+                                             <br>
+                                               <br>
                                              <label for="txtVoornaam">Voornaam</label>
-                                            <input name="txtVoornaam" type="text" value="<%=P.getVoornaam()%>"/>
+                                            <input name="txtVoornaam" type="text" value="<%=P.getVoornaam()%>"/> 
+                                            <br>
+                                              <br>
                                             <label for="txtNaam">Naam</label>
                                             <input name="txtNaam" type="text" value="<%=P.getFamilienaam()%>"/>
+                                             <br>
+                                               <br>
                                             <label for="txtStraat">Straat</label>
                                             <input name="txtStraat" type="text" value="<%=P.getStraat()%>"/>
+                                            <br>
+                                              <br>
                                             <label for="txtHuisnr">huisnummer</label>
                                             <input name="txtHuisnr" type="text" value="<%=P.getHuisnr()%>"/>
+                                               <br>
+                                                 <br>
                                              <label for="txtPostcode">postcode</label>
                                             <input name="txtPostcode" type="text" readonly="true" value="<%=P.getPostcode()%>"/>
+                                               <br>
+                                                 <br>
                                              <label for="txtWoonplaats">woonplaats</label>
                                             <input name="txtWoonplaats" type="text" readonly="true" value="<%=P.getWoonplaats()%>"/>
+                                               <br>
+                                                 <br>
                                              <label for="txtLand">land</label>
                                             <input name="txtLand" type="text" readonly="true" value="<%=P.getLand()%>"/>
+                                               <br>
+                                                 <br>
                                             <label for="txtdatum">geboortedatum</label>
                                             <input name="txtdatum" type="date" value="<%=P.getGeboortedatum()%>"/>
+                                               <br>
+                                                 <br>
                                              <label for="txtUser">Username</label>
                                             <input name="txtUser" type="text" readonly="true" value="<%=P.getLogin()%>"/>
+                                               <br>
+                                                 <br>
                                              <label for="txtPas">Paswoord</label>
                                              <input name="txtPas" type="password" readonly="true" value="<%=P.getId()%>"/>
+                                                <br>
+                                                  <br>
                                             <input type="submit" name="btnWijzig" value="Wijzig"/>
+                                               <br>
+                                                 <br>
                                             <input type="submit" name="btnVerwijder" value="Verwijder"/>
                                         </div>
                                     </form>
@@ -136,9 +152,7 @@ session.setAttribute("ChosenPerson", request.getAttribute("Persoon")); %>
        
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
-
                                            <%session.setAttribute("currentPage", "overzichtPersonen.jsp");%>
-
 
        </footer>
 
@@ -150,5 +164,4 @@ session.setAttribute("ChosenPerson", request.getAttribute("Persoon")); %>
 
 
     </body>
-
 </html>
