@@ -467,7 +467,6 @@ public class AdminServlet extends HttpServlet {
                   if ("Lease".equals(session.getAttribute("delItem"))) {
                       obj = "Leasemaatschappij";
                   }
- url = "StartAdmin.jsp";
 
                   else   if ("Luchthaven".equals(session.getAttribute("delItem"))) {
                       obj = "luchthaven";
