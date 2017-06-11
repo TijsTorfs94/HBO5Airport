@@ -86,9 +86,11 @@
    
 
                                     </form>
+
                                            <%Persoon P = (Persoon) request.getAttribute("Persoon");
                                             session = request.getSession();
 session.setAttribute("ChosenPerson", request.getAttribute("Persoon")); %>
+
                                     <form >
                                         <div>
                                             <label for="txtId">id</label>
@@ -133,7 +135,9 @@ session.setAttribute("ChosenPerson", request.getAttribute("Persoon")); %>
        
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
+
                                            <%session.setAttribute("currentPage", "overzichtPersonen.jsp");%>
+
 
        </footer>
 

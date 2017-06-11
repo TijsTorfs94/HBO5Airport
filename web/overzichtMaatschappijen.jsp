@@ -71,6 +71,7 @@
                                 </div>
 
 
+
                                 <form  action="AdminServlet?choice=luchtvaartmaatschappij" method="POST">
 
                                 <div class="form-group"> 
@@ -99,16 +100,20 @@
                                             <label for="txtId">id</label>
                                             <input name="txtId" type="text" readonly="true" value="<%=L.getId()%>"/>
 
+
                                             <%session.setAttribute("txtid", L.getId());%>
+
 
                                             <label for="txtNaam">Naam</label>
                                             <input name="txtNaam" type="text" value="<%=L.getNaam()%>"/>
                                          <%}%> 
                                         </div>
 
+
                                             <td><a href=AdminServlet?choice=add&kind=luchtvaartmaatschappij>Nieuwe Luchthavenmaatschappij</a></td>
                                             <td><a href=AdminServlet?choice=update&kind=luchtvaartmaatschappij>Gegevens wijzigen</td>
                                             <td><a href=AdminServlet?choice=delete&kind=luchtvaartmaatschappij>wissen</td>
+
 
                                     </form>
                                   
@@ -136,6 +141,7 @@
 
 
     <%session.setAttribute("currentPage", "overzichtMaatschappijen.jsp");%>
+
 
     </body>
 </html>

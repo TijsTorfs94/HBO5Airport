@@ -137,6 +137,7 @@
 
     <%session.setAttribute("currentPage", "overzichtHangars.jsp");%>
 
+
     </footer>
 
     </body>

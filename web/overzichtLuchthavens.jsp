@@ -66,6 +66,7 @@
 	  	</div>
 	</nav>
 
+
  
   
                                 </div>
@@ -130,6 +131,7 @@
                                     
                                 </div>
        </div>
+
 
        <footer>
            <p>Project gemaakt door team 2 (Steve Dekerf, Peter Haest and Tijs Torfs)</p>
